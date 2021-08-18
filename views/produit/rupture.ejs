@@ -1,0 +1,160 @@
+<%- include("../pages/header") %>
+
+<div class="row">
+    <div class="col-md-12 col-sm-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-bubbles font-red"></i>
+                    <span class="caption-subject font-red bold uppercase">rupture du stock</span>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#portlet_comments_1" data-toggle="tab"> Votre stock en rupture </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="portlet_comments_1">
+                        <!-- BEGIN: Comments -->
+                        <div class="mt-comments">
+                            <div class="mt-comment">
+                                <div class="mt-comment-img">
+                                    <img src="../assets/pages/media/users/avatar1.jpg" /> </div>
+                                <div class="mt-comment-body">
+                                    <div class="mt-comment-info">
+                                        <span class="mt-comment-author">Spagetti</span>
+                                        <span class="mt-comment-date">date aujour'huit <span>20 mai 2021</span></span>
+                                    </div>
+                                    <div class="mt-comment-text"> date de peremption : <strong><i>20 augt 2012</i></strong> </div>
+                                    <div class="mt-comment-text"> prix gros<strong><i>3000 ariary</i></strong> </div>
+                                    <div class="mt-comment-text"> prix detail<strong><i>300 ariary</i></strong> </div>
+                                    <div class="mt-comment-details">
+                                    <strong><i>30 piece</i></strong>
+                                        <span class="mt-comment-status mt-comment-status-pending">total du stock restant:</span>
+                                        <ul class="mt-comment-actions">
+                                            <li>
+                                                <a style="color:blue" data-toggle="modal" href="#modification">Edit</a>
+                                            </li>
+                                            <li>
+                                                <a style="color:red" data-toggle="modal" href="#suppre">Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Comments -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+
+
+
+   <!-- modificatio -->
+
+   <div class="modal fade bs-modal-lg" id="modification" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header info" style="background-color:rgb(66, 66, 66);border-radius:20px;">
+                                <button type="button" class="close" data-dismiss="modal" style="color:white;" aria-hidden="true"></button>
+                                <h4 class="modal-title" style="color:white" >modifie un produit  </h4>
+                            </div>
+                            <div class="modal-body"> 
+                            <form action="#" id="form_sample_3">
+                    <div class="form-body col-md-3">
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                            <select class="form-control" name="delivery">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                            </select>
+                            <label for="form_control_1">Intrant</label>
+                            <span class="help-block">un intrant slectionnee...</span>
+                        </div>
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <input type="text" class="form-control" name="email" id="form_control_1">
+                            <label for="form_control_1">Nom du produit</label>
+                            <span class="help-block">nom du produit...</span>
+                        </div>                                     
+                       
+                    </div>
+                    <div class="form-body col-md-3">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <input type="text" class="form-control" name="name" id="form_control_1">
+                            <label for="form_control_1">Unite</label>
+                        </div>
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <input type="number" class="form-control" name="email" id="form_control_1">
+                            <label for="form_control_1">presentation</label>
+                            <span class="help-block">chifre...</span>
+                        </div>  
+                                                           
+                       
+                    </div>
+                    <div class="form-body col-md-3">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <input type="text" class="form-control" name="name" id="form_control_1">
+                            <label for="form_control_1">par presentation</label>
+                        </div>
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <input type="number" class="form-control" name="email" id="form_control_1">
+                            <label for="form_control_1">Pu en gros</label>
+                            <span class="help-block">chiffre en Ariary...</span>
+                        </div>  
+                                                           
+                       
+                    </div>
+                    <div class="form-body col-md-3">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <input type="text" class="form-control" name="name" id="form_control_1">
+                            <label for="form_control_1">Pu en detail</label>
+                        </div>
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                            <input type="date" class="form-control" name="email" id="form_control_1">
+                            <label for="form_control_1">date de peremption</label>
+                            <span class="help-block">date du delai...</span>
+                        </div>  
+                                                           
+                       
+                    </div>  
+                                    <div class="modal-footer">
+                                            <button type="button" class="btn green">mettre a jour</button>
+                                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                                        </div>
+                  </form>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+
+<!-- suppression -->
+<div class="modal fade" id="suppre" style="border-radius:40px;" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header info" style="background-color:#fc0612;border-radius:20px;">
+                                <button type="button" class="close" data-dismiss="modal" style="color:white;" aria-hidden="true"></button>
+                                <h4 class="modal-title" style="color:white" >Vous ete sur pour la suppression </h4>
+                            </div>
+                            <div class="modal-body"> 
+                            
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn green">Save changes</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <%- include("../pages/footer") %>

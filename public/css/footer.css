@@ -1,0 +1,78 @@
+footer #titatra
+{ color: white;
+    font-size: 20px;}
+footer
+{
+	border: #375D81 4px solid;
+    border-radius: 0px 0px 30px 30px;
+	background-color:#35424a;
+	height: 15%;
+    padding-left: 5px;
+    padding-right: 15px;
+	padding-top: 30px;
+	padding-bottom: 60px;
+    font-size: 0.8em;
+    overflow: auto;
+    min-width: 100px;
+    min-height:100px; 
+
+    max-width: 1200px;
+    margin: 0 auto; 
+
+	}
+
+#tweeter,#facebook,#youtube,#mail
+{
+    padding-top: 5px;
+    display: inline-block;
+    vertical-align: top;
+    width: 22%;
+    height: 90px;
+    border: white solid;
+    border-radius: 33px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+
+
+    min-width: 4%;
+    min-height:5%; 
+
+    max-width: 1200px;
+    margin: 0 auto; 
+
+
+}
+
+footer a:hover{
+    color:royalblue;
+}
+footer a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+#facebook {
+    background-color: #3B5998;
+    color: white;
+    background-size: 40px;
+}
+#tweeter {
+    background-color: #33CCFF;
+    color: white;
+    background-size: 40px;
+}
+#youtube{
+    background-color: #FF3333;
+    color: white;
+    background-size: 40px;
+}
+#mail{
+     background-color: #CB2027;
+     color: white;
+     background-size: 40px;
+
+}
+
+#footer{
+	padding:10px 0 0 0;
+}

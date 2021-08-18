@@ -1,0 +1,225 @@
+router.get('/accueil',(req, res)=>{
+    res.render('pages/index')
+})
+
+//login vrai 
+router.post('/accueils',user.login,(req,res)=>{
+    res.redirect('pages/index')
+
+    // res.render('authantification/login')
+})
+//clientt
+
+router.get('/client', (req, res)=>{
+    res.render('client/index')
+})
+router.get('/clients',client.all)
+router.get('/cherhcli',client.recherche)
+router.get('/clients/:id',client.get)
+router.post('/clients',client.add)
+router.put('/clients/:id',client.update)
+router.delete('/clients/:id',client.del)
+
+//fournisseur
+router.get('/fournisseur', (req, res)=>{
+    res.render('fournisseur/index')
+})
+router.get('/fournisseurs',fournisseur.all)
+router.get('/fournisseurs/:id',fournisseur.get)
+router.post('/fournisseurs',fournisseur.add)
+router.put('/fournisseurs/:id',fournisseur.update)
+router.delete('/fournisseurs/:id',fournisseur.del)
+router.get('/cherch',fournisseur.recherch)
+
+
+
+router.get('/produit', (req, res)=>{
+    res.render('produit/index')
+})
+router.get('/test', (req, res)=>{
+    res.render('produit/test')
+})
+router.get('/produits',produit.all)
+router.get('/chercproduits',produit.recherche)
+router.post('/produits',produit.add)
+router.get('/produits/:id',produit.get)
+router.put('/produits/:id',produit.update)
+router.delete('/produits/:id',produit.del)
+
+//intrant
+router.get('/intrant', (req, res)=>{
+    res.render('produit/intrant')
+})
+router.get('/intrants',intrant.all)
+router.get('/intrants/:id',intrant.get)
+router.post('/intrants',intrant.add)
+router.put('/intrants/:id',intrant.update)
+router.delete('/intrants/:id',intrant.del)
+router.get('/intrantrecherch',intrant.recherch)
+//rupture
+router.get('/rupturestock', (req, res)=>{
+    res.render('produit/rupture')
+})
+// mode de payement
+router.get('/modes',modeP.all)
+router.get('/modes/:id',modeP.get)
+router.post('/modes',modeP.add)
+router.put('/modes/:id',modeP.update)
+router.delete('/modes/:id',modeP.del)
+router.get('/modes',modeP.recherch)
+// commande
+router.get('/commandecli', (req, res)=>{
+    res.render('commande/comcli')
+})
+router.get('/ruptureStock' , produit.ruptureStock)
+router.post('/commandeclis',commande.createcommande)
+router.post('/commandeclisave',commande.addCommande)
+router.get('/commandeliste', commande.getListPanier)
+router.get('/affichagecommande',commande.affichagecommande)
+router.get('/datecomm/:deb/:fi',commande.datediff)
+router.get('/historika',commande.historique)
+router.post('/commande/delpanier',commande.delPanier)
+router.get('/compay/:id',commande.pay)
+router.post('/commandepayement',commande.addpayement)
+
+router.get('/commandepro', (req, res)=>{
+    res.render('commande/compro')
+})
+// payement client
+router.get('/pagepayement', (req, res)=>{
+    res.render('commande/compayement')
+})
+router.get('/payementclis',paementclient.all)
+router.post('/payementclis',paementclient.add);
+// router.put('/payementclis/:id',paementclient.update);
+router.put('/payementclis/:id',paementclient.update);
+router.get('/payementclis/:id',paementclient.get,(req, res)=>{
+    res.render('commande/facture')
+});
+
+router.delete('/payementclis/:id',paementclient.del);
+router.get('/clientfacture/:id',paementclient.facture);
+router.get('/payementdatecli/:deb/:fi',paementclient.datediff);
+router.get('/payementclichart/:deb/:fi',paementclient.chart);
+router.get('/payementclicompteur',paementclient.compteur);
+router.get('/rest',paementclient.reste);
+
+router.get('/factureclient', (req, res)=>{
+    res.render('commande/facture')
+})
+// payement fournisseur
+router.get('/pagepayement', (req, res)=>{
+    res.render('commande/compayement')
+})
+
+
+router.get('/idcommande', commande.getIdCommande)
+router.get('/payementfournis',paementfournisseur.all);
+router.post('/payementfournis',paementfournisseur.add);
+router.put('/payementfournis/:id',paementfournisseur.update);
+router.get('/payementfournis/:id',paementfournisseur.get);
+router.delete('/payementfournis/:id',paementfournisseur.del);
+router.get('/fournisseurfacture/:id',paementfournisseur.facture);
+router.get('/payementdatefou/:debi/:fii',paementfournisseur.datediff);
+router.get('/payementchart/:debi/:fii',paementfournisseur.chart);
+router.get('/payementcompteur',paementfournisseur.compteur);
+router.get('/commandehisto', (req, res)=>{
+    res.render('commande/comhistorique')
+})
+
+router.get('/facture', (req, res)=>{
+    res.render('approvisionnement/facture')
+})
+
+router.get('/historiquepayement', (req, res)=>{
+    res.render('commande/historiquepayement')
+})
+
+//approvisionnement
+
+router.get('/approfou', (req, res)=>{
+    res.render('approvisionnement/approfou')
+})
+router.post('/appro',approfou.approv)
+router.post('/appro/create',approfou.createAppro)
+router.post('/appro/delete',approfou.delPanier)
+router.get('/panier',approfou.panier)
+router.post('/addfournisseur',approfou.addfournisseur)
+router.get('/affichageappro',approfou.affichageappro)
+router.get('/dateappro/:deba/:fille',approfou.datediff)
+router.get('/idappro',approfou.getIdappro)
+router.post('/payevola',approfou.addapprovisionnfinal);
+
+
+router.get('/appropro', (req, res)=>{
+    res.render('approvisionnement/appropro')
+})
+router.get('/appropay', (req, res)=>{
+    res.render('approvisionnement/appayement')
+})
+router.get('/aprohisto', (req, res)=>{
+    res.render('approvisionnement/aphistorique')
+})
+router.get('/histopayementfou', (req, res)=>{
+    res.render('approvisionnement/historiquepayement')
+})
+
+// utilisateur
+router.get('/utilisateur', (req, res)=>{
+    res.render('utilisateur/index')
+})
+router.get('/users',user.all)
+router.get('/users/:id',user.get)
+router.post('/users',user.add)
+router.put('/users/:id',user.update)
+router.delete('/users/:id',user.del,(req, res)=>{
+    console.log('mandeha ito')
+})
+router.get('/profil', (req, res)=>{
+    res.render('utilisateur/profil')
+})
+router.post('/mampiditra',user.mampiditra)
+// router.post('/loginn',user.login,(req,res)=>{
+//     res.render('pages/index')
+
+//     // res.render('authantification/login')
+// })
+router.get('/loginnn',user.profile)
+
+//depense
+router.get('/depense', (req, res)=>{
+    res.render('depense/index')
+})
+router.get('/depenses',depense.all)
+router.get('/depenses/:id',depense.get)
+router.post('/depenses',depense.add)
+router.put('/depenses/:id',depense.update)
+router.delete('/depenses/:id',depense.del)
+router.get('/depensedate/:debut/:fin',depense.datediff)
+
+//journal 
+router.get('/journal', (req, res)=>{
+    res.render('journal/index')
+})
+router.get('/journalpayee', (req, res)=>{
+    res.render('journal/journalpayee')
+})
+
+router.get('/authantification', (req, res)=>{
+    res.render('authantification/login')
+})
+router.get('/histogramme', (req, res)=>{
+    res.render('histogramme/index')
+})
+router.get('/histogrammepaye', (req, res)=>{
+    res.render('histogramme/histopaye')
+})
+
+router.get('/excel', (req, res)=>{
+    res.render('excel')
+})
+
+router.get('/datable', (req, res)=>{
+    res.render('datable')
+})
+

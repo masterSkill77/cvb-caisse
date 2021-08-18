@@ -1,0 +1,368 @@
+<%- include("../pages/header") %>
+<div id="pro">
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/dashboard">Accueil</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>stock</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
+            <i class="icon-calendar"></i>&nbsp;
+            <span class="thin uppercase hidden-xs"></span>&nbsp;
+            <i class="fa fa-angle-down"></i>
+        </div>
+    </div>
+</div>
+<h3 class="page-title"> STOCK
+    <!-- <small>Enregistrer</small> -->
+</h3>
+<div class="col-md-12 col-sm-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Liste des produits</div>
+                <div class="actions">                                        
+                    <a class="btn purple btn-outline sbold" data-toggle="modal" href="#large"> 
+                     <i class="fa fa-plus"></i> Ajout</a>
+                    <a href="javascript:;" id="down" class="btn btn-warning btn-sm">
+                        <i class="fa fa-print"></i> Excel </a>
+                    <a class="btn btn-default btn-outline sbold" >
+                    <input type="text" @input="search" v-model="searchproduit" class="form-control" placeholder="recherch..." >
+                    </a>    
+                    <a  class="btn btn-default btn-sm">
+                        <i class="fa fa-search"></i> Recherch </a>
+                </div>
+            </div>
+            <div class="portlet-body"  style="height:460px;overflow:scroll;box-shadow: 0px 20px 30px;" >
+                <table id="sample" class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_3">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Catégorie</th>
+                            <th>Designation</th>
+                            <th>Stock</th>
+                            <th>Unité</th>
+                            <th>Présentation</th>
+                            <th>Conditionnement</th>
+                            <th>Stock (G)</th>
+                            <th>PU (G)</th>
+                            <th>PU (D)</th>
+                            <th>Prix d'achat</th>
+                            <th>TVA</th>
+                            <th>Déscription</th>
+                            <th>Date de péremption </th>
+                            <th colspan="2" style="text-align:center;"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr v-for="produit in liste" :key="produit.id" class="odd gradeX">
+                            <td>
+                                <a href="#"> {{produit.id}} </a>
+                            </td>
+                            <td>
+                                <span>{{produit.intrants.name}}</span>
+                            </td>
+                            <td>
+                                <span>{{produit.name}}</span>
+                            </td>
+                            <td>
+                            <span v-if="produit.stocks >=20" class="btn btn-info" >{{produit.stocks}}</span>
+                            <span v-if="produit.stocks <=20" class="btn btn-danger" >{{produit.stocks}}</span>
+                            </td>
+                             <td>
+                                <span href="/">{{produit.unite}}</span>
+                            </td>
+                            <td>
+                                <span  href="/">{{produit.presentation}}</span>
+                            </td>
+                            <td>
+                                <span href="/">{{produit.parpresentation}}</span>
+                            </td>
+                            <td>
+                            <span href="/">{{parseInt(produit.stocks/produit.parpresentation)}} {{produit.presentation}} et {{produit.stocks%produit.parpresentation}} {{produit.unite}}</span>
+                            </td>
+                            <td>
+                                <span href="/">{{produit.pugros}}<i>Ar</i> </span>
+                            </td>
+                            <td>
+                                <span href="/">{{produit.pudetail}}<i>Ar</i> </span>
+                            </td>
+                            <td>
+                                <span href="/">{{produit.puvente}}<i>Ar</i></span>
+                            </td>
+                             <td>
+                                <span href="/">{{produit.tva}}<i>%</i></span>
+                            </td>
+                            <td>
+                                <span href="/">{{produit.description}}</span>
+                            </td>
+                             <td>
+                                <span href="/">{{produit.dateperemption}}<i></i></span>
+                            </td>
+                           
+                            <td>
+                                  
+                            <a class="btn btn-sm blue" id="editerrr" data-toggle="modal" @click="edit(produit)"  href="#modification">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            </a>
+                            <a class="btn btn-sm red" @click="del(produit.id)" data-toggle="modal" href="#suppre">
+                                <i class="icon-trash"></i>
+                            </a>
+                            </td>
+                        </tr>
+                       
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+            
+
+        <div class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header info" style="background-color:rgb(66, 66, 66);border-radius:20px;">
+                            <button type="button" class="close" data-dismiss="modal" style="color:white;" aria-hidden="true"></button>
+                            <h4 class="modal-title" style="color:white" >Ajouter un nouveau produit  </h4>
+                        </div>
+                        <div class="modal-body"> 
+                        <form action="#" id="form_sample_3">
+                <div class="form-body col-md-3">
+                <div class="form-group  form-md-line-input">
+                         <select  v-model="idintrant" class="form-control" >
+                            <option :key="list.id" :value="list.id" v-for="list in intrantliste">{{list.name}}</option>
+                        </select>
+                        <label for="form_control_1">Intrant</label>
+                        <!-- <span class="help-block">un intrant slectionnee...</span> -->
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <input type="number" v-model="parpresentation" class="form-control" name="name" id="form_control_1">
+                        <label for="form_control_1">Par presentation</label>
+                    </div>                          
+                   
+                </div>
+                <div class="form-body col-md-3">
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <input type="text" v-model="unite" class="form-control" name="name" id="form_control_1">
+                        <label for="form_control_1">Unité</label>
+                    </div>
+                      <div class="form-group form-md-line-input form-md-floating-label">
+                        <input type="number" v-model="pudetail" class="form-control" name="name" id="form_control_1">
+                        <label for="form_control_1">Pu de detail</label>
+                    </div> 
+                                                       
+                   
+                </div>
+                <div class="form-body col-md-3">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                                <input type="text" v-model="name" class="form-control" name="email" id="form_control_1">
+                                <label for="form_control_1">Nom du produit</label>
+                                <span class="help-block">nom du produit...</span>
+                            </div> 
+                 
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <input type="number" v-model="pugros" class="form-control" name="email" id="form_control_1">
+                        <label for="form_control_1">Pu en gros</label>
+                        <span class="help-block">chiffre en Ariary...</span>
+                    </div>  
+                                                       
+                   
+                </div>
+                <div class="form-body col-md-3">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                                <input type="text" v-model="presentation" class="form-control" name="email" id="form_control_1">
+                                <label for="form_control_1">presentation</label>
+                                <span class="help-block">chifre...</span>
+                            </div>  
+                                      
+                       <div class="form-group form-md-line-input form-md-floating-label">
+                        <input type="number" v-model="puvente" class="form-control" name="name" id="form_control_1">
+                        <label for="form_control_1">Pu d'Achat</label>
+                    </div>
+                      </div>
+                      
+                </div>  
+                  <div class="form-body col-md-3">
+                        <div class="form-group form-md-line-input form-md-floating-label">
+                                <input type="number" v-model="tva" class="form-control" name="name" id="form_control_1">
+                                <label for="form_control_1">tva</label>
+                            </div>
+                             <div class="form-group form-md-line-input form-md-floating-label">
+                                <label for="peremption">Date de peremption</label>
+        
+                                <input type="date" v-model="dateperemption" class="form-control" name="name" id="peremption">
+                            </div> 
+                        </div> 
+                        <div class="form-body col-md-3">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                        <input type="text" v-model="description" class="form-control" name="name" id="form_control_1">
+                                        <label for="form_control_1">Description</label>
+                                    </div>
+                                 
+                            
+                                                       
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Annuler</button>
+                    <button type="button"  @click="addproduit"  data-dismiss="modal" class="btn green">Enregistrer</button>
+             
+                </div>
+                                <div class="modal-footer">
+                                         </div>
+              </form>
+                        </div>
+                    </div>
+                    <!--  /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+
+
+
+
+        <!-- modificatio -->
+
+            <div class="modal fade bs-modal-lg" id="modification" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header info" style="background-color:rgb(66, 66, 66);border-radius:20px;">
+                            <button type="button" class="close" data-dismiss="modal" style="color:white;" aria-hidden="true"></button>
+                            <h4 class="modal-title" style="color:white" >Modifier un produit  </h4>
+                        </div>
+                        <div class="modal-body"> 
+                        <form action="#" id="form_sample_3">
+                <div class="form-body col-md-3">
+                <div class="form-group form-md-line-input ">
+                        <select  v-model="idintrantEdit" class="form-control" name="delivery">
+                            <option :key="intrant.id" :value="intrant.id" v-for="intrant in intrantliste">{{intrant.name}}</option>
+                        </select>
+                        <label for="form_control_1">Intrant</label>
+                        <!-- <span class="help-block">un intrant slectionnee...</span> -->
+                    </div>
+                
+                          <div class="form-group form-md-line-input">
+                        <input type="text" v-model="parpresentationEdit" class="form-control" name="name" id="form_control_1">
+                        <label for="form_control_1">Par présentation</label>
+                    </div>
+                   
+                </div>
+                <div class="form-body col-md-3">
+                  
+                    <div class="form-group form-md-line-input ">
+                            <input type="text" v-model="nameEdit" class="form-control" name="email" id="form_control_1">
+                            <label for="form_control_1">Nom du produit</label>
+                            <span class="help-block">Nom du produit...</span>
+                        </div> 
+                    <div class="form-group form-md-line-input">
+                        <input type="text" v-model="pudetailEdit" class="form-control" name="name" id="form_control_1">
+                        <label for="form_control_1">Pu de detail</label>
+                    </div>
+                                                       
+                   
+                </div>
+                <div class="form-body col-md-3">
+                  
+                    <div class="form-group form-md-line-input">
+                            <input type="text" v-model="uniteEdit" class="form-control" name="name" id="form_control_1">
+                            <label for="form_control_1">Unité</label>
+                        </div>  
+                    <div class="form-group form-md-line-input">
+                        <input type="number" v-model="pugrosEdit" class="form-control" name="email" id="form_control_1">
+                        <label for="form_control_1">Pu de gros</label>
+                        <span class="help-block">chiffre en Ariary...</span>
+                    </div>  
+                                                       
+                   
+                </div>
+                <div class="form-body col-md-3">
+                   
+                    <div class="form-group form-md-line-input">
+                            <input type="text" v-model="presentationEdit" class="form-control" name="email" id="form_control_1">
+                            <label for="form_control_1">Présentation</label>
+                            <span class="help-block">chiffre...</span>
+                        </div> 
+                      <div class="form-group form-md-line-input">
+                        <input type="text" v-model="puventeEdit" class="form-control" name="name" id="form_control_1">
+                        <label for="form_control_1">Pu d'Achat</label>
+                    </div>
+                                                       
+                   
+                </div>  
+                 <div class="form-body col-md-6">
+                    <div class="form-group form-md-line-input">
+                        <input type="number" v-model="tvaEdit" class="form-control" name="name" id="tva">
+                        <label for="tva">tva</label>
+                    </div>
+                     <div class="form-group form-md-line-input">
+                        <label for="peremption">Date de peremption</label>
+                        <input type="date" v-model="dateperemptionEdit" class="form-control" name="name" id="peremption">
+                    </div> 
+                </div>  
+                <div class="form-body col-md-6">
+                        <div class="form-group form-md-line-input">
+                            <input type="text" v-model="descriptionEdit" class="form-control" name="name" id="description">
+                            <label for="description">description</label>
+                        </div> 
+                    </div>  
+                                <div class="modal-footer">
+                                        <button type="button" @click="update" data-dismiss="modal" class="btn green">mettre a jour</button>
+                                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                                    </div>
+              </form>
+                        </div>
+                    </div>
+                     <!-- /.modal-content -->
+                </div>
+                <!-- .modal-dialog  -->
+            </div> 
+
+
+ <!-- suppression -->
+            <div class="modal fade" id="suppre" style="border-radius:40px;" tabindex="-1" role="basic" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header info" style="background-color:#fc0612;border-radius:20px;">
+                            <button type="button" class="close" data-dismiss="modal" style="color:white;" aria-hidden="true"></button>
+                            <h4 class="modal-title" style="color:white" >Vous ete sur pour la suppression </h4>
+                        </div>
+                        <div class="modal-body"> 
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                            <button type="button" @click="suppression" data-dismiss="modal" class="btn green">Save changes</button>
+                        </div>
+                    </div>
+                     <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+         </div> 
+
+
+</div>
+
+               <%- include("../pages/footer",{
+    script:`
+    <script src="../assets/projet/produit/index.js"></script>
+    <script src="../assets/table2excel.js" type="text/javascript"></script>
+    <script>
+            document.getElementById('down').addEventListener('click',function(){
+                var table = new Table2Excel();
+                table.export(document.querySelectorAll("#sample"))
+
+            })
+        </script>
+    `
+}) %>

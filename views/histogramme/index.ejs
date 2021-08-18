@@ -1,0 +1,65 @@
+<%- include("../pages/header") %>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/accueil">Accueil</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>histogramme</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
+            <i class="icon-calendar"></i>&nbsp;
+            <span class="thin uppercase hidden-xs"></span>&nbsp;
+            <i class="fa fa-angle-down"></i>
+        </div>
+    </div>
+</div>
+
+<h3 class="page-title"> analyse de gestion
+    <small>enregistree</small>
+</h3>
+
+<form class="form-inline margin-bottom-40" role="form">
+    <div class="form-group form-md-line-input has-success">
+    <label for="form_control_1"><strong><i>Date debut</i></strong></label><br/>                                        
+        <input type="date" v-model="debut" class="form-control" id="form_control_1" placeholder="date 1">
+        <div class="form-control-focus"> 
+        </div>
+    </div>
+    <div class="form-group form-md-line-input has-success">
+    <label for="form_control_2"><strong><i>Date fin</i></strong></label><br/>
+        <input type="date" v-model="fin" class="form-control" id="form_control_2" placeholder="date 2">
+        <div class="form-control-focus"> </div>
+    </div>
+    
+    <button type="button" class="btn btn-primary" @click="depe"><i class="fa fa-calendar"></i> Afficher</button>
+ </form>
+<div class="container col-md-4">
+    <small>histogramme <strong><i>Client</i></strong></small>
+    <h1></h1>
+    <canvas id="chart"></canvas>
+    <small>Client en payement</small>
+</div>
+<div class="container col-md-4">
+    <small>histogramme <strong><i>Fournisseur</i></strong></small>
+    <canvas id="charte"></canvas>
+    <small>fournisseur en payement</small>
+
+</div>
+<div class="container col-md-4">
+    <small>histogramme <strong><i>depense</i></strong></small>
+    <canvas id="chartes"></canvas>
+    <small>depense </small>
+
+</div>
+
+<%- include("../pages/footer",{
+    script:`
+    <script src="../assets/projet/Vue.js"></script>
+    <script src="../assets/projet/chart/chartdate.js"></script>
+
+    `
+}) %>

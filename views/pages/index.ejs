@@ -1,0 +1,156 @@
+<%- include("./header") %>
+<div class="col-md-12">
+    <div class="tabbable-line">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#" data-toggle="tab"> <h1><strong style="font-size:50px;color:gray">Dashboard</strong></h1> </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="portlet-body">
+    <div class="tiles">
+       <a href="/histopayementfou">
+        <div class="tile double-down bg-blue-hoki">
+            <div class="tile-body">
+                <i class="fa fa-bell-o"></i>
+            </div>
+            <div class="tile-object">
+                <div class="name">Régler un fournisseur</div>
+                <div class="number">  </div>
+            </div>
+        </div>
+    </a>
+     <a href="/historiquepayement">
+        <div class="tile bg-red-sunglo">
+            <div class="tile-body">
+                <i class="fa fa-calendar"></i>
+            </div>
+            <div class="tile-object">
+                <div class="name">Reste à payer d'un client</div>
+                <div class="number">  </div>
+            </div>
+        </div>
+    </a>
+    <a href="/journal">
+        <div class="tile double selected bg-green-turquoise">
+            <div class="corner"> </div>
+            <div class="check"> </div>
+            <div class="tile-body">
+                <h4>Journal</h4>
+                <p> Rapport</p>
+            </div>
+            <div class="tile-object">
+                <div class="name">
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class="number"></div>
+            </div>
+        </div>
+    </a>
+    <% if(type=="Admin"){%>
+    <a href="/utilisateur">
+        <div class="tile selected bg-yellow-saffron">
+            <div class="corner"> </div>
+            <div class="tile-body">
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="tile-object">
+                <div class="name"> Compte et Utilisateur </div>
+                <div class="number">  </div>
+            </div>
+        </div>
+    </a>
+    <%}%>
+    <a href="/aprohisto">
+        <div class="tile double bg-blue-madison">
+            <div class="tile-body">
+                <img src="../assets/pages/media/profile/photo1.jpg" alt="">
+                <h4>Articles approvisionnés</h4>
+                <!-- <p>Liste</p> -->
+            </div>
+            <div class="tile-object">
+                <!-- <div class="name"> article enregistree </div> -->
+                <div class="number"> Historique </div>
+            </div>
+        </div>
+    </a>
+    <a href="/produit">
+        <div class="tile bg-purple-studio">
+            <div class="tile-body">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="tile-object">
+                <div class="name"> Produit </div>
+                <div class="number"> stock </div>
+            </div>
+        </div>
+    </a>
+    <a href="/intrant">
+        <div class="tile image selected">
+            <div class="tile-body">
+                <img src="../assets/pages/media/gallery/image2.jpg" alt=""> </div>
+            <div class="tile-object">
+                <div class="name"> Catégories </div>
+            </div>
+        </div>
+    </a>
+    <a href="/client">
+        <div class="tile bg-green-meadow">
+            <div class="tile-body">
+                <i class="fa fa-comments"></i>
+            </div>
+            <div class="tile-object">
+                <div class="name">Vos clients </div>
+                <!-- <div class="number"> facturee </div> -->
+            </div>
+        </div>
+    </a>
+    <a href="/commandehisto">
+        <div class="tile double bg-grey-cascade">
+            <div class="tile-body">
+                <img src="../assets/pages/media/profile/photo2.jpg" alt="" class="pull-right">
+                <h3>Vente</h3>
+                <!-- <p> par les clients  </p> -->
+            </div>
+            <div class="tile-object">
+              
+                <div class="number"> historique </div>
+            </div>
+        </div>
+    </a>
+    <a href="depense">
+        <div class="tile bg-red-intense">
+            <div class="tile-body">
+                <i class="fa fa-coffee"></i>
+            </div>
+            <div class="tile-object">
+                <div class="name"> Dépense </div>
+                <div class="number">  </div>
+            </div>
+        </div>
+    </a>
+ 
+    <a href="commandecli">
+        <div class="tile bg-blue-steel">
+            <div class="tile-body">
+                <i class="fa fa-briefcase"></i>
+            </div>
+            <div class="tile-object">
+                <div class="name">Achat</div>
+                <!-- <div class="number"> client </div> -->
+            </div>
+        </div>
+    </a>
+       <!-- <div class="tile bg-red-sunglo">
+            <div class="tile-body">
+                <i class="fa fa-plane"></i>
+            </div>
+            <div class="tile-object">
+                <div class="name"> Import </div>
+                <div class="number"> 34 </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+<%- include("./footer") %>
