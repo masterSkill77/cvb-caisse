@@ -1,11 +1,11 @@
 new Vue({
 	el:'#appro',
 	data:{
-		fournisseur:'http://localhost:8091/fournisseurs/',
-		produit:'http://localhost:8091/produits/',
-		approvision:'http://localhost:8091/appro/',
-		createAppro:'http://localhost:8091/appro/create',
-		panier:'http://localhost:8091/panier/',	
+		fournisseur:'/fournisseurs/',
+		produit:'/produits/',
+		approvision:'/appro/',
+		createAppro:'/appro/create',
+		panier:'/panier/',	
 		listefou:{},
 		idfou:{},
 		dateappro:"",
@@ -23,10 +23,10 @@ new Vue({
 		adress:"",
 		contact:"",
 		email:"",
-		delPanier : "http://localhost:8091/appro/delete",
+		delPanier : "/appro/delete",
 		netPayer : 0,
 
-		ajoutfournisseur:'http://localhost:8091/addfournisseur/',
+		ajoutfournisseur:'/addfournisseur/',
 
 	},
 	computed:{

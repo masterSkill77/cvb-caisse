@@ -3,28 +3,28 @@ new Vue({
 	data:{
 
 		// depense
-		website:'http://localhost:8091/depensedate/',
+		website:'/depensedate/',
 		liste:{},
 		debut:"",
 		fin:"",
 		
 		total:0,
 		//client commandee
-		webclient:'http://localhost:8091/datecomm/',
+		webclient:'/datecomm/',
 		cli:{},
 		deb:"",
 		fi:"",
 		tota:0,
 
 		//fournisseur approv
-		webfournisseur:'http://localhost:8091/dateappro/',
+		webfournisseur:'/dateappro/',
 		fou:{},
 		deba:"",
 		fille:"",
 		totaly:0,
 		to:0,
 
-		restpayee:'http://localhost:8091/rest/',
+		restpayee:'/rest/',
 		rest:{},
 		resta:0,
 	

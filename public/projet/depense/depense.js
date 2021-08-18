@@ -1,7 +1,7 @@
 new Vue({
 	el:'#depense',
 	data:{
-		website:'http://localhost:8091/depenses/',
+		website:'/depenses/',
         liste:{},
         name:"",
         motif:"",
