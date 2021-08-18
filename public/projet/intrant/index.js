@@ -3,8 +3,8 @@ new Vue({
     data:{
         name:'',
         searchQuery: '',
-        website:'intrants/',
-        search:'intrantrecherch',
+        website:'/intrants/',
+        search:'/intrantrecherch',
         intrasy:'',
         listeIntrant : {},
         nomIntrant : "",
