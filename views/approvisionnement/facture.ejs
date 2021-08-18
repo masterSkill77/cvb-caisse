@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>CVB | facture</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+   
+    <!-- END HEAD -->
+
+    <body >
+    <div class="container" id="element">
+    <page>
+            <img style="height:150px;margin-right: 100px"  src="../assets/image/facture.PNG">
+            <img style="height:150px;" src="../assets/image/log.jpg">
+            
+            
+        <table style="width:100%;margin-top: 50px;">
+            <tr style="margin-left:-200px;">
+            <th style="width:60%">Client : <span style="font-weight: normal;">facture nom client / Code:idcli</span></th>
+            
+                
+            </tr>
+            <tr>
+                <td >Adresse : </td><br>
+            </tr>
+            
+                <td >date de commande : </td>
+            
+        </table>
+    </page>
+
+
+    <table style="margin:50px auto 10px auto;margin-top:10px;margin-left:0px;border-collapse: collapse;border:1px solid black;text-align: center">
+            <tr>
+                <td  style="border-bottom:1px solid black;font-size: 15px; padding-bottom: 10px" colspan="7">FACTURE N°:</td>
+            </tr>
+            <tr>		
+                <td style="width: 22%;border:1px solid black">Intrants</td>	
+                <td style="width: 8%;border:1px solid black">nom produit</td>
+                <td style="width: 10%;border:1px solid black">Unite</td>
+                <td style="width: 12%;border:1px solid black">qt</td>
+                <td style="width: 12%;border:1px solid black">Prix unitaire</td>
+                <td style="width: 16%;border:1px solid black">Conditionnement</td>
+                <td style="width: 16%;border:1px solid black">Montant(Ar)</td>		
+            </tr>
+            <tr>
+	
+		
+                    <td style="width: 11%;border:1px solid black">te</td>
+                    <td style="width: 11%;border:1px solid black">eee</td>
+                    <td style="width: 11%;border:1px solid black">n m </td>
+                    <td style="width: 11%;border:1px solid black">jbhbk</td>
+            
+                    <td style="width: 11%;border:1px solid black">1000 Ar</td>
+                    <td style="width: 11%;border:1px solid black">detail</td>
+                    <td style="width: 11%;border:1px solid black">1000 Ar</td>
+            
+                </tr>
+      
+        </table>
+   
+
+
+        <div style="margin-top: 25px">Arrêté à la somme de : <strong> ********* <em>1000ariar</em> ********* </strong></div>
+
+        <div style="margin-top: 25px">Reste a payer:<strong>***<em>1000</em>***</strong> </div>
+        
+
+        <hr>
+		<p style="margin-left: 480px">Le Responsable:</p>
+        
+
+<div style="margin-top:400px;margin-left:90px;">
+    <page_footer style="font-size:10px;margin-top:20%;">
+	        <p style="">Consultation / Diagnostique / Traitement / Vaccination / Chirurgies animales / Transfert d'animaux à l'étranger.<br>
+                   <div style="margin-left:90px;margin-top: -8px;"> Coupe et toilettage / Produits, alimentation et accessoires Vétérianires</div> <br>
+                   <div style="margin-left:97px;margin-top: -15px;"> Tél : +261 33 64 639 12 / 033 75 130 15 / +261 34 04 374 74</div> <br>
+                   <div style="margin-left:92px;margin-top: -20px;">mail : vetboulevard@yahoo.fr fb: cabinet vétérinaire boulevard </div></p>
+<hr>
+<p style="margin-left:85px;margin-top: -16px;">CABINET VETERINAIRE BOULEVARD vous remercie de votre visite.<br>
+    <div style="margin-left:115px;margin-top: -9px;"> <em>" Bon rétablissement à votre compagnon ! "</em> </div> </p>
+</page_footer>
+
+</div>
+
+
+   
+    
+    </div>
+        
+        <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="../assets/html2pdf/html2pdf.bundle.min.js" type="text/javascript"></script>
+       <script>
+           var element = document.getElementById("element")
+           html2pdf(element,{
+               margin:10,
+               filename:'facture.pdf',
+               image: {type:'jpeg',quality:0.98},
+               html2canvas:{scale:2, logging:true,dpi:192, letterRendering:true},
+               jsPDF:{unit:'mm', format:'a4',orientation:'portrait'}
+           })
+       </script>
+    </body>
+
+</html>

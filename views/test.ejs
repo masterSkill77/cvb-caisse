@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <title>Document</title>
+</head>
+<body>
+   
+        <div class="container">
+                <h1 style="color:red">Liste du depense depuis cette logiciel  <strong><i> installee </i> </strong></h1>
+                <form action="/download" method="get">
+                    <button>telecharger</button>
+                </form>
+        
+                <table class="table" id="Table_avion">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">nom du depense</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">type</th>
+                        <th scope="col">Montant</th>
+                        <th scope="col">Date du depense</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% i = 0 %>
+                        <% for (liste of test) {%>
+                          <% i = i + 1  %> 
+                          <tr>
+                            <th scope="row"><%= i %> </th>
+                            <td><%= liste.name  %> </td>
+                            <td><%= liste.description %></td>
+                            <td><%= liste.type %> </td>
+                            <td><%= liste.montant %> <i>Ariary</i> </td>
+                            <td><%= liste.datedepense %> </td>
+                            <td>
+                            </td>
+                          </tr>
+                        <%  }%>  
+                    </tbody>
+                  </table>
+            </div>
+</body>
+</html>

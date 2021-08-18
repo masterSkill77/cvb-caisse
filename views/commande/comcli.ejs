@@ -1,0 +1,302 @@
+<%- include("../pages/header") %>
+<div id="commande">
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="/dashboard">Accueil</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>/client commandee</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
+            <i class="icon-calendar"></i>&nbsp;
+            <span class="thin uppercase hidden-xs"></span>&nbsp;
+            <i class="fa fa-angle-down"></i>
+        </div>
+    </div>
+</div>
+<h3 class="page-title"> Commande d'un client </h3>
+<div class="row">
+    <div class="col-md-6">
+        <div class="portlet green-sharp box">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Choix du client </div>
+            </div>
+            <div class="portlet-body">
+                <p>
+                    <a class="btn btn-primary" data-toggle="modal" href="#basic"> Ajouter un client </a>
+                    <a class="btn btn-warning" data-toggle="modal" href="#sound"> Ajout type de payement </a>
+                </p>
+                <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Ajouter un client</h4>
+                            </div>
+                            <div class="modal-body">
+                             <form>
+                             <div class="form-body">
+                        <div class="form-group">
+                            <label>Nom du client</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input type="text" v-model="name" class="form-control input-circle-right" required placeholder="Nom ..."> </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse du client</label>
+                            <div class="input-group">
+                                <span class="input-group-addon input-circle-left">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                <input type="text" v-model="adress" class="form-control input-circle-right" placeholder="Address..."> </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact</label>
+                            <div class="input-group">
+                                <span class="input-group-addon input-circle-left">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                <input type="number" v-model="contact" class="form-control input-circle-right" placeholder="0203040"> </div>
+                        </div>
+                        
+                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline sbold blue" data-dismiss="modal"  @click="addclient"><i class="fa fa-save"></i><span>Enregistrer</span> </button>
+                                <button type="button" class="btn btn-outline sbold red" data-dismiss="modal"> <i class="fa fa-share">
+                        </i> <span> Annuler </span></button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                        </form>
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <div class="modal fade" id="sound" tabindex="-1" role="sound" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Ajouter un type de payement</h4>
+                            </div>
+                            <div class="modal-body">
+                             <form>
+                             <div class="form-body">
+                        <div class="form-group">
+                            <label>type d payement</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input type="text" v-model="mode" class="form-control input-circle-right" required placeholder="Mvola,Espece..."> </div>
+                        </div>                        
+                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline sbold blue" data-dismiss="modal"  @click="addmode"><i class="fa fa-save"></i><span>Enregistrer</span> </button>
+                                <button type="button" class="btn btn-outline sbold red" data-dismiss="modal"> <i class="fa fa-share">
+                        </i> <span> Annuler </span></button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                        </form>
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <div id="blockui_sample_3_2_element">
+                <div class="portlet-body form">
+                <form role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Nom du client</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                                </span>
+                                <select  v-model="idcli" class="form-control" name="delivery">
+                                <option :key="list.id" :value="list.id" v-for="list in listecli">{{list.name}} </option>
+                                </select>
+                         </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Date de commande</label>
+                            <div class="input-group">
+                                <span class="input-group-addon input-circle-left">
+                                    <i class="fa fa-date"></i>
+                                </span>
+                                <input  type="date"  v-model="datecom"class="form-control input-circle-right" placeholder="date..."> </div>
+                        </div>
+                    </div>
+                </form>
+               
+                <div class="form-actions">
+                    <label for="">Mode de payement</label>
+                    <select v-model="idmode" class="form-control">
+                        <option :key="mod.id" :value="mod.id" v-for="mod in modes" >{{mod.mode}} </option>
+                    </select>
+                    <div>
+                        <label for="">Remise</label>
+                        <input type="number" class="form-control" v-model="remise"><span>
+                    </div>
+                        <button type="button" @click="terminer" class="btn btn-success" ><a href="/pagepayement">                                                                                     
+                        <i class="fa fa-share"></i> <span style="color: aliceblue"> Terminer avec facture</span></a></button>
+                        <button type="button" @click="terminer" class="btn btn-danger" ><a href="/commandehisto">                                                                                     
+                            <i class="fa fa-share"></i> <span style="color: aliceblue"> Terminer sans facturer </span></a></button>
+                        
+                        
+                    <br>
+               
+                    </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-comments"></i>Choix du produit</div>
+                <div class="tools">
+                    <a href="javascript:;" class="remove"> </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+            <form role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Nom du produit</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                                </span>
+                                <select @change="showStock(idpro)" v-model="idpro" class="form-control" name="delivery">
+                                    <option :key="list.id" :value="list" v-for="list in produitliste">{{list.name}}</option>
+                                </select>
+
+                         </div>
+                        <span v-if="stockFaible">Stock en detail : {{stockFaible}} {{units}}</span><br>
+                        <span v-if="stockgros">Stock en gros : {{stockgros}} </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantité commandée</label>
+                            <div class="input-group">
+                                <span class="input-group-addon input-circle-left">
+                                    <i class="fa fa-date"></i>
+                                </span>
+                                <input  type="number" v-model="qt"  placeholder="1,2..." class="form-control input-circle-right"> </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label>Conditionnement</label>
+                            <div class="checkbox-list">
+                                <label class="checkbox-inline">
+                                    <input type="radio" @click="condition = 1" name="type">en  Gros </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" checked @click="condition = 0" name="type"> en Detail </label>
+                            </div>
+                        </div>
+                          <div class="form-group">
+                                <label style="color: brown;font-size:20px">Vola</label>
+                            <form>
+                            <div class="input-group">
+                                <span class="input-group-addon input-circle-left">
+                                    <i class="fa fa-date"></i>
+                                </span>
+                                <input  type="number"  v-model="nety" @Keyup="famerimbola"  placeholder="%" class="form-control input-circle-right"> 
+                                <label style="color: rgb(9, 32, 241);font-size:20px">Famerimbola</label>
+                                <input  type="number" v-model="vola" placeholder="%" class="form-control input-circle-right"> </div>
+                                <!-- <button type="submit" class="btn yellow" >remise</button> -->
+                            </form>
+                        </div>
+                       
+                    <div class="form-actions">
+                        <button  class="btn blue" @click="next" >                                                                                                                                 
+                        <i class="fa fa-save"></i> <span> Suivant </span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+
+
+     <!-- 3em tableaux -->
+     <div class="col-md-12">
+        <!-- BEGIN CONDENSED TABLE PORTLET-->
+        <div class="portlet box yellow">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-heart"></i>Panier</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"> </a>
+                    <a href="javascript:;" class="remove"> </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-condensed table-hover">
+                        <thead>
+                            <tr>
+                                <th> intrants </th>
+                                <th> produit </th>
+                                <th> Qt </th>
+                                <th> Unite </th>
+                                <th> Conditionnement </th>
+                                <th>PU (conditionnement)</th>
+                                <th> Sous-total</th>
+                                <!-- <th> Prix de gros</th> -->
+                                <th> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             <tr v-for="list in listescommande" :key="list.id" class="odd gradeX">
+                                <!-- <td> {{list.id}} </td> -->
+                                <td> {{list.produits.intrants.name}} </td>
+                                <td> {{list.produits.name}} </td>
+                                <td> {{list.qt}} </td>
+                                <td> {{list.produits.unite}} </td>
+                                <td> <span v-if="list.condition == 1">Gros</span><span v-else>Details</span> </td>
+                                <td> <span v-if="list.condition == 0">{{list.produits.pudetail}}</span><span v-else>{{list.produits.pugros}}</span> Ar</td>
+                                <!-- <td> <span v-if="list.condition == 1">Gros</span><span v-else>Details</span> </td> -->
+                                <td> <span v-if="list.condition == 0">{{list.produits.pudetail * list.qt}}</span><span v-else>{{list.produits.pugros * list.qt}}</span> Ar</td>
+                                <td style="cursor: pointer" @click="deleteThis(list)">
+                                    <span class="label label-sm label-danger"> Supprimer du panier </span>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                        <footer>
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align:center; font-size:20px;"><strong><i class="fa fa-shopping-cart"></i> Sous-total :</strong></td>
+                        <td>{{netPayer}} Ar</td>
+                        </tr>
+                        </footer>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END CONDENSED TABLE PORTLET-->
+    </div>
+</div>
+</div>
+</div>
+<%- include("../pages/footer",{
+    script:`
+    <script src="../assets/projet/Vue.js"></script>
+    <script src="../assets/projet/commande/commande.js"></script>
+    `
+}) %>
+       

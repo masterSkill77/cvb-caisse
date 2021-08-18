@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>CVB | facture</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+   
+    <!-- END HEAD -->
+
+    <body >
+    <div class="container" id="element">
+    <page>
+            <img style="height:150px;margin-right: 100px"  src="../assets/image/facture.PNG">
+            <img style="height:150px;" src="../assets/image/log.jpg">
+            
+            
+        <table style="width:100%;margin-top: 50px;">
+            <tr style="margin-left:-200px;">
+            <th style="width:60%"> Nom Client :<%= date[0].nomclient %></th>
+            
+                
+            </tr>
+            <tr>
+                <td >Adresse :<%= date[0].adress %> </td><br>
+            </tr>
+            
+                <td >Date de commande : <%= date[0].datecom %></td>
+         
+            
+        </table>
+    </page>
+
+
+    <table style="margin:50px auto 10px auto;margin-top:10px;margin-left:0px;border-collapse: collapse;text-align: center">
+           
+            <thead>
+                    <tr>
+                            <td  style="border-bottom:1px solid black;font-size: 15px; padding-bottom: 10px" colspan="7">FACTURE N°: 01<%= date[0].numfact %></td>
+                        </tr>
+            <tr>		
+                <th style=" width: 11%;border:1px solid black">Désingation</th>	
+                <th style=" border:1px solid black"> Produit</th>
+                <th style="border:1px solid black">Unite</th>
+                <th style="border:1px solid black">Quantité</th>
+                <th style="border:1px solid black">Type</th>
+                <th style="border:1px solid black">Prix unitaire</th>
+                <th style="border:1px solid black">Sous-total</th>		
+            </tr>
+        </thead>
+            <tbody>
+                <% i = 0
+                montant=0
+                total=0
+
+               for (dati of date) {
+                    if(dati.condition==1){
+                        montant=dati.pugros
+                    }else{
+                        montant=dati.pudetail
+                    }
+                    %>
+                    <% i=i +1 %>
+            <tr>
+                    <td style="border:1px solid black"><%= dati.intrante %> </td>
+                    <td style=" width: -2px;border:1px solid black"><%= dati.nompro %></td>
+            
+                    <td style="border:1px solid black"><%= dati.unite %></td>
+                    <td style="border:1px solid black"><%= dati.qt %></td>
+                    <td style="border:1px solid black"><% if(dati.condition==1){%>
+                        Gros
+                    <%} else {%>
+                        Detail
+                        <%} %>
+                </td><td style="border:1px solid black"><% if(dati.condition==1){%>
+                        <%= dati.pugros %> 
+                    <%} else {%>
+                        <%= dati.pudetail %> 
+                        <%} %>Ariary
+                </td>
+                <td style="border:1px solid black"><% if(dati.condition==1){
+                     %>
+                    <%= dati.pugros * dati.qt %> 
+                <%} else {%>
+                    <%= dati.pudetail * dati.qt %> 
+                    <%} %>Ariary
+            </td>
+                </tr>
+
+                <%
+              total +=montant*dati.qt}
+              
+                %>
+                
+            </tbody>
+            <tfoot>
+                    <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="border:1px solid black">sous total</td>
+                            <td style="border:1px solid black"><%= total %> <em>Ariary</em></div></td>
+                        </tr>
+                    <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="border:1px solid black">remise</td>
+                            <td style="border:1px solid black"><%= date[0].remise %> <em> %</em></div></td>
+                        </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="border:1px solid black">payée</td>
+                    <td style="border:1px solid black"><%= total-((total*dati.remise)/100) %> <em> Ariary</em></div></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="border:1px solid black">reste à payer</td>
+                    <td style="border:1px solid black"><%=  dati.net - dati.payee %> <em> Ariary</em></div></td>
+                </tr> 
+            </tfoot>
+            
+        </table>
+   <p style="margin-left:450px;">Reglé en totalité ce :<%= dati.date_echeance %></p>
+   <p style="margin-left:450px;">Mode de payement : <strong> <%= dati.mode %> </strong></p>
+        <hr>
+
+		<p style="margin-left: 480px">Le Responsable:</p>
+        
+
+<div style="margin-top:300px;margin-left:90px;">
+    <page_footer style="font-size:10px;margin-top:20%;">
+	        <p style="">Consultation / Diagnostique / Traitement / Vaccination / Chirurgies animales / Transfert d'animaux à l'étranger.<br>
+                   <div style="margin-left:90px;margin-top: -8px;"> Coupe et toilettage / Produits, alimentation et accessoires Vétérianires</div> <br>
+                   <div style="margin-left:97px;margin-top: -15px;"> Tél : +261 33 64 639 12 / 034 51 929 39/ +261 34 04 374 74</div> <br>
+                   <div style="margin-left:92px;margin-top: -20px;">mail : cvb@cvb-shop.mg fb: Cvb Boulevard </div></p>
+<hr>
+<p style="margin-left:85px;margin-top: -16px;">CABINET VETERINAIRE BOULEVARD vous remercie de votre visite.<br>
+    <div style="margin-left:115px;margin-top: -9px;"> <em>" Bon rétablissement à votre compagnon ! "</em> </div> </p>
+</page_footer>
+
+</div>
+
+
+   
+    
+    </div>
+        
+        <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="../assets/html2pdf/html2pdf.bundle.min.js" type="text/javascript"></script>
+       <script>
+           var element = document.getElementById("element")
+           html2pdf(element,{
+               margin:10,
+               filename:'facture.pdf',
+               image: {type:'jpeg',quality:0.98},
+               html2canvas:{scale:2, logging:true,dpi:192, letterRendering:true},
+               jsPDF:{unit:'mm', format:'a4',orientation:'portrait'}
+           })
+       </script>
+    </body>
+
+</html>
