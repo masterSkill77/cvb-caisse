@@ -1,16 +1,16 @@
 new Vue({
     el:"#payappro",
     data:{
-        listePanier : "http://localhost:8091/panier",
+        listePanier : "/panier",
         payee:"",
         datepayement:"",
         dateEcheance:"",
         net:0,
         liste:{},
         // listes:[],
-        getlastidappro : "http://localhost:8091/idappro",
-        payerboby : "http://localhost:8091/payevola",
-        website:'http://localhost:8091/payementfournis/',
+        getlastidappro : "/idappro",
+        payerboby : "/payevola",
+        website:'/payementfournis/',
 
 
 

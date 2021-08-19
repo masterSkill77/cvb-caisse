@@ -72,8 +72,9 @@
                                 <span>{{produit.name}}</span>
                             </td>
                             <td>
-                            <span v-if="produit.stocks >=20" class="btn btn-info" >{{produit.stocks}}</span>
-                            <span v-if="produit.stocks <=20" class="btn btn-danger" >{{produit.stocks}}</span>
+                            <span v-if="produit.stocks >= 60" class="btn btn-info" >{{produit.stocks}}</span>
+                            <span v-else-if="(produit.stocks < 20)" class="btn btn-danger" >{{produit.stocks}}</span>
+                            <span v-else class="btn btn-warning" >{{produit.stocks}}</span>
                             </td>
                              <td>
                                 <span href="/">{{produit.unite}}</span>
