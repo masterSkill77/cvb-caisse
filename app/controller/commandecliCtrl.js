@@ -94,6 +94,48 @@ const createcommande = async (req, res, next) => {
         throw e
     }
 }
+
+const createcommandetsyfact = async (req, res, next) => {
+    try {
+        var {
+            client,
+            modelist,
+            datecom,
+            produits,
+            remise
+        } = req.body.data;
+        const commande = await Commandecli.create({
+            datecom: datecom,
+            idcli: client,
+            idmode:modelist
+        });
+
+        for (let i in produits) {
+            await Listecomm.create({
+                qt: produits[i].qt,
+                condition: produits[i].condition,
+                idcomm: commande.id,
+                idpro: produits[i].produits.id
+            });
+            let qty = (produits[i].condition == 1) ? (produits[i].produits.parpresentation * produits[i].qt) : (produits[i].qt)
+            await Produit.increment({
+                stocks: -parseFloat(qty)
+            }, {
+                where: {
+                    id: produits[i].produits.id
+                }
+            })
+        }
+        commandeIdLast = {id : commande.id, remise}
+        commandeClientList = [];
+        res.json({
+            succees: true
+        })
+    }
+    catch(e){
+        throw e
+    }
+}
 const getIdCommande= async (req,res)=>{
     res.json(commandeIdLast)
 }
@@ -275,5 +317,6 @@ module.exports = {
     delPanier,
     pay,
     addpayement,
-    getIdCommande
+    getIdCommande,
+    createcommandetsyfact
 }

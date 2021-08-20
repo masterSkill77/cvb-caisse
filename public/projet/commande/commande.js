@@ -5,6 +5,7 @@ new Vue({
 		client:'/clients/',
 		produits:'/produits/',
         commande:'/commandeclis/',
+        tsyfact:'/commandeclistsyfact/',
         addCommande : '/commandeclisave',
         listePanier : "/commandeliste",
         modelist:"/modes",
@@ -32,6 +33,9 @@ new Vue({
         delPanier : "/commande/delpanier/",
         vola :0,
         net:0, 
+        stockFaible:0,
+        stockgros:0,
+        nety:0.
      
     },  
           
@@ -68,6 +72,13 @@ new Vue({
             })  
         },
         terminer(){
+            let body = {client : this.idcli ,modelist:this.idmode, datecom : this.datecom , produits : this.listescommande , remise : this.remise};
+            axios.post(this.commande , {data : body})
+            axios.get(this.listePanier).then(res => {
+                this.listescommande = res.data;
+            })
+        },
+          tsyfact(){
             let body = {client : this.idcli ,modelist:this.idmode, datecom : this.datecom , produits : this.listescommande , remise : this.remise};
             axios.post(this.commande , {data : body})
             axios.get(this.listePanier).then(res => {
