@@ -33,6 +33,9 @@ new Vue({
         delPanier : "/commande/delpanier/",
         vola :0,
         net:0, 
+        stockFaible:0,
+        stockgros:0,
+        nety:0,
      
     },  
           
