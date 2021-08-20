@@ -5,7 +5,7 @@ new Vue({
 		client:'/clients/',
 		produits:'/produits/',
         commande:'/commandeclis/',
-        tsyfact:'/commandeclistsyfact/',
+        tsyfacture:'/commandeclistsyfact/',
         addCommande : '/commandeclisave',
         listePanier : "/commandeliste",
         modelist:"/modes",
@@ -80,7 +80,7 @@ new Vue({
         },
           tsyfact(){
             let body = {client : this.idcli ,modelist:this.idmode, datecom : this.datecom , produits : this.listescommande , remise : this.remise};
-            axios.post(this.commande , {data : body})
+            axios.post(this.tsyfacture , {data : body})
             axios.get(this.listePanier).then(res => {
                 this.listescommande = res.data;
             })
