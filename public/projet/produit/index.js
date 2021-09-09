@@ -1,9 +1,9 @@
 new Vue({
 	el:'#pro',
 	data:{
-		website:'http://localhost:8091/produits/',
+		website:'/produits/',
         liste:{},
-        intrantsite:'http://localhost:8091/intrants/',
+        intrantsite:'/intrants/',
         intrantliste:{},
         idintrant:{},
         name:"",
@@ -36,7 +36,7 @@ new Vue({
         // class="label label-sm label-success"
 
         // search
-        websearch:'http://localhost:8091/chercproduits',
+        websearch:'/chercproduits',
         searchproduit:"",
         nom:"",
         intra:"",
