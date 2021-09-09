@@ -6,14 +6,11 @@
             <div class="portlet-title tabbable-line">
                 <div class="caption">
                     <i class="icon-bubbles font-red"></i>
-                    <span class="caption-subject font-red bold uppercase">Profil</span>
+                    <span class="caption-subject font-red bold uppercase">Profil </span>mail =  <%= email %> 
                 </div>
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#portlet_comments_1" data-toggle="tab"> apropos </a>
-                    </li>
-                    <li>
-                        <a href="#portlet_comments_2" data-toggle="tab"> votre travail </a>
                     </li>
                 </ul>
             </div>
@@ -27,49 +24,20 @@
                                     <img src="../assets/pages/media/users/avatar1.jpg" /> </div>
                                 <div class="mt-comment-body">
                                     <div class="mt-comment-info">
-                                        <span class="mt-comment-author">Michael Baker</span>
-                                        <span class="mt-comment-date">Uranus</span>
+                                    <span class="mt-comment-author">Nom : <strong> <i><%= username %></i> </strong> </span>
+                                        <span class="mt-comment-date">CVB</span>
                                     </div>
-                                    <div class="mt-comment-text"> contact : <strong><i>0342279867</i></strong> </div>
-                                    <div class="mt-comment-text"> adress : <strong><i>Ambolokandrina</i></strong> </div>
+                                    <div class="mt-comment-text"> Prenom : <strong><i><%= lastname %></i></strong> </div>
+                                    <div class="mt-comment-text"> contact : <strong><i><%= contact %></i></strong> </div>
                                     <div class="mt-comment-details">
-                                    <strong><i>Utilisateur</i></strong>
-                                        <span class="mt-comment-status mt-comment-status-pending">Role:</span>
+                                    <strong><i><%= type %></i></strong>
+                                        <span class="mt-comment-status mt-comment-status-pending">Role: </span>
                                         <ul class="mt-comment-actions">
                                             <li>
-                                                <a style="color:blue" href="#">Edit</a>
+                                                <a style="color:blue" href="#"> <i>Email</i>  =</a>
                                             </li>
                                             <li>
-                                                <a style="color:red" href="#">Delete</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Comments -->
-                    </div>
-                    <div class="tab-pane" id="portlet_comments_2">
-                        <!-- BEGIN: Comments -->
-                        <div class="mt-comments">
-                            <div class="mt-comment">
-                                <div class="mt-comment-img">
-                                    <img src="../assets/pages/media/users/avatar1.jpg"/> </div>
-                                <div class="mt-comment-body">
-                                    <div class="mt-comment-info">
-                                        <span class="mt-comment-author">Intrant: <strong><i>Huil</i></strong></span>
-                                        <span class="mt-comment-date">date de commande de client: <strong><i>26 feb 2021</i></strong></span>
-                                    </div>
-                                    <div class="mt-comment-text"> nom du produit : <strong><i>Clairmont</i></strong> </div>
-                                    <div class="mt-comment-text"> par le client : <strong><i>Clairmont</i></strong> </div>
-                                    <div class="mt-comment-text"> montant total : <strong><i>8000 Ariary</i></strong> </div>
-                                    <div class="mt-comment-text"> par le client : <strong><i>Clairmont</i></strong> </div>
-                                    <span class="mt-comment-date">date de commande de client: <strong><i>26 feb 2021</i></strong></span>                                                       
-                                    <div class="mt-comment-details">
-                                        <span class="mt-comment-status mt-comment-status-approved">Approved</span>
-                                        <ul class="mt-comment-actions">
-                                            <li>
-                                                <a href="#">Delete</a>
+                                                <a style="color:red" href="#"><strong><em>  <%= email %></em> </strong></a>
                                             </li>
                                         </ul>
                                     </div>

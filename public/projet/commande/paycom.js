@@ -4,17 +4,17 @@ new Vue({
         idSuppre:"",
 
         // commande
-        listePanier : "/commandeliste",
-        website:'/payementclis/',
+        listePanier : "http://localhost:8091/commandeliste",
+        website:'http://localhost:8091/payementclis/',
 
         // payement
-        payerVola : "/commandepayement",
+        payerVola : "http://localhost:8091/commandepayement",
         payee:"",
         net:0,
         dateEcheance:"",
         datepayement:"",
-        listefarany:"/compay",
-        lastidcommande:"/idcommande",
+        listefarany:"http://localhost:8091/compay",
+        lastidcommande:"http://localhost:8091/idcommande",
         liste:{},
         total:"",
         vola:0,

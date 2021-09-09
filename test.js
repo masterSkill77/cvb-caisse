@@ -1,37 +1,23 @@
-const express = require('express');
-const app = express()
-const pdf=require('html-pdf');
-const ejs=require('ejs')
-app.use(express.json());
+DB_USERNAME=cvbshopmg_ankazomangacaisse
+DB_PASSWORD=ankazomangacaisse12345!
+DB_DATABASE=cvbshopmg_caisse
+DB_HOST=144.91.112.39
+DB_DIALECT=mysql
 
-app.get('/pdf',(req, res)=>{
 
-    ejs.renderFile("./to.ejs", {name:"mandeh"},(err, html)=>{
-        if(err){
-            return res.status(500).json({message:'hello'})
-        }
-        const option={
-            format:'A4',
-            border:{
-                right:'8'
-            }
-        }
-    pdf.create(html, option).toFile('./uploads/kl.pdf',(error, response)=>{
-        if(!err){
-            res.json({message:'pdf generate'})
-        }else{
-            res.json({message:'ts mety'})
-        }
-    })
+secret_key="DONT SAY"    
 
-    })
-})
 
-app.get('/download', (req, res)=>{
-    res.type('pdf');
-    res.download('./uploads/kl.pdf')
-})
+require('dotenv').config();
 
-app.listen(3333, ()=>{
-    console.log('mandeha')
-})
+module.exports={
+  username:process.env.DB_USERNAME || "cvbshopmg_ankazomangacaisse",
+  password:process.env.DB_PASSWORD || "ankazomangacaisse12345!",
+  database:process.env.DB_DATABASE || "cvbshopmg_caisse",
+  host:process.env.DB_HOST || "144.91.112.39",
+  dialect: process.env.DB_DIALECT|| "mysql",
+  define:{
+    timestamps:false,
+    underscored:true,
+  }
+}

@@ -45,12 +45,12 @@ new Vue({
        axios.get(this.website).then(response => {this.liste = response.data})  
      })
     },
-    payee(){
-        axios.post(this.website,{paye:this.paye,net:this.net,dateEcheance:this.dateEcheance,datepayement:this.datepayement})
-             .then(()=>{
-                        axios.get(this.website).then(response=>{this.liste = response.data})
-              })
-    }
+    // payee(){
+    //     axios.post(this.website,{paye:this.paye,net:this.net,dateEcheance:this.dateEcheance,datepayement:this.datepayement})
+    //          .then(()=>{
+    //                     axios.get(this.website).then(response=>{this.liste = response.data})
+    //           })
+    // }
 
     },
     

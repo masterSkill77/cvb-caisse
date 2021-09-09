@@ -95,7 +95,7 @@ const createcommande = async (req, res, next) => {
     }
 }
 
-const createcommandesansfacture = async (req, res, next) => {
+const createcommandetsyfact = async (req, res, next) => {
     try {
         var {
             client,
@@ -318,5 +318,5 @@ module.exports = {
     pay,
     addpayement,
     getIdCommande,
-    createcommandesansfacture
+    createcommandetsyfact
 }

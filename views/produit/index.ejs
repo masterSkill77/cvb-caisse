@@ -28,8 +28,10 @@
                 <div class="caption">
                     <i class="fa fa-cogs"></i>Liste des produits</div>
                 <div class="actions">                                        
-                    <a class="btn purple btn-outline sbold" data-toggle="modal" href="#large"> 
-                     <i class="fa fa-plus"></i> Ajout</a>
+                    <a class="btn purple btn-danger sbold" data-toggle="modal" href="#large"> 
+                     <i class="fa fa-plus"></i> Ajout produit</a>
+                     <a class="btn btn-danger" data-toggle="modal" href="#cat"> 
+                        <i class="fa fa-plus"></i> Ajout categorie</a>
                     <a href="javascript:;" id="down" class="btn btn-warning btn-sm">
                         <i class="fa fa-print"></i> Excel </a>
                     <a class="btn btn-default btn-outline sbold" >
@@ -146,7 +148,7 @@
                          <select  v-model="idintrant" class="form-control" >
                             <option :key="list.id" :value="list.id" v-for="list in intrantliste">{{list.name}}</option>
                         </select>
-                        <label for="form_control_1">Intrant</label>
+                        <label for="form_control_1">Categorie</label>
                         <!-- <span class="help-block">un intrant slectionnee...</span> -->
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
@@ -249,7 +251,7 @@
                         <select  v-model="idintrantEdit" class="form-control" name="delivery">
                             <option :key="intrant.id" :value="intrant.id" v-for="intrant in intrantliste">{{intrant.name}}</option>
                         </select>
-                        <label for="form_control_1">Intrant</label>
+                        <label for="form_control_1">Categorie</label>
                         <!-- <span class="help-block">un intrant slectionnee...</span> -->
                     </div>
                 
@@ -350,6 +352,49 @@
                 </div>
                 <!-- /.modal-dialog -->
          </div> 
+         
+
+
+
+         <!-- intrants -->
+   
+
+
+         <div class="modal fade bs-modal-lg" id="cat" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header info" style="background-color:rgb(66, 66, 66);;border-radius:20px;">
+                        <button type="button" class="close" data-dismiss="modal" style="color:white;" aria-hidden="true"></button>
+                        <h4 class="modal-title" style="color:white; font-size:40px;text-align:center">  <strong><i>
+                        <i class="icon-l font-red-sunglo"></i>                                                    
+                        Ajout du Categorie</i></strong>  </h4>
+                    </div>
+                    <div class="modal-body"> 
+                     <!-- BEGIN FORM-->
+        <form action="#" class="form-horizontal">
+            <div class="form-body">
+            <div class="form-group form-md-line-input has-success">
+                    <label class="col-md-3 control-label" for="form_control_1"><strong><i>Categorie</i></strong></label>
+                    <div class="col-md-9">
+                        <input type="text" v-model="nomIntrant" class="form-control" required placeholder="nom Categorie...">
+                        <div class="form-control-focus"> </div>
+                        <span class="help-block">completer...</span>
+                    </div>
+                </div>
+               </div>
+            <div class="modal-footer">
+                        <button type="submit" class="btn green" data-dismiss="modal" @click="addIntrant"><i class="fa fa-save"></i> <span> Enregistrée </span></button>
+                        <button type="button" class="btn dark btn-outline" data-dismiss="modal"><i class="fa fa-share"></i> <span> Annulle </span></button>
+                    </div>
+                    </div>
+
+        </form>
+                   
+                </div>
+                <!-- /.modal-content -->
+            </div>
+    </div>
+
 
 
 </div>

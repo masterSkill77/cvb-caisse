@@ -1,7 +1,7 @@
 new Vue({
     el:'#cli',
     data:{
-        website:'/clients/',
+        website:'http://localhost:8091/clients/',
         liste:[],
         name:"",
         adress:"",
@@ -18,7 +18,7 @@ new Vue({
         nom:'',
         contacta:'',
         mail:'',
-        typerecherch:'/cherhcli'
+        typerecherch:'http://localhost:8091/cherhcli'
     },
     methods:{
         searchcli(){

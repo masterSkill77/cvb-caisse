@@ -1,8 +1,8 @@
 new Vue({
 	el:'#fou',
 	data:{
-		  website:'/fournisseurs/',
-          websearch:'/cherch/',
+		  website:'http://localhost:8091/fournisseurs/',
+          websearch:'http://localhost:8091/cherch/',
           searchfou:"",
           liste:{},
           name:"",

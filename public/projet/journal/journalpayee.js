@@ -4,14 +4,14 @@ new Vue({
 
 	
 		//client commandee payee
-		webclient:'/payementdatecli/',
+		webclient:'http://localhost:8091/payementdatecli/',
 		cli:{},
 		deb:"",
 		fi:"",
 		total:0,
 
 		//fournisseur approv payee
-		webfournisseur:'/payementdatefou/',
+		webfournisseur:'http://localhost:8091/payementdatefou/',
 		fou:{},
 		debi:"",
 		fii:"",

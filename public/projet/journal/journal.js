@@ -3,30 +3,33 @@ new Vue({
 	data:{
 
 		// depense
-		website:'/depensedate/',
+		website:'http://localhost:8091/depensedate/',
 		liste:{},
 		debut:"",
 		fin:"",
 		
 		total:0,
 		//client commandee
-		webclient:'/datecomm/',
+		webclient:'http://localhost:8091/datecomm/',
 		cli:{},
 		deb:"",
 		fi:"",
 		tota:0,
 
 		//fournisseur approv
-		webfournisseur:'/dateappro/',
+		webfournisseur:'http://localhost:8091/dateappro/',
 		fou:{},
 		deba:"",
 		fille:"",
 		totaly:0,
 		to:0,
 
-		restpayee:'/rest/',
+		restpayee:'http://localhost:8091/rest/',
 		rest:{},
 		resta:0,
+
+		rupture:'http://localhost:8091/rupturestoky/',
+		rupstock:{},
 	
 
 	},
@@ -94,7 +97,9 @@ new Vue({
 			for(let i = 1; i < this.rest.length; i++){
 				this.resta +=(this.rest[0].net - this.rest[0].payee)
 			}
-        })
+		})
+		axios.get(this.rupture).then(({data}) => {this.rupstock = data.date})
+		
 	}
 
 })
