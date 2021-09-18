@@ -1,8 +1,8 @@
 new Vue({
     el:"login",
     data:{
-        website:'http://localhost:8091/loginn/',
-        registers:'http://localhost:8091/mampiditra',
+        website:'/loginn/',
+        registers:'/mampiditra',
         email:"",
         mdp:"",
         name:"",

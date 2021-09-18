@@ -36,22 +36,22 @@ app.use(express.json());
 
 app.use(cookieParser());
 app.use(session({
-    key:'user_sid',
+    key:'user_sides',
     secret:'somesecret',
     resave:false,
     saveUninitialized:false,
     cookie:{
-        expires:600000
+        expires:60000000
     }
 }))
 
-app.use((req, res, next) =>{
-    if(req.cookies.user_sid && !req.session.user){
-        res.clearCookie('user_sid')
-    }
-    next();
-})
-var ejss = { userName: '',loggedin: false, title:" you are not logged in today", body:" hello word"};
+// app.use((req, res, next) =>{
+//     if(req.cookies.user_sids && !req.session.users){
+//         res.clearCookie('user_sid')
+//     }
+//     next();
+// })
+// var ejss = { userName: '',loggedin: false, title:" you are not logged in today", body:" hello word"};
 
 app.use(require('./route'))
 

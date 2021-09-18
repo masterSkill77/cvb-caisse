@@ -5,7 +5,7 @@ new Vue({
 		client:'/clients/',
 		produits:'/produits/',
         commande:'/commandeclis/',
-        tsyfacture:'/commandeclistsyfact/',
+        tsyfact:'/commandetsyfact/',
         addCommande : '/commandeclisave',
         listePanier : "/commandeliste",
         modelist:"/modes",
@@ -35,9 +35,14 @@ new Vue({
         net:0, 
         stockFaible:0,
         stockgros:0,
-        nety:0.
+        nety:'',
      
-    },  
+    },
+    computed:{
+		sou(){
+			return this.netPayer
+		}
+	},
           
     methods:{
         showStock(liste){
@@ -54,7 +59,7 @@ new Vue({
 					this.listescommande=data
 					this.netPayer=0
 					for(let i=0 ;i <this.listescommande.length ; i++){
-						this.netPayer +=(this.listescommande[i].condition==0) ? (this.listescommande[i].produit.pudetail * this.listescommande[i].qt) : (this.listescommande[i].produit.pugros * this.listescommande[i].qt)	
+						this.netPayer +=(this.listescommande[i].condition==0) ? (this.listescommande[i].produits.pudetail * this.listescommande[i].qt) : (this.listescommande[i].produits.pugros * this.listescommande[i].qt)	
 					}
 				// })
 			})
@@ -64,10 +69,13 @@ new Vue({
             axios.post(this.addCommande,{data : body}).then(response => {
                 axios.get(this.listePanier).then(res => {
                     this.listescommande = res.data;
-                    this.netPayer = (this.listescommande[0].condition == 0) ? (this.listescommande[0].produits.pudetail * this.listescommande[0].qt) : parseInt(this.listescommande[0].produits.pugros * this.listescommande[0].qt)
+
+                    this.netPayer = (this.listescommande[0].condition == 0) ? (this.listescommande[0].produits.pudetail * this.listescommande[0].qt) : (this.listescommande[0].produits.pugros * this.listescommande[0].qt)
                     for(let i = 1 ; i < this.listescommande.length; i++){
-                        this.netPayer += (this.listescommande[i].condition == 0) ? parseInt(this.listescommande[0].produits.pudetail * this.listescommande[0].qt) : parseInt(this.listescommande[0].produits.pugros * this.listescommande[0].qt)
+                        this.netPayer += (this.listescommande[i].condition == 0) ? (this.listescommande[i].produits.pudetail * this.listescommande[i].qt) : (this.listescommande[i].produits.pugros * this.listescommande[i].qt)
                     }
+                    // console.log(this.netPayer)
+
                 });
             })  
         },
@@ -78,9 +86,9 @@ new Vue({
                 this.listescommande = res.data;
             })
         },
-          tsyfact(){
+        tsisy(){
             let body = {client : this.idcli ,modelist:this.idmode, datecom : this.datecom , produits : this.listescommande , remise : this.remise};
-            axios.post(this.tsyfacture , {data : body})
+            axios.post(this.tsyfact , {data : body})
             axios.get(this.listePanier).then(res => {
                 this.listescommande = res.data;
             })
@@ -105,10 +113,17 @@ new Vue({
 
     },
     mounted(){
+      
         axios.get(this.client).then(response=>{this.listecli = response.data})
         // axios.get(this.client).then(response=>console.log(response.data))
         axios.get(this.produits).then(response=>{this.produitliste = response.data})
-        axios.get(this.modelist).then(response=>{this.modes = response.data})
+        axios.get(this.modelist).then(response=>{this.modes = response.data
+        	// this.netPayer=0
+			// for(let i=0 ;i <this.listecli.length ; i++){
+			// 	this.netPayer +=(this.listecli[i].condition==0) ? (this.listecli[i].produit.pudetail * this.listecli[i].qt) : (this.listecli[i].produit.pugros * this.listecli[i].qt)		
+			// }
+        })
+       
         // axios.get(this.produits).then(response=>console.log(response.data))
     }
 })

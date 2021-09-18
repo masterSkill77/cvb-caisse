@@ -7,6 +7,7 @@ new Vue({
         intrantliste:{},
         idintrant:{},
         name:"",
+        namee:"",
         unite:"",
         presentation:"",
         parpresentation:"",
@@ -18,7 +19,7 @@ new Vue({
         description:"",
 
         idSuppre:"",
-
+        nomIntrant:"",
         nameEdit:"",
         uniteEdit:"",
         presentationEdit:"",
@@ -32,9 +33,6 @@ new Vue({
         tvaEdit:"",
         descriptionEdit:'',
         idintrant:"",
-        class:"",
-        faible:"",
-        moyen:"",
         // class="label label-sm label-success"
 
         // search
@@ -54,7 +52,6 @@ new Vue({
                 axios.get(this.websearch,{
                     params:{
                         nom:this.searchproduit,
-                        intra:this.searchproduit
                     }
                 }).then(({data}) => {
                     this.liste = data.date
@@ -115,19 +112,24 @@ new Vue({
                 // axios.get(this.website).then(({data}) => { this.liste = data.date}) 
             })
         },
+        addIntrant(){
+            axios.post(this.intrantsite , {name : this.nomIntrant}).then(() => {
+                axios.get(this.website).then(response => {this.liste = response.data}) 
+                 
+                })
+               
+            },
 
 	},
   mounted(){
         axios.get(this.website).then(({data})=>{
             this.liste = data.date
             console.log(this.liste = data.date)
-                 this.faible = this.liste[0].stocks<=10;
-            this.moyen = this.liste[0].stocks<=40;
-            this.eleve = this.liste[0].stocks<=60;
-           this.class=(this.liste[0].stocks <=60) ? (this.moyen="btn btn-info"):(this.eleve="btn btn-info")
-         
+       
        })
-        axios.get(this.website).then(response => {this.liste = response.data})                              
+        axios.get(this.website).then(response => {this.liste = response.data
+        console.log(this.liste = response.data)
+        })                              
         // axios.get(this.website).then(({data}) => { this.liste = data.date})  
         axios.get(this.intrantsite).then(response=>{this.intrantliste = response.data})
 

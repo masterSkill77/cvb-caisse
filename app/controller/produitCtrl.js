@@ -107,12 +107,13 @@ try{
     res.status(500).json({error:message.error})
 }    
 }
+
 const recherche = async(req, res)=>{
-    const {nom,intra}=req.query
-    console.log(nom,intra)
+    const {nom}=req.query
+    console.log(nom)
     try{
-        var sql=null
-        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant  AND  produits.name LIKE '"+nom+"%' OR intrants.name LIKE '"+intra+"%' order by intrants.name"
+        // var sql=null
+        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where produits.idintrant=intrants.id  AND intrants.name LIKE '"+nom+"%' OR produits.name LIKE '"+nom+"%' group by id"
 
         db.sequelize.query(
             sql,
@@ -140,8 +141,27 @@ const ruptureStock = async (req,res) => {
     })
     res.json(ProduitLany);
 }
+const sound = async(req, res)=>{
+    try{
+        var sql=null
+ 
+        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant  and stocks <= 20 order by intrants.name"
+        db.sequelize.query(
+            sql,
+             { type: sequelize.QueryTypes.SELECT}
+             )
+        .then((date) => {
+            return res.status(200).json({date})
+        }) 
+    }
+    catch (error) {
+        console.log(error.message);
+        return res.status(500).json({error:error.message})
+    } 
+}
+
 module.exports={
     all
     ,get,add,update,del,recherche,
-    produitLanyDaty,ruptureStock
+    produitLanyDaty,ruptureStock,sound
 }

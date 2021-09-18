@@ -58,7 +58,7 @@ new Vue({
 	},
 	mounted(){
 		axios.get(this.website).then(response=>{this.liste = response.data})
-		axios.get(this.website).then(response=>console.log(response))
+		// axios.get(this.website).then(response=>console.log(response))
    
 	}
 })

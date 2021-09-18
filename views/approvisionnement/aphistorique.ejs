@@ -57,7 +57,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <tr v-for="approv in liste" :key="approv.id"  class="odd gradeX">
+                                <!-- :key="approv.id" -->
+                                <tr v-for="approv in liste"   class="odd gradeX">
                                <td>
                                     <a href="/"> {{approv.id}} </a>
                                 </td>
@@ -96,6 +97,7 @@
 
 <%- include("../pages/footer",{
     script:`
+    <script src="../assets/projet/Vue.js"></script>
     <script src="../assets/projet/approvisionnement/historique.js"></script>
     `
 }) %>

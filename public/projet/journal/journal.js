@@ -27,6 +27,9 @@ new Vue({
 		restpayee:'/rest/',
 		rest:{},
 		resta:0,
+
+		rupture:'/rupturestoky/',
+		rupstock:{},
 	
 
 	},
@@ -94,7 +97,9 @@ new Vue({
 			for(let i = 1; i < this.rest.length; i++){
 				this.resta +=(this.rest[0].net - this.rest[0].payee)
 			}
-        })
+		})
+		axios.get(this.rupture).then(({data}) => {this.rupstock = data.date})
+		
 	}
 
 })

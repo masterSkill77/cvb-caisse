@@ -61,7 +61,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr  v-for="commande in liste" :key="commande.id" class="odd gradeX">
+                                <!-- :key="commande.id" -->
+                            <tr  v-for="commande in liste"  class="odd gradeX">
                                 <td>
                                     <a href="/"> {{commande.id}} </a>
                                 </td>
@@ -115,7 +116,6 @@
 
     <%- include("../pages/footer",{
         script:`
-        <!-- <script src="../assets/projet/Vue.js"></script> -->
         <script src="../assets/projet/commande/historique.js"></script>
         `
     }) %>

@@ -62,12 +62,12 @@ computed:{
                 axios.get(this.website).then(response => {this.listeIntrant = response.data})  
             })
         },
-        intra(){
-        axios.get(this.search,{intrasy:this.intrasy}).then(response=>{
-            this.listeIntrant=response.data
-            console.log( this.listeIntrant=response.data)
-        })
-        }
+        // intra(){
+        // axios.get(this.search,{intrasy:this.intrasy}).then(response=>{
+        //     this.listeIntrant=response.data
+        //     console.log( this.listeIntrant=response.data)
+        // })
+        // }
     },
     mounted(){
         axios.get(this.website).then(response => {this.listeIntrant = response.data})

@@ -53,7 +53,7 @@ new Vue({
 					this.listecomm=response.data
 					this.netPayer=0
 					for(let i=0 ;i <this.listecomm.length ; i++){
-						this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.pudetail * this.listecomm[i].qt) : (this.listecomm[i].produit.pugros * this.listecomm[i].qt)	
+						this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.puvente * this.listecomm[i].qt) : (this.listecomm[i].produit.puvente * this.listecomm[i].qt)	
 					}
 				})
 			})
@@ -84,10 +84,10 @@ new Vue({
         axios.get(this.produit).then(response=>{this.produitliste = response.data})
 		axios.get(this.panier).then(response=>{
 			this.listecomm=response.data
-			this.netPayer=0
-			for(let i=0 ;i <this.listecomm.length ; i++){
-				this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.pudetail * this.listecomm[i].qt) : (this.listecomm[i].produit.pugros * this.listecomm[i].qt)		
-			}
+			// this.netPayer=0
+			// for(let i=0 ;i <this.listecomm.length ; i++){
+			// 	this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.puvente * this.listecomm[i].qt) : (this.listecomm[i].produit.puvente * this.listecomm[i].qt)		
+			// }
 		})
     }
 })
