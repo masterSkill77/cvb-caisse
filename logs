@@ -1,0 +1,350 @@
+[1mdiff --git a/.env b/.env[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e37b84b[m
+[1m--- /dev/null[m
+[1m+++ b/.env[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mDB_USERNAME=cvbshopmg_ankazomangacaisse[m
+[32m+[m[32mDB_PASSWORD=ankazomangacaisse12345![m
+[32m+[m[32mDB_DATABASE=cvbshopmg_caisse[m
+[32m+[m[32mDB_HOST=144.91.112.39[m
+[32m+[m[32mDB_DIALECT=mysql[m
+[32m+[m
+[32m+[m
+[32m+[m[32msecret_key="DONT SAY"[m[41m    [m
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mnew file mode 100644[m
+[1mindex 0000000..735b3cd[m
+[1m--- /dev/null[m
+[1m+++ b/.gitignore[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32m/node_modules[m
+[32m+[m[32mnode_modules[m
+\ No newline at end of file[m
+[1mdiff --git a/.sequelizerc b/.sequelizerc[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3631351[m
+[1m--- /dev/null[m
+[1m+++ b/.sequelizerc[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32mconst path = require('path');[m
+[32m+[m[32mmodule.exports={[m
+[32m+[m[32m    'config':path.resolve('config','database.js'),[m
+[32m+[m[32m    'models-path':path.resolve('app','models'),[m
+[32m+[m[32m    'seeders-path':path.resolve('app','database','seeders'),[m
+[32m+[m[32m    'migrations-path':path.resolve('app','database','migrations')[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/app/controller/approvisionementFouCtrl.js b/app/controller/approvisionementFouCtrl.js[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7662d99[m
+[1m--- /dev/null[m
+[1m+++ b/app/controller/approvisionementFouCtrl.js[m
+[36m@@ -0,0 +1,223 @@[m
+[32m+[m[32mconst { Approfou } = require('../models/index');[m
+[32m+[m[32mconst { Listeappro } = require('../models/index');[m
+[32m+[m[32mconst { Produit } = require('../models/index');[m
+[32m+[m[32mconst { Fournisseur } = require('../models/index');[m
+[32m+[m[32mconst { Payementfou } = require('../models/index');[m
+[32m+[m[32mconst db =require("../models/index");[m
+[32m+[m
+[32m+[m[32mconst { Op } = require('sequelize');[m
+[32m+[m[32mconst sequelize = require("sequelize");[m
+[32m+[m[32mvar approfoulist=[];[m
+[32m+[m[32mvar lastidappro=0[m
+[32m+[m[32mconst delPanier = async(req,res) => {[m
+[32m+[m[32m    let {appro} = req.body;[m
+[32m+[m[32m    // console.log(appro.produit.id == approfoulist[0].produit.id);[m
+[32m+[m[32m    // console.log(appro.condition == approfoulist[0].condition);[m
+[32m+[m[32m    for(i in approfoulist){[m
+[32m+[m[32m        if(appro.produit.id == approfoulist[i].produit.id && appro.condition == approfoulist[i].condition)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            approfoulist.splice(i,1);[m
+[32m+[m[32m            break;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        else{[m
+[32m+[m[32m            continue;[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    res.json(approfoulist)[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m[32mconst createAppro = async (req, res, next) => {[m
+[32m+[m[32m    try {[m
+[32m+[m[32m        var {[m
+[32m+[m[32m            fournisseur,[m
+[32m+[m[32m            dateappro,[m
+[32m+[m[41m        [m
+[32m+[m[32m        } = req.body.data;[m
+[32m+[m[32m        const commande = await Approfou.create({[m
+[32m+[m[32m            dateappro: dateappro,[m
+[32m+[m[32m            idfou: fournisseur[m
+[32m+[m[32m        });[m
+[32m+[m
+[32m+[m[32m        for (let i in approfoulist) {[m
+[32m+[m[32m            await Listeappro.create({[m
+[32m+[m[32m                qt: approfoulist[i].qt,[m
+[32m+[m[32m                condition: approfoulist[i].condition,[m
+[32m+[m[32m                idappro: commande.id,[m
+[32m+[m[32m                idpro: approfoulist[i].produit.id[m
+[32m+[m[32m            });[m
+[32m+[m[32m            let qty = (approfoulist[i].condition == 1) ? (parseInt(approfoulist[i].produit.parpresentation) * approfoulist[i].qt) : (approfoulist[i].qt)[m
+[32m+[m[32m            await Produit.increment({[m
+[32m+[m[32m                stocks: +parseFloat(qty)[m
+[32m+[m[32m            }, {[m
+[32m+[m[32m                where: {[m
+[32m+[m[32m                    id: approfoulist[i].produit.id[m
+[32m+[m[32m                }[m
+[32m+[m[32m            })[m
+[32m+[m[32m        }[m
+[32m+[m[32m        lastidappro={id:commande.id}[m
+[32m+[m[32m        // approfoulist = [];[m
+[32m+[m[32m        res.json(approfoulist)[m
+[32m+[m[32m    }[m
+[32m+[m[32m    catch(e){[m
+[32m+[m[32m        throw e[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[32m+[m[32mconst getIdappro=async(req, res)=>{[m
+[32m+[m[32m    res.json(lastidappro)[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mconst approv=async(req, res)=>{[m
+[32m+[m[32m    if(approfoulist.length == 0){[m
+[32m+[m[32m        approfoulist.push(req.body.data)[m
+[32m+[m[32m    }else{[m
+[32m+[m[32m        pushed=false;[m
+[32m+[m[32m        for(let intrant in approfoulist){[m
+[32m+[m[32m            if(approfoulist[intrant].produit.id== req.body.data.produit.id){[m
+[32m+[m[32m                if(req.body.data.condition == approfoulist[intrant].condition){[m
+[32m+[m[32m                    approfoulist[intrant].qt += parseFloat(req.body.data.qt)[m
+[32m+[m[32m                    pushed=true[m
+[32m+[m[32m                    break;[m
+[32m+[m[32m                }else{[m
+[32m+[m[32m                    pushed=false[m
+[32m+[m[32m                    continue;[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m        if(pushed==false){[m
+[32m+[m[32m            approfoulist.push(req.body.data)[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m    res.json(approfoulist)[m
+[32m+[m[32m}[m
+[32m+[m[32mconst addfournisseur=async(req, res)=>{[m
+[32m+[m[32m    // try {[m
+[32m+[m[32m    //     var {fournisseur, dateappro, produit} = req.body.data;[m
+[32m+[m[32m    //     const commande = await Approfou.create({[m
+[32m+[m[32m    //         idfou:fournisseur,[m
+[32m+[m[32m    //         dateappro:dateappro[m
+[32m+[m[32m    //     });[m
+[32m+[m[32m    //     for(let i in produit){[m
+[32m+[m[32m    //         await Listeappro.create({[m
+[32m+[m[32m    //             qt:produit[i].qt,[m
+[32m+[m[32m    //             condition:produit[i].condition,[m
+[32m+[m[32m    //             idappro:commande.id,[m
+[32m+[m[32m    //             idpro:produit[i].produit.id[m
+[32m+[m[32m    //         });[m
+[32m+[m[32m    //         let qte = (produit[i].condition == 1) ? (produit[i].produit.parpresentation * produit[i].qt) : (produit[i].qt)[m
+[32m+[m[32m    //         await Produit.increment({[m
+[32m+[m[32m    //             stocks: + parseFloat(qte)[m
+[32m+[m[32m    //         },{[m
+[32m+[m[32m    //             where:{[m
+[32m+[m[32m    //                 id: produit[i].produit.id[m
+[32m+[m[32m    //             }[m
+[32m+[m[32m    //         })[m
+[32m+[m[32m    //     }[m
+[32m+[m[32m    //     // approfoulist = [];[m
+[32m+[m[32m    //     res.json({[m
+[32m+[m[32m    //         success: true[m
+[32m+[m[32m    //     })[m
+[32m+[m
+[32m+[m[32m    // } catch (error) {[m
+[32m+[m[32m    //     throw error[m
+[32m+[m[32m    // }[m
+[32m+[m[32m}[m
+[32m+[m[32mconst panier=async(req, res)=>{[m
+[32m+[m[32m    res.json(approfoulist)[m
+[32m+[m[32m }[m
+[32m+[m[32mconst affichageappro = async (req, res) => {[m
+[32m+[m[32m    // const approfournisseur = await Listeappro.findAll({[m
+[32m+[m[32m    //     attributes: ['qt','id', 'condition'],[m
+[32m+[m[32m    //     order: [[m
+[32m+[m[32m    //         ['id', 'DESC'][m
+[32m+[m[32m    //     ],[m
+[32m+[m[32m    //     include: [{[m
+[32m+[m[32m    //             association: "appro",[m
+[32m+[m[32m    //             as: "appro",[m
+[32m+[m[32m    //              include: [{[m
+[32m+[m[32m    //                 association: "approfo",[m
+[32m+[m[32m    //                 as: "approfo"[m
+[32m+[m[32m    //             }][m
+[32m+[m[32m    //         },[m
+[32m+[m[32m    //         {[m
+[32m+[m[32m    //             association: "produit",[m
+[32m+[m[32m    //             as: "produit",[m
+[32m+[m[32m    //             include: [{[m
+[32m+[m[32m    //                 association: "intrants",[m
+[32m+[m[32m    //                 as: "intrants"[m
+[32m+[m[32m    //             }][m
+[32m+[m[32m    //         }[m
+[32m+[m[32m    //     ][m
+[32m+[m[32m    // });[m
+[32m+[m[32m    // return res.json(approfournisseur);[m
+[32m+[m[41m  [m
+[32m+[m[32m    var sql=null[m
+[32m+[m[41m   [m
+[32m+[m[32m        sql=" SELECT approfous.id,listeappros.qt,listeappros.condition, fournisseurs.name as fou,approfous.dateappro,produits.name,produits.puvente,produits.unite,intrants.name as category FROM listeappros, fournisseurs,approfous,produits,intrants where  fournisseurs.id=approfous.idfou AND listeappros.idappro=approfous.id AND produits.id= listeappros.idpro AND produits.idintrant = intrants.id"[m
+[32m+[m[41m     [m
+[32m+[m[41m  [m
+[32m+[m[32m    try{[m
+[32m+[m[32m        db.sequelize.query([m
+[32m+[m[32m            sql,[m
+[32m+[m[32m             { type: sequelize.QueryTypes.SELECT}[m
+[32m+[m[32m             )[m
+[32m+[m[32m        .then((date) => {[m
+[32m+[m[32m            return res.status(200).json({date})[m
+[32m+[m[32m        })[m[41m [m
+[32m+[m[32m    }[m
+[32m+[m[32m    catch (error) {[m
+[32m+[m[32m        console.log(error.message);[m
+[32m+[m[32m        return res.status(500).json({error:error.message})[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[32m+[m[32mconst datediff = async(req, res)=>{[m
+[32m+[m[32m    const {deba , fille}=req.params[m
+[32m+[m[32m    console.log(deba,fille)[m
+[32m+[m[32m    var sql=null[m
+[32m+[m[32m    if(deba==undefined && fille!==undefined){[m
+[32m+[m[41m    [m
+[32m+[m[32m        sql=" SELECT approfous.id,listeappros.qt,listeappros.condition, fournisseurs.name as fou,approfous.dateappro,produits.name,produits.puvente,produits.unite,intrants.name as category FROM listeappros, fournisseurs,approfous,produits,intrants where  fournisseurs.id=approfous.idfou AND listeappros.idappro=approfous.id AND produits.id= listeappros.idpro AND produits.idintrant = intrants.id AND approfous.dateappro BETWEEN '"+deba+"' AND '"+fille+"'"[m
+[32m+[m[41m     [m
+[32m+[m[32m    }else{[m
+[32m+[m[32m        //  sql="SELECT fournisseurs.name,listeappros.qt,approfous.dateappro,produits.name,produits.puvente,intrants.name FROM listeappros, fournisseurs,approfous,produits,intrants where listeappros.id=approfous.id AND produits.id= listeappros.id AND approfous.dateappro BETWEEN "+deba+" AND "+fille+""[m
+[32m+[m[32m        sql=" SELECT approfous.id,listeappros.qt,listeappros.condition, fournisseurs.name as fou,approfous.dateappro,produits.name,produits.puvente,produits.unite,intrants.name as category FROM listeappros, fournisseurs,approfous,produits,intrants where  fournisseurs.id=approfous.idfou AND listeappros.idappro=approfous.id AND produits.id= listeappros.idpro AND produits.idintrant = intrants.id AND approfous.dateappro BETWEEN '"+deba+"' AND '"+fille+"'"[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m[32m    try{[m
+[32m+[m[32m        db.sequelize.query([m
+[32m+[m[32m            sql,[m
+[32m+[m[32m             { type: sequelize.QueryTypes.SELECT}[m
+[32m+[m[32m             )[m
+[32m+[m[32m        .then((date) => {[m
+[32m+[m[32m            return res.status(200).json({date})[m
+[32m+[m[32m        })[m[41m [m
+[32m+[m[32m    }[m
+[32m+[m[32m    catch (error) {[m
+[32m+[m[32m        console.log(error.message);[m
+[32m+[m[32m        return res.status(500).json({error:error.message})[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32m}[m
+[32m+[m[32mconst addapprovisionnfinal =async(req,res)=>{[m
+[32m+[m[41m  [m
+[32m+[m[41m   [m
+[32m+[m[32m        const data={[m
+[32m+[m[32m            payee:req.body.payee,[m
+[32m+[m[32m            datepayement:req.body.datepayement,[m
+[32m+[m[32m            dateEcheance:req.body.dateEcheance,[m
+[32m+[m[32m            net:req.body.net,[m
+[32m+[m[32m            idprovision:req.body.idprovision[m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        const Payementfous = await Payementfou.create(data);[m
+[32m+[m[32m        // approfoulist = [];[m
+[32m+[m
+[32m+[m[32m        return res.json(Payementfous)[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mmodule.exports={[m
+[32m+[m[32m   approv,panier,addfournisseur,delPanier,createAppro,affichageappro,datediff,[m
+[32m+[m[32m   addapprovisionnfinal,getIdappro[m[41m [m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/app/controller/clientCtrl.js b/app/controller/clientCtrl.js[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2a3ed7e[m
+[1m--- /dev/null[m
+[1m+++ b/app/controller/clientCtrl.js[m
+[36m@@ -0,0 +1,88 @@[m
+[32m+[m[32mconst { Client } = require('../models/index');[m
+[32m+[m[32mconst { Op } = require('sequelize');[m
+[32m+[m[32mconst sequelize = require("sequelize");[m
+[32m+[m[32mconst { QueryTypes } = require('sequelize');[m
+[32m+[m[32mconst db =require("../models/index");[m
+[32m+[m
+[32m+[m[32mconst all= async(req, res)=>{[m
+[32m+[m[32mtry{[m
+[32m+[m[32m    const client = await Client.findAll();[m
+[32m+[m[32m    return res.json(client);[m
+[32m+[m[32m}catch(error){[m
+[32m+[m[32m    res.status(500).json({error:message.error});[m
+[32m+[m[32m}[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m[32mconst get = async(req, res)=>{[m
+[32m+[m[32m    Client.findByPk(req.params.id)[m
+[32m+[m[32m          .then(clients=>{[m
+[32m+[m[32m              res.json(clients)[m
+[32m+[m[32m          })[m
+[32m+[m[32m}[m
+[32m+[m[32mconst add =async(req,res)=>{[m
+[32m+[m
+[32m+[m[32m        const data={[m
+[32m+[m[32m            name:req.body.name,[m
+[32m+[m[32m            adress:req.body.adress,[m
+[32m+[m[32m            contact:req.body.contact,[m
+[32m+[m[32m            email:req.body.email[m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        const clients = await Client.create(data);[m
+[32m+[m[32m        return res.json(clients)[m
+[32m+[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mconst update = async(req, res)=>{[m
+[32m+[m[32m    const data={[m
+[32m+[m[32m        name:req.body.name,[m
+[32m+[m[32m        adress:req.body.adress,[m
+[32m+[m[32m        contact:req.body.contact,[m
+[32m+[m[32m        email:req.body.email[m
+[32m+[m[32m    }[m
+[32m+[m[32m    const id = req.params.id[m
+[32m+[m[32m    try{[m
+[32m+[m[32m        const clients= Client.update(data,{where:{id}});[m
+[32m+[m[32m        res.json(clients);[m
+[32m+[m[32m    }catch(error){[m
+[32m+[m[32m     res.status(500).json({error:message.error});[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mconst del = async(req, res)=>{[m
+[32m+[m[32m    const id=req.params.id;[m
+[32m+[m[32mtry{[m
+[32m+[m[32m    const reg = await Client.destroy({where:{id}})[m
+[32m+[m[32m    res.json(reg);[m
+[32m+[m[32m}catch(error){[m
+[32m+[m[32m    res.status(500).json({error:message.error})[m
+[32m+[m[32m}[m[41m    [m
+[32m+[m[32m}[m
+[32m+[m[32mconst recherche = async(req, res)=>{[m
+[32m+[m[32m    const {nom,addr,contacta,mail}=req.query[m
+[32m+[m[32m    console.log(nom,addr,contacta,mail)[m
+[32m+[m
+[32m+[m[32m        sql="SELECT id,name,adress,contact,email from clients where  name LIKE '"+nom+"%'  OR contact LIKE '"+contacta+"%' OR email LIKE '"+mail+"%'"[m
+[32m+[m
+[32m+[m[41m  [m
+[32m+[m[32m    try{[m
+[32m+[m[32m        db.sequelize.query([m
+[32m+[m[32m            sql,[m
+[32m+[m[32m             { type: sequelize.QueryTypes.SELECT}[m
+[32m+[m[32m             )[m
+[32m+[m[32m        .then((date) => {[m
+[32m+[m[32m            return res.status(200).json({date})[m
+[32m+[m[32m        })[m[41
