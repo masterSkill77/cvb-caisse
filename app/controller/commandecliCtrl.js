@@ -302,6 +302,7 @@ const addpayement =async(req,res)=>{
         }
         const Payementclis = await Payementcli.create(data);
         commandeClientList = [];
+        commandeClientList = [];
 
         return res.json(Payementclis)
      
