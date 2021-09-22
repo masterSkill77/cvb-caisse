@@ -301,7 +301,7 @@ const addpayement =async(req,res)=>{
             remise : req.body.remise
         }
         const Payementclis = await Payementcli.create(data);
-        commandeClientList = [];
+        // commandeClientList = [];
         commandeClientList = [];
 
         return res.json(Payementclis)
