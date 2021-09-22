@@ -10,10 +10,10 @@ module.exports = {
       },
       idprovision:{
         type:Sequelize.INTEGER,
-        reference:{model:'listeappros', key:'id'},
+        // reference:{model:'listeappros', key:'id'},
         onDelete:'CASCADE',
         onUpdate: 'CASCADE',
-        allowNull:false,
+        allowNull:true,
       },
       payee: {
         type: Sequelize.INTEGER

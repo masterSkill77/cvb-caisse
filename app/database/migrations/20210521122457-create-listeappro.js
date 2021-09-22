@@ -10,10 +10,10 @@ module.exports = {
       },
        idappro:{
         type:Sequelize.INTEGER,
-        reference:{model:'approfous', key:'id'},
+        // reference:{model:'approfous', key:'id'},
         onDelete:'CASCADE',
         onUpdate: 'CASCADE',
-        allowNull:false,
+        allowNull:true,
       },
         idpro:{
         type:Sequelize.INTEGER,

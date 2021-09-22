@@ -12,7 +12,7 @@ module.exports = {
         type:Sequelize.INTEGER,
         reference:{model:'intrants', key:'id', onDelete:'CASCADE',
         onUpdate: 'CASCADE'},
-        allowNull:true,
+        allowNull:false,
       },
       name: {
         type: Sequelize.STRING
