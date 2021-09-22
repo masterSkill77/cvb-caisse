@@ -17,26 +17,27 @@ const all= async(req, res)=>{
     return res.json(client);
 
 }
-// const all = async(req, res)=>{
-//     var sql=null
-//     sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant  order by intrants.name"
+
+const alll = async(req, res)=>{
+    var sql=null
+    sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant"
      
-//     try{
-//         db.sequelize.query(
-//             sql,
-//              { type: sequelize.QueryTypes.SELECT}
-//              )
-//         .then((date) => {
-//             return res.status(200).json({date})
-//         }) 
-//     }
-//     catch (error) {
-//         console.log(error.message);
-//         return res.status(500).json({error:error.message})
-//     }
+    try{
+        db.sequelize.query(
+            sql,
+             { type: sequelize.QueryTypes.SELECT}
+             )
+        .then((date) => {
+            return res.status(200).json({date})
+        }) 
+    }
+    catch (error) {
+        console.log(error.message);
+        return res.status(500).json({error:error.message})
+    }
 
     
-// }
+}
 const getStockFaible = async(req,res) => {
     // let p = await Produit.findAll({
     //     where : {
@@ -110,7 +111,7 @@ try{
 const recherche = async(req, res)=>{
     const {nom}=req.query
     console.log(nom)
-    try{
+    try{    
         // var sql=null
         sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where produits.idintrant=intrants.id  AND intrants.name LIKE '"+nom+"%' OR produits.name LIKE '"+nom+"%' group by id"
 
@@ -128,6 +129,8 @@ const recherche = async(req, res)=>{
     } 
    
 }
+
+
 
 const produitLanyDaty = async(req,res) => {
     ProduitLanyDatyAndroany = await Produit.findAll({
@@ -158,9 +161,29 @@ const sound = async(req, res)=>{
         return res.status(500).json({error:error.message})
     } 
 }
+const affichazy = async(req, res)=>{
+
+    try{
+        var sql=null
+        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrant  from produits,intrants  where intrants.id=produits.idintrant order by intrants.name"
+
+        db.sequelize.query(
+            sql,
+             { type: sequelize.QueryTypes.SELECT}
+             )
+        .then((date) => {
+            return res.status(200).json({date})
+        }) 
+    }
+    catch (error) {
+        console.log(error.message);
+        return res.status(500).json({error:error.message})
+    } 
+   
+}
 
 module.exports={
-    all
+    all,alll
     ,get,add,update,del,recherche,
-    produitLanyDaty,ruptureStock,sound
+    produitLanyDaty,ruptureStock,sound,affichazy    
 }

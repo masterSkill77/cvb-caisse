@@ -201,7 +201,7 @@ const datediff = async(req, res)=>{
 }
 const addapprovisionnfinal =async(req,res)=>{
   
-   
+    try{
         const data={
             payee:req.body.payee,
             datepayement:req.body.datepayement,
@@ -214,7 +214,9 @@ const addapprovisionnfinal =async(req,res)=>{
         approfoulist = [];
 
         return res.json(Payementfous)
-  
+    }catch(error){
+     res.status(500).json({error:message.error});
+    }
 }
 
 module.exports={
