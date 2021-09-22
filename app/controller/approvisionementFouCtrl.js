@@ -211,7 +211,7 @@ const addapprovisionnfinal =async(req,res)=>{
 
         }
         const Payementfous = await Payementfou.create(data);
-        approfoulist = [];
+        // approfoulist = [];
 
         return res.json(Payementfous)
     }catch(error){
