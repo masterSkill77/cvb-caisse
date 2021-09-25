@@ -123,7 +123,7 @@ app.get('/download', (req, res)=>{
 app.listen(PORT,()=>{
     console.log(`mandeha tsar ny port:${PORT}`)
 
-    sequelize.sync({ force: true}).then(()=>{
+    sequelize.sync({ force: false}).then(()=>{
         console.log('se connecter a la sequelize');
     })
 })
