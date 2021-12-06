@@ -115,9 +115,7 @@
                                 <i class="fa fa-edit"></i>
                             </a>
                             </a>
-                            <a class="btn btn-sm red" @click="del(produit.id)" data-toggle="modal" href="#suppre">
-                                <i class="icon-trash"></i>
-                            </a>
+                        
                             </td>
                         </tr>
                        
@@ -149,76 +147,96 @@
                             <option :key="list.id" :value="list.id" v-for="list in intrantliste">{{list.name}}</option>
                         </select>
                         <label for="form_control_1">Categorie</label>
-                        <!-- <span class="help-block">un intrant slectionnee...</span> -->
+                        <p style="color: #fc0612;">
+                            {{ errors.idintrant }}
+                        </p>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="number" v-model="parpresentation" class="form-control" name="name" id="form_control_1">
+                        <input type="number" v-model="parpresentation" class="form-control" name="papresentation" id="form_control_1">
                         <label for="form_control_1">Par presentation</label>
+                        <p style="color: #fc0612;">
+                            {{ errors.parpresentation }}
+                        </p>
                     </div>                          
                    
                 </div>
                 <div class="form-body col-md-3">
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" v-model="unite" class="form-control" name="name" id="form_control_1">
+                        <input type="text" v-model="unite" class="form-control" name="unite" id="form_control_1">
                         <label for="form_control_1">Unité</label>
+                        <p style="color: #fc0612;">
+                            {{ errors.unite }}
+                        </p>
                     </div>
                       <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="number" v-model="pudetail" class="form-control" name="name" id="form_control_1">
+                        <input type="number" v-model="pudetail" class="form-control" name="prix_detail" id="form_control_1">
                         <label for="form_control_1">Pu de detail</label>
+                        <p style="color: #fc0612;">
+                            {{ errors.pudetail }}
+                        </p>
                     </div> 
                                                        
                    
                 </div>
                 <div class="form-body col-md-3">
                         <div class="form-group form-md-line-input form-md-floating-label">
-                                <input type="text" v-model="name" class="form-control" name="email" id="form_control_1">
+                                <input type="text" v-model="name" class="form-control" name="nom_produit" id="form_control_1">
                                 <label for="form_control_1">Nom du produit</label>
-                                <span class="help-block">nom du produit...</span>
+                                <p style="color: #fc0612;">
+                                    {{ errors.name }}
+                                </p>
                             </div> 
                  
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="number" v-model="pugros" class="form-control" name="email" id="form_control_1">
+                        <input type="number" v-model="pugros" class="form-control" name="pugros" id="form_control_1">
                         <label for="form_control_1">Pu en gros</label>
-                        <span class="help-block">chiffre en Ariary...</span>
+                            <p style="color: #fc0612;">
+                                {{ errors.pugros }}
+                            </p>
                     </div>  
                                                        
                    
                 </div>
                 <div class="form-body col-md-3">
                         <div class="form-group form-md-line-input form-md-floating-label">
-                                <input type="text" v-model="presentation" class="form-control" name="email" id="form_control_1">
+                                <input type="text" v-model="presentation" class="form-control" name="presentation" id="form_control_1">
                                 <label for="form_control_1">presentation</label>
-                                <span class="help-block">chifre...</span>
+                                <p style="color: #fc0612;">
+                                    {{ errors.presentation }}
+                                </p>
                             </div>  
                                       
                        <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="number" v-model="puvente" class="form-control" name="name" id="form_control_1">
+                        <input type="number" v-model="puvente" class="form-control" name="prix_d_achat" id="form_control_1">
                         <label for="form_control_1">Pu d'Achat</label>
+                        <p style="color: #fc0612;">
+                            {{ errors.puvente }}
+                        </p>
                     </div>
                       </div>
                       
                 </div>  
                   <div class="form-body col-md-3">
                         <div class="form-group form-md-line-input form-md-floating-label">
-                                <input type="number" v-model="tva" class="form-control" name="name" id="form_control_1">
+                                <input type="number" v-model="tva" class="form-control" name="tva" id="form_control_1">
                                 <label for="form_control_1">tva</label>
                             </div>
                              <div class="form-group form-md-line-input form-md-floating-label">
                                 <label for="peremption">Date de peremption</label>
         
-                                <input type="date" v-model="dateperemption" class="form-control" name="name" id="peremption">
+                                <input type="date" v-model="dateperemption" class="form-control" name="dateperemption" id="peremption">
                             </div> 
                         </div> 
                         <div class="form-body col-md-3">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                        <input type="text" v-model="description" class="form-control" name="name" id="form_control_1">
+                                        <input type="text" v-model="description" class="form-control" name="description" id="form_control_1">
                                         <label for="form_control_1">Description</label>
                                     </div>
                                  
                             
-                                                       
+                    <button v-if="testa" class="btn btn-info" >Enregitrée avec succée</button>                                   
                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Annuler</button>
-                    <button type="button"  @click="addproduit"  data-dismiss="modal" class="btn green">Enregistrer</button>
+                    <button type="button"  @click="addproduit" class="btn green">Enregistrer</button>
              
                 </div>
                                 <div class="modal-footer">
@@ -373,6 +391,12 @@
                      <!-- BEGIN FORM-->
         <form action="#" class="form-horizontal">
             <div class="form-body">
+                <p v-if="errorCat.length">
+                    <b>Fenoy ny banga azafady indrindra:</b>
+                    <ul>
+                    <li class="alert alert-danger" v-for="erro in errorCat">{{ erro }}</li>
+                    </ul>
+                </p>
             <div class="form-group form-md-line-input has-success">
                     <label class="col-md-3 control-label" for="form_control_1"><strong><i>Categorie</i></strong></label>
                     <div class="col-md-9">
@@ -383,7 +407,7 @@
                 </div>
                </div>
             <div class="modal-footer">
-                        <button type="submit" class="btn green" data-dismiss="modal" @click="addIntrant"><i class="fa fa-save"></i> <span> Enregistrée </span></button>
+                        <button type="submit" class="btn green"  @click="addIntrant"><i class="fa fa-save"></i> <span> Enregistrée </span></button>
                         <button type="button" class="btn dark btn-outline" data-dismiss="modal"><i class="fa fa-share"></i> <span> Annulle </span></button>
                     </div>
                     </div>

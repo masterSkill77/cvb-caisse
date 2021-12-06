@@ -208,6 +208,32 @@ const datediff = async(req, res)=>{
     
 }
 
+const final = async(req, res)=>{
+    const {deb , fi}=req.params
+    console.log(deb,fi)
+    var sql=null
+    if(deb==undefined && fi!==undefined){
+         sql=" SELECT commandeclis.id,modes.mode,listecomms.qt,listecomms.condition, clients.name as cli,commandeclis.datecom,produits.name,produits.pugros,produits.unite,produits.pudetail,intrants.name as category FROM listecomms, clients,commandeclis,produits,intrants,modes where  clients.id=commandeclis.idcli AND modes.id=commandeclis.idmode AND listecomms.idcomm=commandeclis.id AND produits.id= listecomms.idpro AND produits.idintrant = intrants.id AND commandeclis.datecom BETWEEN '"+deb+"' AND '"+fi+"'"
+    }else{
+        sql=" SELECT commandeclis.id,modes.mode,listecomms.qt,listecomms.condition, clients.name as cli,commandeclis.datecom,produits.name,produits.pugros,produits.unite,produits.pudetail,intrants.name as category FROM listecomms, clients,commandeclis,produits,intrants,modes where  clients.id=commandeclis.idcli AND modes.id=commandeclis.idmode AND listecomms.idcomm=commandeclis.id AND produits.id= listecomms.idpro AND produits.idintrant = intrants.id AND commandeclis.datecom BETWEEN '"+deb+"' AND '"+fi+"'"    
+    }
+    try{
+        db.sequelize.query(
+            sql,
+             { type: sequelize.QueryTypes.SELECT}
+             )
+        .then((date) => {
+            return res.status(200).json({date})
+        }) 
+    }
+    catch (error) {
+        console.log(error.message);
+        return res.status(500).json({error:error.message})
+    }
+
+    
+}
+
 
 
 const pay = async(req, res)=>{
@@ -318,5 +344,6 @@ module.exports = {
     pay,
     addpayement,
     getIdCommande,
-    createcommandetsyfact
+    createcommandetsyfact,
+    final
 }

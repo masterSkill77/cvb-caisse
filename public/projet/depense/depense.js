@@ -3,12 +3,13 @@ new Vue({
 	data:{
 		website:'/depenses/',
         liste:{},
-        name:"",
-        motif:"",
-        description:"",
+        name:null,
+        motif:null,
+        description:null,
         type:"",
-        montant:"",
-        datedepense:"",
+        montant:null,
+        datedepense:null,
+        errors: [],
 
         idSuppre:"",
 
@@ -19,15 +20,51 @@ new Vue({
         montantEdit:"",
         datedepenseEdit:"",
         idEdit:"",
+        testa:false
 
 	},
 	methods:{
-		ajouter(){
-			  axios.post(this.website, {name: this.name,motif:this.motif,description:this.description,type:this.type,montant:this.montant,datedepense:this.datedepense})
-                 .then(()=>{
-                        axios.get(this.website).then(response=>{this.liste = response.data})
-                 })
-		},
+        ajouter: function (e) {
+            if (this.name && this.motif && this.description && this.montant && this.datedepense ) {
+                axios.post(this.website, {name: this.name,motif:this.motif,description:this.description,type:this.type,montant:this.montant,datedepense:this.datedepense})
+                .then(()=>{
+                       axios.get(this.website).then(response=>{this.liste = response.data})
+                })
+                this.testa=true
+            }
+      
+            this.errors = [];
+      
+            if (!this.name) {
+              this.errors["name"] = "Fenoina ilay anarany depense";
+
+            }
+            if (!this.motif) {
+              this.errors["motif"] = "Fenoina ilay motif";
+
+              }
+            if (!this.description) {
+            this.errors["description"] = "Fenoina ilay description";
+
+            }
+            if (!this.montant) {
+            this.errors["montant"] = "Fenoina ilay montant";
+
+            }
+            if (!this.datedepense) {
+              this.errors["datedepense"] = "Fenoina ilay datedepense";
+
+                }
+            e.preventDefault();
+           
+          }
+        ,
+		// ajouter(){
+		// 	  axios.post(this.website, {name: this.name,motif:this.motif,description:this.description,type:this.type,montant:this.montant,datedepense:this.datedepense})
+        //          .then(()=>{
+        //                 axios.get(this.website).then(response=>{this.liste = response.data})
+        //          })
+		// },
 		 del(id){
         	this.idSuppre=id
         },

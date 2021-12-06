@@ -50,8 +50,8 @@
                     <tbody>
                         <tr v-for="payement in liste" :key="payement.id" class="odd gradeX">
                             <!-- <td>{{payement.id}} </td> -->
-                            <td>{{payement.idprovision}} </td>
-                            <td>{{payement.approvision.appro.approfo.name}} </td>
+                            <td>{{payement.numfact}} </td>
+                            <td>{{payement.name}} </td>
                             <td>
                                 <a href="/"> {{payement.payee}}<i>Ar</i> </a>
                             </td>
@@ -59,7 +59,7 @@
                                 <span href="/"> {{payement.datepayement}}</span>
                             </td>
                             <td>
-                                <span href="/"> {{payement.dateEcheance}}  </span>
+                                <span href="/"> {{payement.date_echeance}}  </span>
                             </td>
                             <td>
                                 <span href="/"> {{payement.net}} <i>Ar</i></span>
@@ -70,9 +70,7 @@
                                 <i class="fa fa-phone"></i>
                             </a>
                             </a>
-                            <a class="btn btn-sm red" data-toggle="modal"  @click="sup(payement.id)" href="#suppre">Supprimer
-                                <i class="icon-trash"></i>
-                            </a>
+                         
                             </td>
                         </tr>
                     </tbody>

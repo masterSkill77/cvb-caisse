@@ -8,47 +8,70 @@ const db =require("../models/index");
 const { Op } = require('sequelize');
 const sequelize = require("sequelize");
 
-const all= async(req, res)=>{
 
-    const Payementfous = await Payementfou.findAll({
-        attributes:['id','payee','datepayement','dateEcheance','net','idprovision'],
-        group:[
-            'idprovision'
-        ],
-        order:[
-            ["id","DESC"]
-        ],
-        include:[
-            {
-                association:'approvision',
-                as:'approvision',
-                include:[
-                    {
-                        association:'produit',
-                        as:'produit',
-                        include:[
-                            {
-                                association:'intrants',
-                                as:'intrants',
-                            }
-                        ]
-                    },{
-                        association:'appro',
-                        as:'appro',
-                        include:[
-                            {
-                                association:'approfo',
-                                as:'approfo'
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    });
-    return res.json(Payementfous);
+const all= async(req, res)=>{
+    var sql=null
+       sql="SELECT  payementfous.id, payee, datepayement, date_echeance, net, idprovision as numfact ,fournisseurs.name from approfous, fournisseurs, payementfous, listeappros WHERE approfous.idfou=fournisseurs.id AND approfous.id=listeappros.idappro AND listeappros.idappro=payementfous.idprovision GROUP BY numfact ORDER BY id DESC"
+  
+    try{
+        db.sequelize.query(
+            sql,
+             { type: sequelize.QueryTypes.SELECT}
+             )
+        .then((date) => {
+            return res.status(200).json({date})
+        }) 
+    }
+    catch (error) {
+        console.log(error.message);
+        return res.status(500).json({error:error.message})
+    }
+
 
 }
+
+
+// const all= async(req, res)=>{
+
+//     const Payementfous = await Payementfou.findAll({
+//         attributes:['id','payee','datepayement','dateEcheance','net','idprovision'],
+//         group:[
+//             'idprovision'
+//         ],
+//         order:[
+//             ["id","DESC"]
+//         ],
+//         include:[
+//             {
+//                 association:'approvision',
+//                 as:'approvision',
+//                 include:[
+//                     {
+//                         association:'produit',
+//                         as:'produit',
+//                         include:[
+//                             {
+//                                 association:'intrants',
+//                                 as:'intrants',
+//                             }
+//                         ]
+//                     },{
+//                         association:'appro',
+//                         as:'appro',
+//                         include:[
+//                             {
+//                                 association:'approfo',
+//                                 as:'approfo'
+//                             }
+//                         ]
+//                     }
+//                 ]
+//             }
+//         ]
+//     });
+//     return res.json(Payementfous);
+
+// }
 
 
 const get = async(req, res)=>{

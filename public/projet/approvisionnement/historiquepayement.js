@@ -17,8 +17,9 @@ new Vue({
         // payement
         payee:"",
         net:"",
-        dateEcheance:"",
+        date_echeance:"",
         datepayement:"",
+        dateEcheance:"",
 
 
 
@@ -30,19 +31,21 @@ new Vue({
         },
         suppression(){
             axios.delete(this.website + this.idSuppre).then(() => {
-             axios.get(this.website).then(response => {this.liste = response.data})  
+                axios.get(this.website).then(({data})=>{ 
+                   this.liste=data.date})
          })
      },
      edit(payement){
         this.payeeEdit=payement.payee,
         this.datepayementEdit=payement.datepayement,
-        this.dateEcheanceEdit=payement.dateEcheance,
+        this.dateEcheanceEdit=payement.date_echeance,
         this.netEdit=payement.net,
         this.idEdit=payement.id
     },
     update(){
         axios.put(this.website + this.idEdit , {payee : this.payeeEdit,datepayement:this.datepayementEdit,dateEcheance:this.dateEcheanceEdit,net:this.netEdit}).then(() => {
-       axios.get(this.website).then(response => {this.liste = response.data})  
+            axios.get(this.website).then(({data})=>{ 
+               this.liste=data.date})
      })
     },
     // payee(){
@@ -55,8 +58,9 @@ new Vue({
     },
     
     mounted(){
-        axios.get(this.website).then(response=>{this.liste = response.data})
-        axios.get(this.website).then(response=>console.log(response.data))
+        axios.get(this.website).then(({data})=>{ 
+             console.log(this.liste=data.date)
+            this.liste=data.date})
         axios.get(this.listePanier).then(response=>{this.panier = response.data})
         axios.get(this.listePanier).then(response=>console.log(response.data))
 

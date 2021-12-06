@@ -21,7 +21,10 @@
                                     <i class="fa fa-user"></i>
                                 </span>
                                 <input v-model="payee=net" type="number" class="form-control input-circle-right" required placeholder="Ariary"> </div>
-                        </div>
+                                <p style="color: #fc0612;">
+                                    {{ errors.payee }}
+                                </p>
+                            </div>
                         <div class="form-group">
                             <label>Date de payement</label>
                             <div class="input-group">
@@ -29,7 +32,10 @@
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <input v-model="datepayement" type="date" class="form-control input-circle-right" placeholder="date de debut"> </div>
-                        </div>
+                                <p style="color: #fc0612;">
+                                    {{ errors.datepayement }}
+                                </p>
+                            </div>
                         <div class="form-group">
                             <label>Date de reste</label>
                             <div class="input-group">
@@ -37,7 +43,10 @@
                                     <i class="fa fa-phone"></i>
                                 </span>
                                 <input type="date" v-model="dateEcheance" class="form-control input-circle-right" placeholder="fin de payement"> </div>
-                        </div>
+                                <p style="color: #fc0612;">
+                                    {{ errors.dateEcheance }}
+                                </p>
+                            </div>
                         
                     </div>
                     <div class="form-actions">

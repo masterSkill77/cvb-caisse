@@ -1,8 +1,8 @@
 new Vue({
 	el:'#user',
 	data:{
-		website:'/users/',
-		ajou:'/signup',
+		website:'http://localhost:8091/users/',
+		ajou:'http://localhost:8091/signup',
         liste:{},
         username:"",
         lastname:"",

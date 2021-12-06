@@ -60,7 +60,6 @@
                         <td >{{fournisseur.contact}}</td>
                         <td >{{fournisseur.email}}</td>
                         <td><i title='Editer' class='fa fa-edit btn btn-sm btn-primary' @click="edit(fournisseur)"   class="btn btn-sm blue" data-toggle="modal" href="#modification"></i></td>
-                        <td><i title='supprimer' class='fa fa-trash btn btn-sm btn-danger' @click="del(fournisseur.id)" class="btn btn-sm red" data-toggle="modal" href="#suppre"></i></td>
                        </tr>
                     
                     </tbody>
@@ -89,7 +88,9 @@
                             <div class="col-md-9">
                                 <input type="text" v-model="name" class="form-control" placeholder="nom client...">
                                 <div class="form-control-focus"> </div>
-                                <span class="help-block">compter...</span>
+                                <p style="color: #fc0612;">
+                                    {{ errors.name }}
+                                </p>
                             </div>
                         </div>
                         <div class="form-group form-md-line-input has-success">
@@ -97,7 +98,9 @@
                             <div class="col-md-9">
                                 <input type="text" v-model="adress" class="form-control" placeholder="Adress...">
                                 <div class="form-control-focus"> </div>
-                                <span class="help-block">compter...</span>
+                                <p style="color: #fc0612;">
+                                    {{ errors.adress }}
+                                </p>
                             </div>
                         </div>
                         <div class="form-group form-md-line-input has-success">
@@ -105,7 +108,9 @@
                             <div class="col-md-9">
                                 <input type="number" v-model="contact" class="form-control" placeholder="0203049">
                                 <div class="form-control-focus"> </div>
-                                <span class="help-block">telephone...</span>
+                                <p style="color: #fc0612;">
+                                    {{ errors.contact }}
+                                </p>
                             </div>
                         </div>
                          <div class="form-group form-md-line-input has-success">
@@ -120,7 +125,8 @@
                         
                     </div>
                     <div class="modal-footer">
-                                <button type="button" @click="addclient" data-dismiss="modal" class="btn green"><i class="fa fa-save"></i> <span> Enregistrée </span></button>
+                                <button class="btn btn-info" v-if="test">Enregistrée avec succée</button>
+                                <button type="button" @click="addclient"  class="btn green"><i class="fa fa-save"></i> <span> Enregistrée </span></button>
                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal"><i class="fa fa-share"></i> <span> Annulle </span></button>
                             </div>
                             </div>
