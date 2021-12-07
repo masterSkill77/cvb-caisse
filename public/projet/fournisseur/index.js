@@ -5,9 +5,9 @@ new Vue({
           websearch:'/cherch/',
           searchfou:"",
           liste:{},
-          name:"",
-          adress:"",
-          contact:"",
+          name:null,
+          adress:null,
+          contact:null,
           email:"",
            nameEdit:"",
         adressEdit:"",
@@ -15,15 +15,47 @@ new Vue({
         emailEdit:"",
         idEdit:"",
         idSuppre:"",
+        errors:[],
 
         // serach
         nom:"",
         addr:"",
         contacta:"",
-        mail:""
+        mail:"",
+        test:false,
 
 	},
 	methods:{
+        
+        addclient: function (e) {
+            if (this.name && this.adress && this.contact ) {
+                axios.post(this.website, {name: this.name,adress:this.adress,contact:this.contact,email:this.email})
+                .then(()=>{
+                       axios.get(this.website).then(response=>{this.liste = response.data})
+                }) 
+                this.test=true
+                this.name=" "
+                this.adress=" "
+                this.contact=" "
+            }
+      
+            this.errors = [];
+      
+            if (!this.name) {
+              this.errors["name"] = "Fenoina ilay anarana";
+
+            }
+            if (!this.adress) {
+                this.errors["adress"] = "Fenoina ilay adress";
+
+              }
+            if (!this.contact) {
+                this.errors["contact"] = "Fenoina ilay contact";
+           
+            }
+            e.preventDefault();
+           
+          },
         search(){
             if(this.searchfou){
                 axios.get(this.websearch,{
@@ -42,12 +74,12 @@ new Vue({
             }
         }
         ,
-		 addclient(){
-            axios.post(this.website, {name: this.name,adress:this.adress,contact:this.contact,email:this.email})
-                 .then(()=>{
-                        axios.get(this.website).then(response=>{this.liste = response.data})
-                 })
-        },
+		//  addclient(){
+        //     axios.post(this.website, {name: this.name,adress:this.adress,contact:this.contact,email:this.email})
+        //          .then(()=>{
+        //                 axios.get(this.website).then(response=>{this.liste = response.data})
+        //          })
+        // },
          edit(fournisseur){
             this.nameEdit=fournisseur.name,
             this.adressEdit=fournisseur.adress,

@@ -37,6 +37,7 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                 <h4 class="modal-title">Ajouter un client</h4>
+                             
                             </div>
                             <div class="modal-body">
                              <form>
@@ -47,8 +48,11 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" v-model="name" class="form-control input-circle-right" required placeholder="Nom ..."> </div>
-                        </div>
+                                <input type="text" v-model="name" class="form-control input-circle-right"  placeholder="Nom ..."> </div>
+                                <p style="color: #fc0612;">
+                                    {{ errors.name }}
+                                </p>
+                            </div>
                         <div class="form-group">
                             <label>Adresse du client</label>
                             <div class="input-group">
@@ -56,7 +60,10 @@
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <input type="text" v-model="adress" class="form-control input-circle-right" placeholder="Address..."> </div>
-                        </div>
+                                <p style="color: #fc0612;">
+                                    {{ errors.adress }}
+                                </p>
+                            </div>
                         <div class="form-group">
                             <label>Contact</label>
                             <div class="input-group">
@@ -64,12 +71,15 @@
                                     <i class="fa fa-phone"></i>
                                 </span>
                                 <input type="number" v-model="contact" class="form-control input-circle-right" placeholder="0203040"> </div>
-                        </div>
+                                <p style="color: #fc0612;">
+                                    {{ errors.contact }}
+                                </p>
+                            </div>
                         
                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline sbold blue" data-dismiss="modal"  @click="addclient"><i class="fa fa-save"></i><span>Enregistrer</span> </button>
+                                <button type="button" class="btn btn-outline sbold blue"    @click="addclient"><i class="fa fa-save"></i><span>Enregistrer</span> </button>
                                 <button type="button" class="btn btn-outline sbold red" data-dismiss="modal"> <i class="fa fa-share">
                         </i> <span> Annuler </span></button>
                             </div>
@@ -88,6 +98,12 @@
                             </div>
                             <div class="modal-body">
                              <form>
+                                <p v-if="errormode.length">
+                                    <b>Fenoy ny banga azafady indrindra:</b>
+                                    <ul>
+                                    <li class="alert alert-danger" v-for="mod in errormode">{{ mod }}</li>
+                                    </ul>
+                                </p>
                              <div class="form-body">
                         <div class="form-group">
                             <label>type d payement</label>
@@ -95,13 +111,13 @@
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" v-model="mode" class="form-control input-circle-right" required placeholder="Mvola,Espece..."> </div>
+                                <input type="text" v-model="mode" class="form-control input-circle-right"  placeholder="Mvola,Espece..."> </div>
                         </div>                        
                     </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline sbold blue" data-dismiss="modal"  @click="addmode"><i class="fa fa-save"></i><span>Enregistrer</span> </button>
-                                <button type="button" class="btn btn-outline sbold red" data-dismiss="modal"> <i class="fa fa-share">
+                            <div class="modal-footer" >
+                                <button type="button"  class="btn btn-outline sbold blue"   @click="addmode"><i class="fa fa-save"></i><span>Enregistrer</span> </button>
+                                <button type="button"  class="btn btn-outline sbold red" data-dismiss="modal"> <i class="fa fa-share">
                         </i> <span> Annuler </span></button>
                             </div>
                         </div>
@@ -123,6 +139,9 @@
                                 <select  v-model="idcli" class="form-control" name="delivery">
                                 <option :key="list.id" :value="list.id" v-for="list in listecli">{{list.name}} </option>
                                 </select>
+                                <p style="color: #fc0612;">
+                                    {{ errors.idcli }}
+                                </p>
                          </div>
                         </div>
                         <div class="form-group">
@@ -133,6 +152,9 @@
                                 </span>
                                 <input  type="date"  v-model="datecom"class="form-control input-circle-right" placeholder="date..."> </div>
                         </div>
+                        <p style="color: #fc0612;">
+                            {{ errors.datecom }}
+                        </p>
                     </div>
                 </form>
                
@@ -141,13 +163,16 @@
                     <select v-model="idmode" class="form-control">
                         <option :key="mod.id" :value="mod.id" v-for="mod in modes" >{{mod.mode}} </option>
                     </select>
+                    <p style="color: #fc0612;">
+                        {{ errors.idmode }}
+                    </p>
                     <div>
                         <label for="">Remise</label>
                         <input type="number" class="form-control" v-model="remise"><span>
                     </div>
-                        <button type="button" @click="terminer" class="btn btn-success" ><a href="/pagepayement">                                                                                     
+                        <button type="button" v-if="test" @click="finaly" class="btn btn-success" ><a href="/pagepayement">                                                                                     
                         <i class="fa fa-share"></i> <span style="color: aliceblue"> Terminer avec facture</span></a></button>
-                        <button type="button" @click="tsisy" class="btn btn-danger" ><a href="/commandehisto">                                                                                     
+                        <button type="button" v-if="test" @click="tsisyfact" class="btn btn-danger" ><a href="/commandehisto">                                                                                     
                             <i class="fa fa-share"></i> <span style="color: aliceblue"> Terminer sans facturer </span></a></button>
                         
                         
@@ -170,7 +195,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-            <form role="form">
+            <form role="form"  >
                     <div class="form-body">
                         <div class="form-group">
                             <label>Nom du produit</label>
@@ -181,6 +206,9 @@
                                 <select @change="showStock(idpro)" v-model="idpro" class="form-control" name="delivery">
                                     <option :key="list.id" :value="list" v-for="list in produitliste">{{list.name}}</option>
                                 </select>
+                                <p style="color: #fc0612;">
+                                    {{ errors.idpro }}
+                                </p>
 
                          </div>
                         <span v-if="stockFaible">Stock en detail : {{stockFaible}} {{units}}</span><br>
@@ -192,8 +220,11 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-date"></i>
                                 </span>
-                                <input  type="number" v-model="qt"  placeholder="1,2..." class="form-control input-circle-right"> </div>
+                                <input   type="number" v-model="qt"  placeholder="1,2..." class="form-control input-circle-right"> </div>
                         </div>
+                        <p style="color: #fc0612;">
+                            {{ errors.qt }}
+                        </p>
                     </div>
                     <div class="form-group">
                             <label>Conditionnement</label>
@@ -219,7 +250,7 @@
                         </div>
                        
                     <div class="form-actions">
-                        <button  class="btn blue" @click="next" >                                                                                                                                 
+                        <button  type="button" @click="req"  class="btn blue" >                                                                                                                                 
                         <i class="fa fa-save"></i> <span> Suivant </span></button>
                     </div>
                 </form>

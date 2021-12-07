@@ -7,12 +7,13 @@ new Vue({
         search:'/intrantrecherch',
         intrasy:'',
         listeIntrant : {},
-        nomIntrant : "",
+        nomIntrant : null,
         idSuppression : "",
         intrantEditName : "",
         intrantEdit : "",
         idEdit : "",
         intra:"",
+        errors: [],
     },
 computed:{
     
@@ -32,12 +33,12 @@ computed:{
                 axios.get(this.website).then(response => {this.listeIntrant = response.data})                
             }
         },
-        addIntrant(){
-        axios.post(this.website , {name : this.nomIntrant}).then(() => {
-                axios.get(this.website).then(response => {this.listeIntrant = response.data})
-            }).catch(erreur=>this.listeIntrant=[{name:"cette intrant deja existee"}])
+        // addIntrant(){
+        // axios.post(this.website , {name : this.nomIntrant}).then(() => {
+        //         axios.get(this.website).then(response => {this.listeIntrant = response.data})
+        //     }).catch(erreur=>this.listeIntrant=[{name:"cette intrant deja existee"}])
            
-        },
+        // },
         updateThis(){
           axios.put(this.website + this.idEdit , {name : this.intrantEditName}).then(() => {
               axios.get(this.website).then(response => {this.listeIntrant = response.data})  
@@ -56,18 +57,26 @@ computed:{
             this.idSuppression = id
         },
         deleteIntrant(){
-         
-
             axios.delete(this.website + this.idSuppression).then(() => {
                 axios.get(this.website).then(response => {this.listeIntrant = response.data})  
             })
         },
-        // intra(){
-        // axios.get(this.search,{intrasy:this.intrasy}).then(response=>{
-        //     this.listeIntrant=response.data
-        //     console.log( this.listeIntrant=response.data)
-        // })
-        // }
+
+        checkForm: function (e) {
+            if (this.nomIntrant ) {
+                axios.post(this.website , {name : this.nomIntrant}).then(() => {
+                        axios.get(this.website).then(response => {this.listeIntrant = response.data})
+                    }).catch(erreur=>this.listeIntrant=[{name:"cette intrant deja existee"}])
+            }
+            
+            this.errors = [];
+            if (!this.nomIntrant) {
+              this.errors["nomIntrant"] = "Fenoina ilay categorie";
+            }
+            e.preventDefault();
+           
+          }
+        
     },
     mounted(){
         axios.get(this.website).then(response => {this.listeIntrant = response.data})

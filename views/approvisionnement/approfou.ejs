@@ -36,6 +36,12 @@
                 <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
+                            <p v-if="erfou.length">
+                                <b>Fenoy ny banga azafady:</b>
+                                <ul>
+                                <li class="alert alert-danger" v-for="f in erfou">{{ f }}</li>
+                                </ul>
+                            </p>
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                 <h4 class="modal-title">Ajout fournisseur</h4>
@@ -86,6 +92,12 @@
                 <div class="portlet-body form">
                 <form role="form">
                     <div class="form-body">
+                        <p v-if="errofou.length">
+                            <b>Fenoy ny banga azafady:</b>
+                            <ul>
+                            <li class="alert alert-danger" v-for="foum in errofou">{{ foum }}</li>
+                            </ul>
+                        </p>
                         <div class="form-group">
                             <label>Nom Fournissseur</label>
                             <div class="input-group">
@@ -95,6 +107,9 @@
                                  <select  v-model="idfou" class="form-control" name="delivery">
                                 <option :key="list.id" :value="list.id" v-for="list in listefou">{{list.name}}</option>
                             </select>
+                            <p style="color: #fc0612;">
+                                {{ errors.idfou }}
+                            </p>
                          </div>
                         </div>
                         <div class="form-group">
@@ -104,7 +119,10 @@
                                     <i class="fa fa-date"></i>
                                 </span>
                                 <input  type="date" v-model="dateappro" class="form-control input-circle-right" placeholder="date..."> </div>
-                        </div>
+                                <p style="color: #fc0612;">
+                                    {{ errors.dateappro }}
+                                </p>
+                            </div>
                     </div>
                 </form>
             </div>
@@ -125,6 +143,7 @@
             <div class="portlet-body">
             <form role="form">
                     <div class="form-body">
+                      
                         <div class="form-group">
                             <label>Nom produit</label>
                             <div class="input-group">
@@ -134,6 +153,9 @@
                               <select v-model="idpro" class="form-control" name="delivery">
                                 <option :key="prod.id" :value="prod" v-for="prod in produitliste">{{prod.name}}</option>
                             </select>
+                            <p style="color: #fc0612;">
+                                {{ errors.idpro }}
+                            </p>
                          </div>
                         </div>
                         <div class="form-group">
@@ -143,7 +165,10 @@
                                     <i class="fa fa-date"></i>
                                 </span>
                                 <input  type="number" v-model="qt" placeholder="1,2..." class="form-control input-circle-right"> </div>
-                        </div>
+                                <p style="color: #fc0612;">
+                                    {{ errors.qt }}
+                                </p>
+                            </div>
                     </div>
                     <div class="form-group">
                             <label>type de choix</label>
@@ -158,7 +183,7 @@
                     <div class="form-actions">
                         <button @click.prevent="next" class="btn blue" >                                                                                                                                   
                         <i class="fa fa-save"></i> <span> Suivant </span></button>
-                        <button type="button" v-if="listecomm" @click="terminer"  class="btn default">
+                        <button v-if="te" type="button" v-if="listecomm" @click="terminer"  class="btn default">
                             <a href="/appropay">                                                                         
                         <i class="fa fa-share" ></i> <span> Terminer </span></a>
                     </button>

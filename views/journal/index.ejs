@@ -71,7 +71,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr  v-for="commande in cli" :key="commande.id" class="odd gradeX">
+                        <tr  v-for="commande in cli"  class="odd gradeX">
                             <td>
                                 <a href="/"> {{commande.id}} </a>
                             </td>
@@ -186,7 +186,7 @@
                     </thead>
                     <tbody>
                            
-                        <tr v-for="depense in liste" :key="depense.id"  class="odd gradeX">
+                        <tr v-for="depense in liste"   class="odd gradeX">
                       
                             <td>
                                 <a> {{depense.id}} </a>
@@ -273,7 +273,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <tr v-for="approv in fou" :key="approv.id"  class="odd gradeX">
+                            <tr v-for="approv in fou"   class="odd gradeX">
                            <td>
                                 <a href="/"> {{approv.id}} </a>
                             </td>
@@ -349,7 +349,7 @@
                             <th> prix unitaire</th>
                             <th> mode de payement</th>
                             <th> net </th>
-                            <th> payee </th>
+                            <th> payée </th>
                             <th> date de payement </th>
                             <th> date d'echeance </th>
                            
@@ -357,7 +357,7 @@
                     </thead>
                     <tbody>
                            
-                        <tr v-for="sound in rest" :key="sound.id"  class="odd gradeX">
+                        <tr v-for="sound in rest"   class="odd gradeX">
                       
                             <td>
                                 <a> {{sound.numfact}} </a>
@@ -442,7 +442,7 @@
                     </thead>
                     <tbody>
                            
-                        <tr v-for="produit in rupstock" :key="produit.id" class="odd gradeX">
+                        <tr v-for="produit in rupstock"  class="odd gradeX">
                             <td>
                                 <a href="#"> {{produit.id}} </a>
                             </td>
