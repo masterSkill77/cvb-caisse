@@ -45,6 +45,7 @@ new Vue({
                  axios.get(this.website).then(response => {this.liste = response.data})  
     
                 })
+                 window.location.replace("/historiquepayement")
             }
       
             this.errors = [];
