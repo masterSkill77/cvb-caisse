@@ -66,7 +66,7 @@ computed:{
             if (this.nomIntrant ) {
                 axios.post(this.website , {name : this.nomIntrant}).then(() => {
                         axios.get(this.website).then(response => {this.listeIntrant = response.data})
-                    }).catch(erreur=>this.listeIntrant=[{name:"cette intrant deja existee"}])
+                    }).catch(erreur=>this.listeIntrant=[{name:"Cet intrant existe déjà"}])
                     return false;
             }
             this.errors = [];
@@ -74,7 +74,7 @@ computed:{
               this.errors["nomIntrant"] = "Fenoina ilay categorie";
               return false
             }
-            window.location.replace("/intrants")   
+            window.location.replace("/intrant")   
           }
         
     },

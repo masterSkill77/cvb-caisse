@@ -97,7 +97,7 @@ new Vue({
         },
         update(){
                axios.put(this.website + this.idEdit , {name : this.nameEdit,adress:this.adressEdit,contact:this.contactEdit,email:this.emailEdit}).then(() => {
-                    window.location.replace("/clients/")
+                    window.location.replace("/client/")
                     // this.getList()
 
             })

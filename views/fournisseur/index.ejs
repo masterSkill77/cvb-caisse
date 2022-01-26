@@ -64,7 +64,11 @@
               :search="search"
               loading
               loading-text="Loading... Please wait"
-            ></v-data-table>
+            >
+            <template v-slot:item.action="{item}">
+                <i title='Editer' class='fa fa-edit btn btn-sm btn-primary' @click="edit(item)"   class="btn btn-sm blue" data-toggle="modal" href="#modification"></i>
+            </template>
+        </v-data-table>
           </v-card>
 
 
