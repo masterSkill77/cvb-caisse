@@ -1,52 +1,79 @@
 <%- include("../pages/header") %>
 <div id="histo">
+    <v-app>
     <div class="page-bar">
-    <ul class="page-breadcrumb">
-        <li>
-            <a href="/dashboard">Accueil</a>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>historique</span>
-        </li>
-    </ul>
-    <div class="page-toolbar">
-        <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
-            <i class="icon-calendar"></i>&nbsp;
-            <span class="thin uppercase hidden-xs"></span>&nbsp;
-            <i class="fa fa-angle-down"></i>
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="/dashboard">Accueil</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>historique</span>
+            </li>
+        </ul>
+        <div class="page-toolbar">
+            <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body"
+                data-placement="bottom" data-original-title="Change dashboard date range">
+                <i class="icon-calendar"></i>&nbsp;
+                <span class="thin uppercase hidden-xs"></span>&nbsp;
+                <i class="fa fa-angle-down"></i>
+            </div>
         </div>
     </div>
-</div>
-<h3 class="page-title"> Liste des commandes passées
-    <!-- <small>enregistree</small> -->
-</h3>
+    <h3 class="page-title"> Liste des commandes passées
+        <!-- <small>enregistree</small> -->
+    </h3>
 
-<!-- liste de historiaue du pqyement -->
+    <!-- liste de historiaue du pqyement -->
 
-        <div class="col-md-&é">
+    <div class="col-md-&é">
         <!-- BEGIN CONDENSED TABLE PORTLET-->
         <div class="portlet box yellow">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-picture"></i>Historique des commandes </div>
                 <div class="tools">
-                
-                <a href="javascript:;" class="btn btn-warning btn-sm">
+
+                    <a href="javascript:;" class="btn btn-warning btn-sm">
                         <i class="fa fa-print"></i> Excel </a>
                     <a href="javascript:;" class="btn btn-danger btn-sm">
-                    <i class="fa fa-print"></i> Pdf </a>
+                        <i class="fa fa-print"></i> Pdf </a>
                     <a href="javascript:;" class="collapse"> </a>
                     <a href="javascript:;" class="remove"> </a>
-                    
+
                 </div>
             </div>
-            <div class="portlet-body"  style="height:460px;overflow:scroll;box-shadow: 0px 20px 30px;">
+
+            <v-card>
+                <v-card-title>
+                  <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details
+                  ></v-text-field>
+                </v-card-title>
+                <v-data-table
+                  :headers="headers"
+                  :items="liste"
+                  :search="search"
+                >
+                <!-- <template v-slot={props}>
+                    <div v-if="props.headers.value == 'action'">
+                        <a class="btn btn-sm blue" id="editerrr" data-toggle="modal" @click="edit(props.items)"  href="#modification"><i class="fa fa-edit"></i></a>
+     
+                    </div>
+                </template> -->
+            <!-- </v-data-table>
+              </v-card>
+
+            <div class="portlet-body" style="height:460px;overflow:scroll;box-shadow: 0px 20px 30px;">
                 <div class="table-scrollable">
                     <table class="table table-condensed striped table-hover">
                         <thead>
                             <tr>
-                                 <th> Numéro de facture </th>
+                                <th> Numéro de facture </th>
                                 <th> client </th>
                                 <th> intrants </th>
                                 <th> produits </th>
@@ -57,64 +84,67 @@
                                 <th> mode de payement </th>
                                 <th> date de commande</th>
                                 <th> sous total</th>
-                                <!-- <th colspan="2" style="text-align:center;"> Action </th> -->
+                                <th colspan="2" style="text-align:center;"> Action </th> 
                             </tr>
                         </thead>
                         <tbody>
-                                <!-- :key="commande.id" -->
-                            <tr  v-for="commande in liste"  class="odd gradeX">
+                             :key="commande.id" 
+                            <tr v-for="commande in liste" class="odd gradeX">
                                 <td>
                                     <a href="/"> {{commande.id}} </a>
                                 </td>
-                                 <td>
+                                <td>
                                     <span href="/">{{commande.cli}} </span>
                                 </td>
                                 <td>
-                                        <span  href="/"> {{commande.category}} </span>
-                                    </td>
-                                <td>
-                                        <span  href="/"> {{commande.name}} </span>
-                                 </td>
-                               
-                               <td>
-                                        <span href="/">{{commande.unite}}</span>
-                                    </td> 
-                                <td>
-                                        <span href="/">{{commande.qt}} </span>
-                                    </td>
-    
-                                <td> <span v-if="commande.condition == 1">Gros</span><span v-else>Details</span> </td>
-                                <td> <span v-if="commande.condition == 0">{{commande.pudetail}}</span><span v-else>{{commande.pugros}} </span> Ar</td>
-                                <td>     <span href="/">{{commande.mode}}</span></td>
-                                <td>
-                                <span href="/">{{commande.datecom}}</span>
+                                    <span href="/"> {{commande.category}} </span>
                                 </td>
-                                <!-- <td> <span v-if="commande.condition == 1">{{commande.gros *commande.qt}}</span></td> -->
-                                <td> <span v-if="commande.condition == 0">{{commande.pudetail *commande.qt}}</span><span v-else>{{commande.pugros * commande.qt}}</span> Ar</td>
-    <!--                            
                                 <td>
-                                <a class="btn btn-sm blue" data-toggle="modal" href="#modification">regle
-                                    <i class="fa fa-phone"></i>
-                                </a>
-                                </a>
-                                <a class="btn btn-sm red" data-toggle="modal" href="#suppre">Supprimer
-                                    <i class="icon-trash"></i>
-                                </a>
-                                <a class="btn btn-sm yellow" data-toggle="modal" href="#suppre">Voir
-                                    <i class="icon-check"></i>
-                                </a>
-                                </td> -->
+                                    <span href="/"> {{commande.name}} </span>
+                                </td>
+
+                                <td>
+                                    <span href="/">{{commande.unite}}</span>
+                                </td>
+                                <td>
+                                    <span href="/">{{commande.qt}} </span>
+                                </td>
+
+                                <td> <span v-if="commande.condition == 1">Gros</span><span v-else>Details</span> </td>
+                                <td> <span v-if="commande.condition == 0">{{commande.pudetail}}</span><span
+                                        v-else>{{commande.pugros}} </span> Ar</td>
+                                <td> <span href="/">{{commande.mode}}</span></td>
+                                <td>
+                                    <span href="/">{{commande.datecom}}</span>
+                                </td>
+                                <td> <span v-if="commande.condition == 1">{{commande.gros *commande.qt}}</span></td> 
+                                <td> <span v-if="commande.condition == 0">{{commande.pudetail *commande.qt}}</span><span
+                                        v-else>{{commande.pugros * commande.qt}}</span> Ar</td>
+                                                             
+                                <td>
+                                    <a class="btn btn-sm blue" :href="'/factureapres/' +commande.id">Facturer
+                                        <i class="fa fa-phone"></i>
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
+            <v-card>
+                <v-card-title>
+                    <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line
+                        hide-details></v-text-field>
+                </v-card-title>
+                <v-data-table loading loading-text="Loading data" :headers="headers" :items="liste" :search="search"></v-data-table>
+            </v-card>
         </div>
         <!-- END CONDENSED TABLE PORTLET-->
     </div>
+</v-app>
 </div>
 
-    <%- include("../pages/footer",{
+<%- include("../pages/footer",{
         script:`
         <script src="../assets/projet/commande/historique.js"></script>
         `
