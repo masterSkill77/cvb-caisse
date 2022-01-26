@@ -68,24 +68,7 @@ new Vue({
             }
             
             window.location.replace("/fournisseur")
-          },
-        search(){
-            if(this.searchfou){
-                axios.get(this.websearch,{
-                    params:{
-                        nom:this.searchfou,
-                        addr:this.searchfou,
-                        contacta:this.searchfou,
-                        mail:this.searchfou
-                    }
-                }).then(({data}) => {
-                    this.liste = data.date
-                })
-            }else{
-              axios.get(this.website).then(response=>{this.liste = response.data})
-
-            }
-        }
+          }
         ,
 		//  addclient(){
         //     axios.post(this.website, {name: this.name,adress:this.adress,contact:this.contact,email:this.email})

@@ -63,8 +63,6 @@
               :headers="headers"
               :items="liste"
               :search="searchproduit"
-              loading
-              loading-text="Loading... Please wait"
               >
             <template v-slot:item.action={item}>
                     <a class="btn btn-sm blue" id="editerrr" data-toggle="modal" @click="edit(props.items)"  href="#modification"><i class="fa fa-edit"></i></a>
