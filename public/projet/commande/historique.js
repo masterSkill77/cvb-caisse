@@ -66,7 +66,7 @@ new Vue({
             console.log(this.liste);
             this.liste.map((commande) => {
                 commande.conditionnement = (commande.condition == 1) ? 'Gros' : 'Détail';
-                commande.prixVente = (commande.condition == 0) ? commande.pudetail ? commande.pugros;
+                commande.prixVente = (commande.condition == 0) ? commande.pudetail : commande.pugros;
                 commande.sousTotal = (commande.condition == 0) ? (commande.pudetail * commande.qt) : (commande.pugros * commande.qt)
             })
         })
