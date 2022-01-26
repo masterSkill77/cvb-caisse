@@ -1,12 +1,25 @@
 new Vue({
     el:'#app',
     data:{
+        headers: [
+            {
+              text: 'id',
+              align: 'start',
+              filterable: false,
+              value: 'id',
+            },
+            { text: 'Nom', value: 'name' },
+            { text: 'Action', value: 'action',filterable:false },
+            // { text: 'Contact', value: 'contact' },
+            // { text: 'Email', value: 'email' },
+            // { text: '', value: 'iron' },
+        ],
         name:'',
-        searchQuery: '',
+
         website:'/intrants/',
-        search:'/intrantrecherch',
+        search:'',
         intrasy:'',
-        listeIntrant : {},
+        listeIntrant : [],
         nomIntrant : null,
         idSuppression : "",
         intrantEditName : "",
@@ -19,20 +32,7 @@ computed:{
     
 },
     methods:{
-        searchIntrant(){
-            if(this.searchQuery){
-                axios.get(this.search , {
-                    params : {
-                        intrasy : this.searchQuery
-                    }
-                }).then((res) => {
-                    this.listeIntrant = res.data
-                })
-            }
-            else{
-                axios.get(this.website).then(response => {this.listeIntrant = response.data})                
-            }
-        },
+        
         // addIntrant(){
         // axios.post(this.website , {name : this.nomIntrant}).then(() => {
         //         axios.get(this.website).then(response => {this.listeIntrant = response.data})
@@ -41,8 +41,8 @@ computed:{
         // },
         updateThis(){
           axios.put(this.website + this.idEdit , {name : this.intrantEditName}).then(() => {
-              axios.get(this.website).then(response => {this.listeIntrant = response.data})  
-            })
+                window.location.replace("/intrants/")
+        })
           
         },
         displayData(intrant){
@@ -67,33 +67,24 @@ computed:{
                 axios.post(this.website , {name : this.nomIntrant}).then(() => {
                         axios.get(this.website).then(response => {this.listeIntrant = response.data})
                     }).catch(erreur=>this.listeIntrant=[{name:"cette intrant deja existee"}])
+                    return false;
             }
-            
             this.errors = [];
             if (!this.nomIntrant) {
               this.errors["nomIntrant"] = "Fenoina ilay categorie";
+              return false
             }
-            e.preventDefault();
-           
+            window.location.replace("/intrants")   
           }
         
     },
     mounted(){
-        axios.get(this.website).then(response => {this.listeIntrant = response.data})
-    }
+        axios.get(this.website).then(response => {
+            this.listeIntrant = response.data;
+            this.listeIntrant.map((i) => {
+                i.action = ''
+            })
+        })
+    },
+    vuetify : new Vuetify()
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

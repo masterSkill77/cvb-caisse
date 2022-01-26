@@ -1,6 +1,19 @@
 new Vue({
     el:'#cli',
     data:{
+        headers: [
+            {
+              text: 'id',
+              align: 'start',
+              filterable: false,
+              value: 'id',
+            },
+            { text: 'Nom', value: 'name' },
+            { text: 'Adresse', value: 'adress' },
+            { text: 'Contact', value: 'contact' },
+            { text: 'Email', value: 'email' },
+            { text: 'Action', value: 'action' },
+        ],
         website:'/clients/',
         liste:[],
         errors:[],
@@ -38,15 +51,17 @@ new Vue({
             if (!this.name) {
           
               this.errors["name"] = "Fenoina ilay nom";
+                return false;
             }
             if (!this.adress) {
               this.errors["adress"] = "Fenoina ilay adress";
-                
+              return false;
               }
             if (!this.contact) {
                 this.errors["contact"] = "Fenoina ilay contact";
+                return false;
             }
-            e.preventDefault();
+            window.location.replace('/clients')
            
           }
         ,
@@ -82,7 +97,9 @@ new Vue({
         },
         update(){
                axios.put(this.website + this.idEdit , {name : this.nameEdit,adress:this.adressEdit,contact:this.contactEdit,email:this.emailEdit}).then(() => {
-                   this.getList()
+                    window.location.replace("/clients/")
+                    // this.getList()
+
             })
         },
         del(id){
@@ -94,12 +111,18 @@ new Vue({
             })
         },
         getList(){
-                axios.get(this.website).then(response=>{this.liste = response.data})
+                axios.get(this.website).then(response=>{
+                    this.liste = response.data
+                    this.liste.map(c => {
+                        c.action = ''
+                    })
+                })
         }
 
     },
     mounted(){
         // axios.get(this.website).then(response=>{this.liste = response.data})
         this.getList()
-        }
+        },
+        vuetify : new Vuetify()
 })

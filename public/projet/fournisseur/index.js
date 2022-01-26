@@ -1,10 +1,23 @@
 new Vue({
 	el:'#fou',
 	data:{
+        headers: [
+            {
+              text: 'ID',
+              align: 'start',
+              filterable: false,
+              value: 'id',
+            },
+            { text: 'Nom', value: 'name' },
+            { text: 'Adresse', value: 'adress' },
+            { text: 'Contact', value: 'contact' },
+            { text: 'Email', value: 'email' },
+            // { text: '', value: 'iron' },
+        ],
 		  website:'/fournisseurs/',
           websearch:'/cherch/',
-          searchfou:"",
-          liste:{},
+          search:"",
+          liste:[],
           name:null,
           adress:null,
           contact:null,
@@ -43,18 +56,18 @@ new Vue({
       
             if (!this.name) {
               this.errors["name"] = "Fenoina ilay anarana";
-
+                return false;
             }
             if (!this.adress) {
                 this.errors["adress"] = "Fenoina ilay adress";
-
+                return false;
               }
             if (!this.contact) {
                 this.errors["contact"] = "Fenoina ilay contact";
-           
+                return false;
             }
-            e.preventDefault();
-           
+            
+            window.location.replace("/fournisseur")
           },
         search(){
             if(this.searchfou){
@@ -104,5 +117,6 @@ new Vue({
 	 mounted(){
         axios.get(this.website).then(response=>{this.liste = response.data})
         // axios.get(this.website).then(response=>console.log(response.data))
-    }
+    },
+    vuetify : new Vuetify()
 })
