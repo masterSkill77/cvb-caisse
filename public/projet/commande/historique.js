@@ -1,11 +1,18 @@
 new Vue({
     el:"#histo",
     data:{
-        headers: [{
-            text: 'id',
+        headers: [
+        // {
+        //     text: 'id',
+        //     align: 'start',
+        //     filterable: false,
+        //     value: 'id',
+        // },
+        {
+            text: 'Num Facture',
             align: 'start',
             filterable: false,
-            value: 'id',
+            value: 'numfacture',
         },
         {
             text: 'Client',
@@ -65,6 +72,7 @@ new Vue({
             this.liste=response.data.date;
             console.log(this.liste);
             this.liste.map((commande , index) => {
+                commande.numfacture = commande.id;
                 commande.id = index;
                 commande.conditionnement = (commande.condition == 1) ? 'Gros' : 'Détail';
                 commande.prixVente = (commande.condition == 0) ? commande.pudetail : commande.pugros;
