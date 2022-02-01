@@ -64,7 +64,8 @@ new Vue({
         axios.get(this.website).then(response=>{
             this.liste=response.data.date;
             console.log(this.liste);
-            this.liste.map((commande) => {
+            this.liste.map((commande , index) => {
+                commande.id = index;
                 commande.conditionnement = (commande.condition == 1) ? 'Gros' : 'Détail';
                 commande.prixVente = (commande.condition == 0) ? commande.pudetail : commande.pugros;
                 commande.sousTotal = (commande.condition == 0) ? (commande.pudetail * commande.qt) : (commande.pugros * commande.qt)
