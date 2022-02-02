@@ -61,7 +61,7 @@ new Vue({
                 this.errors["contact"] = "Fenoina ilay contact";
                 return false;
             }
-            window.location.replace('/clients')
+            window.location.replace('/client')
            
           }
         ,

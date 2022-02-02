@@ -41,7 +41,7 @@ computed:{
         // },
         updateThis(){
           axios.put(this.website + this.idEdit , {name : this.intrantEditName}).then(() => {
-                window.location.replace("/intrants/")
+                window.location.replace("/intrant/")
         })
           
         },
