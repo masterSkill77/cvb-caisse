@@ -89,8 +89,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                             :key="commande.id" 
-                            <tr v-for="commande in liste" class="odd gradeX">
+                              
+                            <tr :key="commande.id" v-for="commande in liste" class="odd gradeX">
                                 <td>
                                     <a href="/"> {{commande.id}} </a>
                                 </td>
@@ -132,13 +132,7 @@
                     </table>
                 </div>
             </div>
-            <v-card>
-                <v-card-title>
-                    <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line
-                        hide-details></v-text-field>
-                </v-card-title>
-                <v-data-table loading loading-text="Loading data" :headers="headers" :items="liste" :search="search"></v-data-table>
-            </v-card>
+            
         </div>
         <!-- END CONDENSED TABLE PORTLET-->
     </div>
