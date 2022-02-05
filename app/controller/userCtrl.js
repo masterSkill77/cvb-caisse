@@ -1,5 +1,4 @@
 const { User } = require('../models/index');
-const bycript = require("bcryptjs")
 const webtoken = require("jsonwebtoken")
 require("dotenv").config()
 const { Op } = require('sequelize');

@@ -14,8 +14,6 @@
     "angular-express": "^1.0.1",
     "api": "^2.5.0",
     "axios": "^0.21.1",
-    "bcrypt": "^5.0.0",
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "chart.js": "^3.3.2",
     "chartjs": "^0.3.24",
@@ -58,7 +56,7 @@
     "pdfkit": "^0.12.1",
     "posh-git": "0.0.9",
     "pug": "^3.0.0",
-    "puppeteer": "^10.0.0",
+
     "query-string": "^6.13.8",
     "req-flash": "0.0.3",
     "rest": "^2.0.0",

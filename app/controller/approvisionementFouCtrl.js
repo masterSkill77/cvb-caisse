@@ -200,8 +200,6 @@ const datediff = async(req, res)=>{
     
 }
 const addapprovisionnfinal =async(req,res)=>{
-  
-   
         const data={
             payee:req.body.payee,
             datepayement:req.body.datepayement,

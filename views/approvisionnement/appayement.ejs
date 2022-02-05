@@ -6,7 +6,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-comments"></i>Ajout des produit </div>
+                    <i class="fa fa-comments"></i>Paiement </div>
                 <div class="tools">
                     <a href="javascript:;" class="remove"> </a>
                 </div>
@@ -15,12 +15,12 @@
             <form role="form">
                     <div class="form-body">
                         <div class="form-group">
-                            <label>Payement</label>
+                            <label>Paiement</label>
                             <div class="input-group">
                                 <span class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input v-model="payee=net" type="number" class="form-control input-circle-right" required placeholder="Ariary"> </div>
+                                <input v-model="payee=net" type="number" class="form-control input-circle-right" required placeholder="Ariary"></div>Ariary
                                 <p style="color: #fc0612;">
                                     {{ errors.payee }}
                                 </p>
@@ -64,7 +64,7 @@
         <div class="portlet box yellow">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-picture"></i>Liste de produit commande </div>
+                    <i class="fa fa-picture"></i>Liste des produits commandés </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse"> </a>
                     <a href="javascript:;" class="remove"> </a>
@@ -90,23 +90,29 @@
                                 <td> {{listes.produit.name}} </td>
                                 <td> {{listes.produit.unite}} </td>
                                 <td> {{listes.qt}} </td>
-                                <td> {{listes.produit.puvente}} <em>ariary</em> </td>
                                 <td> <span v-if="listes.condition == 1">Gros</span><span v-else>Details</span> </td>
+                                <!-- <td> {{listes.produit.puvente}} <em>ariary</em> </td> -->
+                                
                                 <td><span v-if="listes.condition == 1">{{listes.produit.puvente}}</span><span v-else>{{listes.produit.puvente}}</span></td>
                                 <td><span v-if="listes.condition == 1">{{listes.produit.puvente * listes.qt}}</span><span v-else>{{listes.produit.puvente* listes.qt}}</span> Ar</td>
                             
                           </tr>
-                            
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         </tbody>
                         <footer>
                         <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align:center;font-size:20px;"><strong><i class="fa fa-shopping-cart"></i> Total :</i> </strong></td>
-                        <td>{{net}} Ariary</td>
+
+                        <td style="text-align:right;" colspan="6"><strong><i class="fa fa-shopping-cart"></i> Total :</i> </strong></td>
+                        <td colspan="2">{{net}} Ariary</td>
                         </tr>
                         </footer>
                     </table>

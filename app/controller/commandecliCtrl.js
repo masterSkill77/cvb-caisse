@@ -27,6 +27,7 @@ const addCommande = async (req, res) => {
         commandeClientList.push(req.body.data)
     } else {
         pushed = false;
+        
         for (let intrant in commandeClientList) {
             if (commandeClientList[intrant].produits.id == req.body.data.produits.id) {
                 if (req.body.data.condition == commandeClientList[intrant].condition) {

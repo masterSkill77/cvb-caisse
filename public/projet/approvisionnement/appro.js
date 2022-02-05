@@ -34,6 +34,18 @@ new Vue({
 	computed:{
 		netApayer(){
 			return this.netPayer
+		},
+
+		terminate(){
+			if((this.listecomm).length == 0 || (this.dateappro == null) || (this.idfou == null))
+				return false;
+			else
+				return true;
+		}
+	},
+	watch : {
+		terminate(val){
+			console.log(val);
 		}
 	},
 	methods:{		
@@ -70,8 +82,8 @@ new Vue({
 				axios.post(this.createAppro, {data:body})
 				axios.get(this.panier).then(res=>{
 					this.listecomm=res.data
-				}) 
-				window.location.replace("/appropay")
+					window.location.replace("/appropay")
+				})
 			}
       
             this.errors = [];
@@ -81,7 +93,7 @@ new Vue({
             }
 			if (!this.dateappro) {
 				this.errors["dateappro"] = "Fenoina ilay date approvision";
-			  }
+			}
             e.preventDefault();
            
           }
@@ -115,7 +127,7 @@ new Vue({
 					this.listecomm=	data
 					this.netPayer=0
 					for(let i=0 ;i <this.listecomm.length ; i++){
-						this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.pudetail * this.listecomm[i].qt) : (this.listecomm[i].produit.pugros * this.listecomm[i].qt)	
+						this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.puvente * this.listecomm[i].qt) : (this.listecomm[i].produit.puvente * this.listecomm[i].qt)	
 					}
 				// })
 			})
@@ -123,7 +135,13 @@ new Vue({
 			
 	
 		getPanierList(){
-			axios.get(this.panier).then(res=>{this.listecomm=res.data});
+			axios.get(this.panier).then(res=>{
+				this.listecomm=res.data
+				this.netPayer=0
+				for(let i=0 ;i <this.listecomm.length ; i++){
+					this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.pudetail * this.listecomm[i].qt) : (this.listecomm[i].produit.pugros * this.listecomm[i].qt)	
+				}
+			});
 		}
 	
 
@@ -135,6 +153,10 @@ new Vue({
         axios.get(this.produit).then(response=>{this.produitliste = response.data})
 		axios.get(this.panier).then(response=>{
 			this.listecomm=response.data
+			this.netPayer=0
+			for(let i=0 ;i <this.listecomm.length ; i++){
+				this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.pudetail * this.listecomm[i].qt) : (this.listecomm[i].produit.pugros * this.listecomm[i].qt)	
+			}
 			// this.netPayer=0
 			// for(let i=0 ;i <this.listecomm.length ; i++){
 			// 	this.netPayer +=(this.listecomm[i].condition==0) ? (this.listecomm[i].produit.puvente * this.listecomm[i].qt) : (this.listecomm[i].produit.puvente * this.listecomm[i].qt)		

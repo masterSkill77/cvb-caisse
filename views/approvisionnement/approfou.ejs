@@ -19,7 +19,7 @@
     </div>
 </div>
 <h3 class="page-title"> ajout d'un fournisseur
-    <small>pour approvisionnee</small>
+    <small>pour approvisionnement</small>
 </h3>
 <div class="row">
     <div class="col-md-6">
@@ -78,7 +78,7 @@
                               
                             </div>
                             <div class="modal-footer">
-                                <button type="button" @click="addfournisseur" data-dismiss="modal" class="btn btn-outline sbold blue"><i class="fa fa-save"></i><span>Enregistree</span> </button>
+                                <button type="button" @click="addfournisseur" data-dismiss="modal" class="btn btn-outline sbold blue"><i class="fa fa-save"></i><span>Enregistrer</span> </button>
                                 <button type="button" class="btn btn-outline sbold red" data-dismiss="modal"> <i class="fa fa-share">
                         </i> <span> Annuler </span></button>
                             </div>
@@ -126,6 +126,77 @@
                     </div>
                 </form>
             </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div aria-hidden="true" id="verification_panier" class="modal fade">
+        <div class="modal-dialog-fluid">
+            <div class="modal-content">
+                <div class="modal-header"><h3 class="text-center">Vérifier une dernière fois</h3></div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <!-- BEGIN CONDENSED TABLE PORTLET-->
+                        <div class="portlet box yellow">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-picture"></i>Liste des produits à commander </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="table-scrollable">
+                                    <table class="table table-condensed table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th> numero </th>
+                                                <th> intrants </th>
+                                                <th> produit </th>
+                                                <th> Qt </th>
+                                                <th> Unite </th>
+                                                <th> type </th>
+                                                <th> Prix </th>
+                                                <th> Sous-total </th>
+                                                <th> Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr  v-for="appro in listecomm" :key="appro.id" class="odd gradeX">
+                                                <!-- <td> {{appro.produit.intrants.name}} </td> -->
+                
+                
+                                                <td> {{appro.produit.id}} </td>
+                                                <td> {{appro.produit.intrants.name}} </td>
+                                                <td> {{appro.produit.name}} </td>
+                                                <td> {{appro.qt}} </td>
+                                                <td> {{appro.produit.unite}} </td>
+                                                <td>
+                                                    <span class="label label-sm label-danger"> {{(appro.condition == 0) ? "Detail" : "Gros"}} </span>
+                                                </td>
+                                                <td> {{(appro.condition == 0) ? appro.produit.puvente : appro.produit.puvente}} Ar</td>
+                                                <td> {{(appro.condition==0) ? (appro.produit.puvente * appro.qt) : (appro.produit.puvente * appro.qt)}} Ar</td>
+                                                <td @click="deleteThis(appro)">
+                                                <span class="label label-sm label-danger" style="cursor: pointer;"> Annuler</span>
+                                                </td>
+                                                </tr>
+                                        </tbody>
+                                        <footer>
+                                        <tr>
+                                       
+                                        <td colspan="7" style="text-align:right;"><strong><i class="fa fa-shopping-cart"> Net à payer :</i> </strong></td>
+                                        <td colspan="2">{{netApayer}} Ar</td>
+                                        </tr>
+                                        </footer>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CONDENSED TABLE PORTLET-->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" @click="terminer" v-show="terminate" class="btn btn-outline sbold blue"><i class="fa fa-save"></i><span>Accepter</span> </button>
+                    <button type="button" class="btn btn-outline sbold red" data-dismiss="modal"> <i class="fa fa-share"></i>Fermer</button>
+
                 </div>
             </div>
         </div>
@@ -183,9 +254,8 @@
                     <div class="form-actions">
                         <button @click.prevent="next" class="btn blue" >                                                                                                                                   
                         <i class="fa fa-save"></i> <span> Suivant </span></button>
-                        <button v-if="te" type="button" v-if="listecomm" @click="terminer"  class="btn default">
-                            <a href="/appropay">                                                                         
-                        <i class="fa fa-share" ></i> <span> Terminer </span></a>
+                        <button v-if="te" type="button" v-show="terminate" class="btn default" href="#verification_panier" data-toggle="modal">                                   
+                        <i class="fa fa-share" ></i> <span> Terminer </span>
                     </button>
                     </div>
                 </form>
@@ -246,7 +316,7 @@
                                     <span class="label label-sm label-danger"> {{(appro.condition == 0) ? "Detail" : "Gros"}} </span>
                                 </td>
                                 <td> {{(appro.condition == 0) ? appro.produit.puvente : appro.produit.puvente}} Ar</td>
-                                <td> {{(appro.condition==0) ? (appro.produit.puvente * appro.qt) : (appro.produit.puvente * appro.qt)}}</td>
+                                <td> {{(appro.condition==0) ? (appro.produit.puvente * appro.qt) : (appro.produit.puvente * appro.qt)}} Ar</td>
                                 <td @click="deleteThis(appro)">
                                 <span class="label label-sm label-danger" style="cursor: pointer;"> Annuler</span>
                                 </td>
@@ -259,12 +329,9 @@
                         </tbody>
                         <footer>
                         <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align:center; font-size:20px;"><strong><i class="fa fa-shopping-cart"> Total Net a payee :</i> </strong></td>
-                        <td>{{netApayer}} Ar</td>
+
+                        <td colspan="7" style="text-align:right;"><strong><i class="fa fa-shopping-cart"> Total Net à payer :</i> </strong></td>
+                        <td colspan="2">{{netApayer}} Ar</td>
                         </tr>
                         </footer>
                     </table>

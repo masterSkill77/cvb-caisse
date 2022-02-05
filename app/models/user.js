@@ -1,5 +1,4 @@
 'use strict';
-var bcrypt =require('bcrypt');
 
 const {
   Model

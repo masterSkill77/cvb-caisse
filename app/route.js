@@ -16,7 +16,6 @@ const modeP = require('./controller/modeCtrl');
 const { sequelize } = require('./models/index')
 const db =require("./models/index");
 const { test } = require('./models/index');
-const bycript = require("bcryptjs")
 require("dotenv").config()
 
 var cookieParser = require('cookie-parser');

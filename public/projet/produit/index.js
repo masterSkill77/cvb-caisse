@@ -200,18 +200,30 @@ new Vue({
             })
         },
         edit(produit) {
-            this.nameEdit = produit.name,
-                this.idintrantEdit = produit.idintrant,
-                this.uniteEdit = produit.unite,
-                this.presentationEdit = produit.presentation,
-                this.parpresentationEdit = produit.parpresentation,
-                this.pugrosEdit = produit.pugros,
-                this.pudetailEdit = produit.pudetail,
-                this.puventeEdit = produit.puvente,
-                this.idEdit = produit.id,
-                this.dateperemptionEdit = produit.dateperemption,
-                this.tvaEdit = produit.tva,
-                this.descriptionEdit = produit.description
+            // console.log( 'mandeh', this.nameEdit = produit.name,
+            //     this.idintrantEdit = produit.idintrant,
+            //     this.uniteEdit = produit.unite,
+            //     this.presentationEdit = produit.presentation,
+            //     this.parpresentationEdit = produit.parpresentation,
+            //     this.pugrosEdit = produit.pugros,
+            //     this.pudetailEdit = produit.pudetail,
+            //     this.puventeEdit = produit.puvente,
+            //     this.idEdit = produit.id,
+            //     this.dateperemptionEdit = produit.dateperemption,
+            //     this.tvaEdit = produit.tva,
+            //     this.descriptionEdit = produit.description)
+            this.nameEdit = produit.name
+            this.idintrantEdit = produit.idintrant
+            this.uniteEdit = produit.unite
+            this.presentationEdit = produit.presentation
+            this.parpresentationEdit = produit.parpresentation
+            this.pugrosEdit = produit.pugros
+            this.pudetailEdit = produit.pudetail
+            this.puventeEdit = produit.puvente
+            this.idEdit = produit.id
+            // this.dateperemptionEdit = produit.dateperemption ?? new Date(new Date().getFullYear() , new Date().getMonth() + 1 , new Date().getDate())
+            this.tvaEdit = produit.tva
+            this.descriptionEdit = produit.description
         },
         update() {
             axios.put(this.website + this.idEdit, {
@@ -224,7 +236,7 @@ new Vue({
                     pudetail: this.pudetailEdit,
                     puvente: this.puventeEdit,
                     tva: this.tvaEdit,
-                    dateperemption: this.dateperemptionEdit,
+                    dateperemption: this.dateperemptionEdit ?? new Date(),
                     description: this.descriptionEdit
                 })
                 .then(() => {
