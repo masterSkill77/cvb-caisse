@@ -12,7 +12,8 @@ const all= async(req, res)=>{
         include:{
             association:'intrants',
             attributes:['name']
-        }
+        },
+
         });
     return res.json(client);
 
@@ -20,7 +21,7 @@ const all= async(req, res)=>{
 
 const alll = async(req, res)=>{
     var sql=null
-    sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant"
+    sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant order by produits.name"
      
     try{
         db.sequelize.query(
@@ -64,7 +65,7 @@ const add =async(req,res)=>{
             puvente:parseInt(req.body.puvente),
             idintrant:req.body.idintrant,
             tva:parseInt(req.body.tva),
-            dateperemption:req.body.dateperemption,
+            dateperemption:req.body.dateperemption ?? new Date(new Date().getFullYear() , new Date().getMonth() + 1 , new Date().getDate()),
             description:req.body.description
 
         }
@@ -84,7 +85,7 @@ const update = async(req, res)=>{
             puvente:req.body.puvente,
             idintrant:req.body.idintrant,
             tva:req.body.tva,
-            dateperemption:req.body.dateperemption,
+            dateperemption:req.body.dateperemption ?? new Date(new Date().getFullYear() , new Date().getMonth() + 1 , new Date().getDate()),
             description:req.body.description
 
             
@@ -147,7 +148,7 @@ const sound = async(req, res)=>{
     try{
         var sql=null
  
-        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant  and stocks <= 20 order by intrants.name"
+        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant  and stocks <= 20 order by produits.name"
         db.sequelize.query(
             sql,
              { type: sequelize.QueryTypes.SELECT}
@@ -165,7 +166,7 @@ const affichazy = async(req, res)=>{
 
     try{
         var sql=null
-        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrant  from produits,intrants  where intrants.id=produits.idintrant order by intrants.name"
+        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrant  from produits,intrants  where intrants.id=produits.idintrant order by produits.name"
 
         db.sequelize.query(
             sql,
