@@ -97,13 +97,9 @@ new Vue({
         },
         update(){
                axios.put(this.website + this.idEdit , {name : this.nameEdit,adress:this.adressEdit,contact:this.contactEdit,email:this.emailEdit}).then(() => {
-<<<<<<< HEAD
                     window.location.replace("/client/")
                     // this.getList()
 
-=======
-                   this.getList()
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             })
         },
         del(id){
@@ -115,26 +111,18 @@ new Vue({
             })
         },
         getList(){
-<<<<<<< HEAD
                 axios.get(this.website).then(response=>{
                     this.liste = response.data
                     this.liste.map(c => {
                         c.action = ''
                     })
                 })
-=======
-                axios.get(this.website).then(response=>{this.liste = response.data})
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
         }
 
     },
     mounted(){
         // axios.get(this.website).then(response=>{this.liste = response.data})
         this.getList()
-<<<<<<< HEAD
         },
         vuetify : new Vuetify()
-=======
-        }
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 })
