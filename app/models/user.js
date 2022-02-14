@@ -1,4 +1,8 @@
 'use strict';
+<<<<<<< HEAD
+=======
+var bcrypt =require('bcrypt');
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 
 const {
   Model

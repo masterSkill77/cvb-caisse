@@ -200,6 +200,11 @@ const datediff = async(req, res)=>{
     
 }
 const addapprovisionnfinal =async(req,res)=>{
+<<<<<<< HEAD
+=======
+  
+    try{
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
         const data={
             payee:req.body.payee,
             datepayement:req.body.datepayement,
@@ -209,12 +214,21 @@ const addapprovisionnfinal =async(req,res)=>{
 
         }
         const Payementfous = await Payementfou.create(data);
+<<<<<<< HEAD
        
         approfoulist = [];
  
         return res.json(Payementfous)
         
 
+=======
+        approfoulist = [];
+
+        return res.json(Payementfous)
+    }catch(error){
+     res.status(500).json({error:message.error});
+    }
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 }
 
 module.exports={

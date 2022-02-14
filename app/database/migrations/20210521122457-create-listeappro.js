@@ -10,10 +10,17 @@ module.exports = {
       },
        idappro:{
         type:Sequelize.INTEGER,
+<<<<<<< HEAD
         // reference:{model:'approfous', key:'id'},
         onDelete:'CASCADE',
         onUpdate: 'CASCADE',
         allowNull:true,
+=======
+        reference:{model:'approfous', key:'id'},
+        onDelete:'CASCADE',
+        onUpdate: 'CASCADE',
+        allowNull:false,
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
       },
         idpro:{
         type:Sequelize.INTEGER,

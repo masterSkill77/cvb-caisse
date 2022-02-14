@@ -16,6 +16,10 @@ const modeP = require('./controller/modeCtrl');
 const { sequelize } = require('./models/index')
 const db =require("./models/index");
 const { test } = require('./models/index');
+<<<<<<< HEAD
+=======
+const bycript = require("bcryptjs")
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 require("dotenv").config()
 
 var cookieParser = require('cookie-parser');
@@ -52,7 +56,11 @@ router.get('/payementclis/:id',(req,res)=>{
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(session({
+<<<<<<< HEAD
     key:'user_sidiss',
+=======
+    key:'user_sides',
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
     secret:'somesecret',
     resave:false,
     saveUninitialized:false,
@@ -62,16 +70,26 @@ app.use(session({
 }))
 
 app.use((req, res, next) =>{
+<<<<<<< HEAD
     if(req.cookies.user_sidiss && !req.session.users){
         res.clearCookie('user_sidiss')
+=======
+    if(req.cookies.user_sides && !req.session.useres){
+        res.clearCookie('user_sides')
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
     }
     next();
 })
 var ejss = { username: '',loggedin: false, title:" you are not logged in today", body:" hello word"};
 
 var sessionCheckr = (req, res, next)=>{
+<<<<<<< HEAD
     if(req.session.users && req.cookies.user_sidiss){
         console.log({"session" : req.session.users,"cookies" : req.cookies.user_sidiss})
+=======
+    if(req.session.useres && req.cookies.user_sides){
+        console.log({"session" : req.session.useres,"cookies" : req.cookies.user_sides})
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
         res.redirect('/dashboard');
     }else{
         next()
@@ -93,7 +111,11 @@ router.route('/signup')
             contact: req.body.contact,
         })
         .then(user=>{
+<<<<<<< HEAD
             req.session.users = user.dataValues;
+=======
+            req.session.useres = user.dataValues;
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             res.redirect('/login');
             console.log(user)
         })
@@ -114,7 +136,11 @@ router.route('/login')
         } else if(!user.password){
              res.redirect('/login')
          }else{
+<<<<<<< HEAD
              req.session.users = user.dataValues;
+=======
+             req.session.useres = user.dataValues;
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
              res.redirect('dashboard')
 
          }
@@ -122,11 +148,19 @@ router.route('/login')
        
      })
      router.get('/logout',(req, res)=>{
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin = false;
             ejss.title = "you are lloged out ";
             res.clearCookie('user_sidiss');
             req.session.users = false
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin = false;
+            ejss.title = "you are lloged out ";
+            res.clearCookie('user_id');
+            req.session.useres = false
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             console.log(JSON.stringify(ejss));
             res.redirect('/login')
         }else{
@@ -147,7 +181,11 @@ router.route('/login')
          console.log('fauxs')
 
      }else{
+<<<<<<< HEAD
          req.session.users = user.dataValues;
+=======
+         req.session.useres = user.dataValues;
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
          res.redirect('dashboard')
          console.log('vraiy')
      }
@@ -156,11 +194,19 @@ router.route('/login')
    
             
      router.get('/dashboard',(req, res)=>{
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
             ejss.username = req.session.users.username; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+            ejss.username = req.session.useres.username; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('pages/index',ejss);
@@ -173,10 +219,17 @@ router.route('/login')
     //clientt
     
     router.get('/client', (req, res)=>{
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('client/index',ejss);
@@ -194,10 +247,17 @@ router.route('/login')
     //fournisseur
     router.get('/fournisseur', (req, res)=>{
         // res.render('fournisseur/index')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('fournisseur/index',ejss);
@@ -216,10 +276,17 @@ router.route('/login')
     
     router.get('/produit', (req, res)=>{
         // res.render('produit/index')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('produit/index',ejss);
@@ -240,10 +307,17 @@ router.route('/login')
     //intrant
     router.get('/intrant', (req, res)=>{
         // res.render('produit/intrant')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('produit/intrant',ejss);
@@ -261,10 +335,17 @@ router.route('/login')
     //rupture
     router.get('/rupturestock', (req, res)=>{
         // res.render('produit/rupture')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('produit/rupture',ejss);
@@ -282,10 +363,17 @@ router.route('/login')
     // commande
     router.get('/commandecli', (req, res)=>{
         // res.render('commande/comcli')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('commande/comcli',ejss);
@@ -308,10 +396,17 @@ router.route('/login')
     
     router.get('/commandepro', (req, res)=>{
         // res.render('commande/compro')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('commande/compro',ejss);
@@ -322,10 +417,17 @@ router.route('/login')
     // payement client
     router.get('/pagepayement', (req, res)=>{
         // res.render('commande/compayement')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('commande/compayement',ejss);
@@ -351,10 +453,17 @@ router.route('/login')
     
     router.get('/factureclient', (req, res)=>{
         // res.render('commande/facture')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('commande/facture',ejss);
@@ -365,10 +474,17 @@ router.route('/login')
     // payement fournisseur
     router.get('/pagepayement', (req, res)=>{
         // res.render('commande/compayement')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('commande/compayement',ejss);
@@ -390,10 +506,17 @@ router.route('/login')
     router.get('/payementcompteur',paementfournisseur.compteur);
     router.get('/commandehisto', (req, res)=>{
         // res.render('commande/comhistorique')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('commande/comhistorique',ejss);
@@ -408,10 +531,17 @@ router.route('/login')
     
     router.get('/historiquepayement', (req, res)=>{
         // res.render('commande/historiquepayement')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('commande/historiquepayement',ejss);
@@ -424,10 +554,17 @@ router.route('/login')
     
     router.get('/approfou', (req, res)=>{
         // res.render('approvisionnement/approfou')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('approvisionnement/approfou',ejss);
@@ -448,10 +585,17 @@ router.route('/login')
     
     router.get('/appropro', (req, res)=>{
         // res.render('approvisionnement/appropro')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('approvisionnement/appropro',ejss);
@@ -461,10 +605,17 @@ router.route('/login')
     })
     router.get('/appropay', (req, res)=>{
         // res.render('approvisionnement/appayement')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('approvisionnement/appayement',ejss);
@@ -474,10 +625,17 @@ router.route('/login')
     })
     router.get('/aprohisto', (req, res)=>{
         // res.render('approvisionnement/aphistorique')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('approvisionnement/aphistorique',ejss);
@@ -487,10 +645,17 @@ router.route('/login')
     })
     router.get('/histopayementfou', (req, res)=>{
         // res.render('approvisionnement/historiquepayement')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('approvisionnement/historiquepayement',ejss);
@@ -502,10 +667,17 @@ router.route('/login')
     // utilisateur
     router.get('/utilisateur', (req, res)=>{
         // res.render('utilisateur/index')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('utilisateur/index',ejss);
@@ -522,12 +694,21 @@ router.route('/login')
     })
     router.get('/profil', (req, res)=>{
         // res.render('utilisateur/profil')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
             ejss.lastname = req.session.users.lastname; 
             ejss.contact = req.session.users.contact; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+            ejss.lastname = req.session.useres.lastname; 
+            ejss.contact = req.session.useres.contact; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('utilisateur/profil',ejss);
@@ -540,10 +721,17 @@ router.route('/login')
     //depense
     router.get('/depense', (req, res)=>{
         // res.render('depense/index')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('depense/index',ejss);
@@ -561,10 +749,17 @@ router.route('/login')
     //journal 
     router.get('/journal', (req, res)=>{
         // res.render('journal/index')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('journal/index',ejss);
@@ -574,10 +769,17 @@ router.route('/login')
     })
     router.get('/journalpayee', (req, res)=>{
         // res.render('journal/journalpayee')
+<<<<<<< HEAD
         if(req.session.users && req.cookies.user_sidiss){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
+=======
+        if(req.session.useres && req.cookies.user_sides){
+            ejss.loggedin=true;
+            ejss.email = req.session.useres.email; 
+            ejss.type = req.session.useres.type; 
+>>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             ejss.title = "You are logged in";
             console.log(req.session)
             res.render('journal/journalpayee',ejss);
