@@ -302,10 +302,7 @@ const addpayement =async(req,res)=>{
             remise : req.body.remise
         }
         const Payementclis = await Payementcli.create(data);
-<<<<<<< HEAD
         // commandeClientList = [];
-=======
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
         commandeClientList = [];
 
         return res.json(Payementclis)
@@ -323,10 +320,5 @@ module.exports = {
     pay,
     addpayement,
     getIdCommande,
-<<<<<<< HEAD
     createcommandetsyfact
-=======
-    createcommandetsyfact,
-    final
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 }
