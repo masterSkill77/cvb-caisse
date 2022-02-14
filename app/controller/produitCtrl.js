@@ -12,17 +12,12 @@ const all= async(req, res)=>{
         include:{
             association:'intrants',
             attributes:['name']
-<<<<<<< HEAD
         },
 
-=======
-        }
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
         });
     return res.json(client);
 
 }
-<<<<<<< HEAD
 
 const alll = async(req, res)=>{
     var sql=null
@@ -44,28 +39,6 @@ const alll = async(req, res)=>{
 
     
 }
-=======
-// const all = async(req, res)=>{
-//     var sql=null
-//     sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant  order by intrants.name"
-     
-//     try{
-//         db.sequelize.query(
-//             sql,
-//              { type: sequelize.QueryTypes.SELECT}
-//              )
-//         .then((date) => {
-//             return res.status(200).json({date})
-//         }) 
-//     }
-//     catch (error) {
-//         console.log(error.message);
-//         return res.status(500).json({error:error.message})
-//     }
-
-    
-// }
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 const getStockFaible = async(req,res) => {
     // let p = await Produit.findAll({
     //     where : {
@@ -92,11 +65,7 @@ const add =async(req,res)=>{
             puvente:parseInt(req.body.puvente),
             idintrant:req.body.idintrant,
             tva:parseInt(req.body.tva),
-<<<<<<< HEAD
             dateperemption:req.body.dateperemption ?? new Date(new Date().getFullYear() , new Date().getMonth() + 1 , new Date().getDate()),
-=======
-            dateperemption:req.body.dateperemption,
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             description:req.body.description
 
         }
@@ -116,11 +85,7 @@ const update = async(req, res)=>{
             puvente:req.body.puvente,
             idintrant:req.body.idintrant,
             tva:req.body.tva,
-<<<<<<< HEAD
             dateperemption:req.body.dateperemption ?? new Date(new Date().getFullYear() , new Date().getMonth() + 1 , new Date().getDate()),
-=======
-            dateperemption:req.body.dateperemption,
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
             description:req.body.description
 
             
@@ -144,18 +109,10 @@ try{
     res.status(500).json({error:message.error})
 }    
 }
-<<<<<<< HEAD
 const recherche = async(req, res)=>{
     const {nom}=req.query
     console.log(nom)
     try{    
-=======
-
-const recherche = async(req, res)=>{
-    const {nom}=req.query
-    console.log(nom)
-    try{
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
         // var sql=null
         sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where produits.idintrant=intrants.id  AND intrants.name LIKE '"+nom+"%' OR produits.name LIKE '"+nom+"%' group by id"
 
@@ -174,11 +131,8 @@ const recherche = async(req, res)=>{
    
 }
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 const produitLanyDaty = async(req,res) => {
     ProduitLanyDatyAndroany = await Produit.findAll({
         where : {dateperemption}
@@ -194,11 +148,7 @@ const sound = async(req, res)=>{
     try{
         var sql=null
  
-<<<<<<< HEAD
         sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant  and stocks <= 20 order by produits.name"
-=======
-        sql="SELECT produits.id,produits.name,produits.stocks,produits.unite,produits.description,produits.presentation,produits.parpresentation,produits.pugros,produits.pudetail,produits.puvente,produits.tva,produits.dateperemption,intrants.name as intrants  from produits,intrants  where intrants.id=produits.idintrant  and stocks <= 20 order by intrants.name"
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
         db.sequelize.query(
             sql,
              { type: sequelize.QueryTypes.SELECT}
@@ -212,7 +162,6 @@ const sound = async(req, res)=>{
         return res.status(500).json({error:error.message})
     } 
 }
-<<<<<<< HEAD
 const affichazy = async(req, res)=>{
 
     try{
@@ -238,11 +187,4 @@ module.exports={
     all,alll
     ,get,add,update,del,recherche,
     produitLanyDaty,ruptureStock,sound,affichazy    
-=======
-
-module.exports={
-    all
-    ,get,add,update,del,recherche,
-    produitLanyDaty,ruptureStock,sound
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 }
