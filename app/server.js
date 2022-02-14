@@ -36,11 +36,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 app.use(session({
-<<<<<<< HEAD
     key:'user_sidiss',
-=======
-    key:'user_sides',
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
     secret:'somesecret',
     resave:false,
     saveUninitialized:false,
@@ -50,11 +46,7 @@ app.use(session({
 }))
 
 // app.use((req, res, next) =>{
-<<<<<<< HEAD
 //     if(req.cookies. && !req.session.users){
-=======
-//     if(req.cookies.user_sids && !req.session.users){
->>>>>>> eccf7f83a45d33782a0e1058b3e9aa5ecd765d9f
 //         res.clearCookie('user_sid')
 //     }
 //     next();
