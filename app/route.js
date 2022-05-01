@@ -23,7 +23,8 @@ var session =require('express-session');
 var morgan = require('morgan');
 var app= express()
 var bodyParser= require('body-parser');
-var ejs= require('ejs')
+var ejs= require('ejs');
+const { Router } = require('express');
 
 router.get('/payementclis/:id',(req,res)=>{
     
@@ -52,7 +53,7 @@ router.get('/payementclis/:id',(req,res)=>{
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(session({
-    key:'user_sidiss',
+    key:'user_id_session',
     secret:'somesecret',
     resave:false,
     saveUninitialized:false,
@@ -62,16 +63,16 @@ app.use(session({
 }))
 
 app.use((req, res, next) =>{
-    if(req.cookies.user_sidiss && !req.session.users){
-        res.clearCookie('user_sidiss')
+    if(req.cookies.user_id_session && !req.session.users){
+        res.clearCookie('user_id_session')
     }
     next();
 })
 var ejss = { username: '',loggedin: false, title:" you are not logged in today", body:" hello word"};
 
 var sessionCheckr = (req, res, next)=>{
-    if(req.session.users && req.cookies.user_sidiss){
-        console.log({"session" : req.session.users,"cookies" : req.cookies.user_sidiss})
+    if(req.session.users && req.cookies.user_id_session){
+        console.log({"session" : req.session.users,"cookies" : req.cookies.user_id_session})
         res.redirect('/dashboard');
     }else{
         next()
@@ -81,6 +82,22 @@ var sessionCheckr = (req, res, next)=>{
 router.get('/',sessionCheckr,(req, res)=>{
 	res.redirect('/login')
 })
+
+router.get('/maintenance',(req, res)=>{
+    if(req.session.users && req.cookies.user_id_session){
+        ejss.loggedin=true;
+        ejss.email = req.session.users.email; 
+        ejss.type = req.session.users.type; 
+        ejss.title = "You are logged in";
+        console.log(req.session)
+        res.render('maintenance/index',ejss);
+    }else{
+        res.redirect('/login');
+    }
+})
+
+
+
 
 router.route('/signup')
     .post((req, res)=>{
@@ -122,10 +139,10 @@ router.route('/login')
        
      })
      router.get('/logout',(req, res)=>{
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin = false;
             ejss.title = "you are lloged out ";
-            res.clearCookie('user_sidiss');
+            res.clearCookie('user_id_session');
             req.session.users = false
             console.log(JSON.stringify(ejss));
             res.redirect('/login')
@@ -156,7 +173,7 @@ router.route('/login')
    
             
      router.get('/dashboard',(req, res)=>{
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -173,7 +190,7 @@ router.route('/login')
     //clientt
     
     router.get('/client', (req, res)=>{
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -194,7 +211,7 @@ router.route('/login')
     //fournisseur
     router.get('/fournisseur', (req, res)=>{
         // res.render('fournisseur/index')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -216,7 +233,7 @@ router.route('/login')
     
     router.get('/produit', (req, res)=>{
         // res.render('produit/index')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -240,7 +257,7 @@ router.route('/login')
     //intrant
     router.get('/intrant', (req, res)=>{
         // res.render('produit/intrant')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -261,7 +278,7 @@ router.route('/login')
     //rupture
     router.get('/rupturestock', (req, res)=>{
         // res.render('produit/rupture')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -282,7 +299,7 @@ router.route('/login')
     // commande
     router.get('/commandecli', (req, res)=>{
         // res.render('commande/comcli')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -308,7 +325,7 @@ router.route('/login')
     
     router.get('/commandepro', (req, res)=>{
         // res.render('commande/compro')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -322,7 +339,7 @@ router.route('/login')
     // payement client
     router.get('/pagepayement', (req, res)=>{
         // res.render('commande/compayement')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -351,7 +368,7 @@ router.route('/login')
     
     router.get('/factureclient', (req, res)=>{
         // res.render('commande/facture')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -365,7 +382,7 @@ router.route('/login')
     // payement fournisseur
     router.get('/pagepayement', (req, res)=>{
         // res.render('commande/compayement')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -390,7 +407,7 @@ router.route('/login')
     router.get('/payementcompteur',paementfournisseur.compteur);
     router.get('/commandehisto', (req, res)=>{
         // res.render('commande/comhistorique')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -408,7 +425,7 @@ router.route('/login')
     
     router.get('/historiquepayement', (req, res)=>{
         // res.render('commande/historiquepayement')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -424,7 +441,7 @@ router.route('/login')
     
     router.get('/approfou', (req, res)=>{
         // res.render('approvisionnement/approfou')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -442,13 +459,15 @@ router.route('/login')
     router.post('/addfournisseur',approfou.addfournisseur)
     router.get('/affichageappro',approfou.affichageappro)
     router.get('/dateappro/:deba/:fille',approfou.datediff)
+
+    // C'est quoi ça
     router.get('/idappro',approfou.getIdappro)
     router.post('/payevola',approfou.addapprovisionnfinal);
     
     
     router.get('/appropro', (req, res)=>{
         // res.render('approvisionnement/appropro')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -461,7 +480,7 @@ router.route('/login')
     })
     router.get('/appropay', (req, res)=>{
         // res.render('approvisionnement/appayement')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -474,7 +493,7 @@ router.route('/login')
     })
     router.get('/aprohisto', (req, res)=>{
         // res.render('approvisionnement/aphistorique')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -487,7 +506,7 @@ router.route('/login')
     })
     router.get('/histopayementfou', (req, res)=>{
         // res.render('approvisionnement/historiquepayement')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -502,7 +521,7 @@ router.route('/login')
     // utilisateur
     router.get('/utilisateur', (req, res)=>{
         // res.render('utilisateur/index')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -522,7 +541,7 @@ router.route('/login')
     })
     router.get('/profil', (req, res)=>{
         // res.render('utilisateur/profil')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -540,7 +559,7 @@ router.route('/login')
     //depense
     router.get('/depense', (req, res)=>{
         // res.render('depense/index')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -561,7 +580,7 @@ router.route('/login')
     //journal 
     router.get('/journal', (req, res)=>{
         // res.render('journal/index')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 
@@ -574,7 +593,7 @@ router.route('/login')
     })
     router.get('/journalpayee', (req, res)=>{
         // res.render('journal/journalpayee')
-        if(req.session.users && req.cookies.user_sidiss){
+        if(req.session.users && req.cookies.user_id_session){
             ejss.loggedin=true;
             ejss.email = req.session.users.email; 
             ejss.type = req.session.users.type; 

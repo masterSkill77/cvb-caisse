@@ -20,7 +20,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <head>
         <meta charset="utf-8" />
         <title>  <% if(loggedin){%>
-            CVB |Analamahintsy Caisse <%= type %>
+            CVB | Ankazomanga Caisse <%= type %>
                 <%}%> </title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -321,8 +321,18 @@ License: You must have a valid license purchased only from themeforest(the above
                             </ul>
     
                         </li>
-                        
-                        <% if(type=="Admin"){%>
+                        <% if(type=="SuperAdmin") %>
+                        <li class="heading">
+                            <h3 class="uppercase">Maintenance</h3>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="/maintenance" class="nav-link nav-toggle">
+                                <i class="icon-settings"></i>
+                                <span class="title">Opérations</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+                        <% if(type=="Admin" || type=="SuperAdmin"){%>
                         
                                
                         <li class="heading">

@@ -8,8 +8,8 @@ new Vue({
 
     },
     mounted(){
-        axios.get(this.website).then(response=>{this.liste=response.data})
+
         axios.get(this.website).then(({data})=>{this.liste=data.date})
-        axios.get(this.website).then(response=>console.log(response.data))
+
     }
 })

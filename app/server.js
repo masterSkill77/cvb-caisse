@@ -36,7 +36,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 app.use(session({
-    key:'user_sidiss',
+    key:'user_id_session',
     secret:'somesecret',
     resave:false,
     saveUninitialized:false,
