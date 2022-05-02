@@ -184,8 +184,6 @@ const affichazy = async(req, res)=>{
 }
 
 const resetAll = async (req,res) => {
-    const depot = req.params.depot;
-    if(depot == "Ankazomanga")
     try{
         const query = await db.sequelize.query("update produits set stocks = 0 where 1");
         res.json({status: query});
@@ -193,7 +191,6 @@ const resetAll = async (req,res) => {
      res.status(500).json({error:message.error});
     }
 }
-
 
 module.exports={
     all,alll

@@ -9,15 +9,8 @@
 
 <div class="container-fluid" id="app">
     <div class="row">
-        <div class="col-4">
-            <div class="card">
-                <h5><u>Remise à 0 des stocks</u></h5>
-                    <input type="radio" id="depot1" name="depot" v-model="depot" value="Ankazomanga">Ankazomanga<br />
-                    <input type="radio" id="depot1" name="depot" v-model="depot" value="Analamahintsy">Analamahintsy<br />
-                    <input type="radio" id="depot1" name="depot" v-model="depot" value="Antsirabe">Antsirabe<br />
-            </div>
-        </div>
-        <div class="col-7">
+        
+        <div class="col-8">
             <div class="card">
                 <button class="btn btn-sm w-50 ml-auto btn-danger" data-toggle="modal" href="#modal">RESET DU STOCK <i class="fa fa-close"></i></button>
             </div>
@@ -38,6 +31,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 <%- include("../pages/footer", {

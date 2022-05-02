@@ -96,8 +96,7 @@ router.get('/maintenance',(req, res)=>{
     }
 })
 
-
-
+router.get('/maintenance/reset/', produit.resetAll)
 
 router.route('/signup')
     .post((req, res)=>{
