@@ -18,20 +18,18 @@ const processProductData = async function (element) {
   delete element["Présentation"];
   element[KeyCorrespondance.Conditionnement] = element["Conditionnement"];
   delete element["Conditionnement"];
-  element[KeyCorrespondance["PU (D)"]] = element["PU (D)"];
+  element[KeyCorrespondance["PU (D)"]] = element["PU (D)"].trim().slice(0, -2);
   delete element["PU (D)"];
-  element[KeyCorrespondance["PU (G)"]] = element["PU (G)"];
+  element[KeyCorrespondance["PU (G)"]] = element["PU (G)"].trim().slice(0, -2);
   delete element["PU (G)"];
-  element[KeyCorrespondance["Prix d'achat"]] = element["Prix d'achat"];
+  element[KeyCorrespondance["Prix d'achat"]] = element["Prix d'achat"]
+    .trim()
+    .slice(0, -2);
   delete element["Prix d'achat"];
   element[KeyCorrespondance.Déscription] = element["Déscription"];
   delete element["Déscription"];
   element[KeyCorrespondance.TVA] = 0;
   delete element["TVA"];
-  element[KeyCorrespondance["Date de péremption"]] =
-    element["Date de péremption"];
-  delete element["Date de péremption"];
-
   return element;
 };
 
