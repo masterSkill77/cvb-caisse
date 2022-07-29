@@ -1,39 +1,129 @@
 <%- include("../pages/header") %>
 <style>
-    .card{
-        border-radius: 5px !important;
-        border: 1px solid black;
-        padding: 4px;
-    }
+  .card {
+    border-radius: 5px !important;
+    border: 1px solid black;
+    padding: 4px;
+  }
+  .submit {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0;
+    padding: 0;
+  }
+  .submit-content {
+    height: auto !important;
+    min-height: 100% !important;
+  }
 </style>
-
-<div class="container-fluid" id="app">
+<v-app>
+  <div class="container-fluid" id="app">
     <div class="row">
-        
-        <div class="col-8">
-            <div class="card">
-                <button class="btn btn-sm w-50 ml-auto btn-danger" data-toggle="modal" href="#modal">RESET DU STOCK <i class="fa fa-close"></i></button>
-            </div>
+      <div class="col-8">
+        <div class="card">
+          <button
+            class="btn btn-sm w-50 ml-auto btn-danger"
+            data-toggle="modal"
+            href="#modal"
+          >
+            RESET DU STOCK <i class="fa fa-close"></i>
+          </button>
         </div>
-    </div>
-    
-    <div id="modal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Voulez-vous confirmer ? <button type="button" class="close mai-close" data-dismiss="modal"
-                        aria-hidden="true"></button></h4>
-                </div>
-                <div class="modal-body text-center">
-                    <button class="btn-sm btn btn-danger w-50 ml-auto" @click="reset">Oui</button>
-                    <button class="btn-sm btn btn-primary w-50 ml-auto">Non</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-</div>
+      </div>
 
-<%- include("../pages/footer", {
-    script:`<script src="../assets/projet/maintenance/script.js"></script>`
-}) %>
+      <div class="col-8">
+        <div class="card">
+          <button
+            class="btn btn-sm w-50 ml-auto btn-primary"
+            data-toggle="modal"
+            href="#import_data"
+          >
+            IMPORTER LES PRODUITS<i class="fa fa-close"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Voulez-vous confirmer ?
+              <button
+                type="button"
+                class="close mai-close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              ></button>
+            </h4>
+          </div>
+          <div class="modal-body text-center">
+            <button class="btn-sm btn btn-danger w-50 ml-auto" @click="reset">
+              Oui
+            </button>
+            <button
+              class="btn-sm btn btn-primary w-50 ml-auto"
+              data-dismiss="modal"
+            >
+              Non
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="import_data" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Importer les produits
+              <button
+                type="button"
+                class="close mai-close"
+                data-dismiss="modal"
+                aria-hidden="true"
+              ></button>
+            </h4>
+          </div>
+          <div class="modal-body text-center">
+            <div>
+              <input
+                type="file"
+                ref="file"
+                id="file"
+                class="form-input"
+                @change="uploadFile"
+              />
+            </div>
+            <button
+              class="btn-sm btn btn-success ml-auto"
+              @click="submitUpload"
+              :disabled="readyToSubmit"
+            >
+              <span v-show="!readyToSubmit">Importer</span>
+              <span v-show="readyToSubmit">
+                <v-progress-circular
+                  indeterminate
+                  color="blue"
+                  :size="10"
+                  :width="1"
+                ></v-progress-circular>
+              </span>
+            </button>
+            <button
+              class="btn-sm btn btn-primary w-50 ml-auto"
+              data-dismiss="modal"
+            >
+              Annuler
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</v-app>
+<%- include("../pages/footer", { script:`
+<script src="../assets/projet/maintenance/script.js"></script>
+` }) %>
