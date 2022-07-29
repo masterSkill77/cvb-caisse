@@ -1,0 +1,15 @@
+module.exports = {
+  Code: "id",
+  Catégorie: "idintrant",
+  Designation: "name",
+  Stock: "stocks",
+  Unité: "unite",
+  Présentation: "presentation",
+  Conditionnement: "parpresentation",
+  "PU (G)": "pugros",
+  "PU (D)": "pudetail",
+  "Prix d'achat": "puvente",
+  TVA: "tva",
+  Déscription: "description",
+  "Date de péremption": "dateperemption",
+};

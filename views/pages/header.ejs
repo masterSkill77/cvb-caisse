@@ -127,8 +127,8 @@ License: You must have a valid license purchased only from themeforest(the above
                         <li class="dropdown dropdown-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <img alt="" class="img-circle" src="../assets/layouts/layout/img/avatar3_small.jpg" />
-                                <span class="username username-hide-on-mobile"> <% if(loggedin){%>
-                                     <%= username %>
+                                <span class="username username-hide-on-mobile"> <% if(locals.loggedin){%>
+                                     <%= locals.username %>
                                         <%}%></span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
@@ -321,7 +321,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </ul>
     
                         </li>
-                        <% if(type=="SuperAdmin") %>
+                        <% if(locals.type=="SuperAdmin") %>
                         <li class="heading">
                             <h3 class="uppercase">Maintenance</h3>
                         </li>
@@ -332,7 +332,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <% if(type=="Admin" || type=="SuperAdmin"){%>
+                        <% if(locals.type=="Admin" || locals.type=="SuperAdmin"){%>
                         
                                
                         <li class="heading">
