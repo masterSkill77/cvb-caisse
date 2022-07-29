@@ -57,6 +57,7 @@
     "posh-git": "0.0.9",
     "pug": "^3.0.0",
     "query-string": "^6.13.8",
+    "read-excel-file": "^5.4.4",
     "req-flash": "0.0.3",
     "rest": "^2.0.0",
     "sequelize": "^6.3.5",
@@ -69,8 +70,8 @@
     "util.promisify": "^1.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3",
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^2.0.3"
   }
 }
