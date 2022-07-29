@@ -79,9 +79,9 @@ app.use(
 );
 
 app.use((req, res, next) => {
-  // if(req.cookies.user_id_session && !req.session.users){
-  //     res.clearCookie('user_id_session')
-  // }
+  if (req.cookies.user_id_session && !req.session.users) {
+    res.clearCookie("user_id_session");
+  }
   next();
 });
 var ejss = {
@@ -92,13 +92,16 @@ var ejss = {
 };
 
 var sessionCheckr = (req, res, next) => {
-  // if(req.session.users && req.cookies.user_id_session){
-  //     console.log({"session" : req.session.users,"cookies" : req.cookies.user_id_session})
-  //     res.redirect('/dashboard');
-  // }else{
-  //     next()
-  // }
-  next();
+  if (req.session.users && req.cookies.user_id_session) {
+    console.log({
+      session: req.session.users,
+      cookies: req.cookies.user_id_session,
+    });
+    res.redirect("/dashboard");
+  } else {
+    next();
+  }
+  // next();
 };
 
 router.get("/", sessionCheckr, (req, res) => {
@@ -204,16 +207,16 @@ router.get("/dashboard", (req, res) => {
 //clientt
 
 router.get("/client", (req, res) => {
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("client/index", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("client/index", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/clients", client.all);
 router.get("/cherhcli", client.recherche);
@@ -224,17 +227,17 @@ router.delete("/clients/:id", client.del);
 
 //fournisseur
 router.get("/fournisseur", (req, res) => {
-  // res.render('fournisseur/index')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("fournisseur/index", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("fournisseur/index");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("fournisseur/index", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/fournisseurs", fournisseur.all);
 router.get("/fournisseurs/:id", fournisseur.get);
@@ -244,17 +247,17 @@ router.delete("/fournisseurs/:id", fournisseur.del);
 router.get("/cherch", fournisseur.recherch);
 
 router.get("/produit", (req, res) => {
-  // res.render('produit/index')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("produit/index", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("produit/index");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("produit/index", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/test", (req, res) => {
   res.render("produit/test");
@@ -265,55 +268,31 @@ router.post("/produits", produit.add);
 router.get("/produits/:id", produit.get);
 router.put("/produits/:id", produit.update);
 router.delete("/produits/:id", produit.del);
-router.post("/upload-products", uploads.single("file"), (req, res) => {
-  // const schema = {
-  //   productId: {
-  //     prop: "Code",
-  //     required: true,
-  //   },
-  //   category: { prop: "Catégorie" },
-  //   designation: { prop: "Designation" },
-  //   stock: { prop: "Stock" },
-  //   unite: { prop: "Unité" },
-  //   presentation: { prop: "Présentation" },
-  //   conditionnement: { prop: "Conditionnement" },
-  //   stock_gros: { prop: "Stock (G)" },
-  //   pu_gros: { prop: "PU (G)" },
-  //   pu_details: { prop: "PU (D)" },
-  //   pu: { prop: "Prix d'achat" },
-  //   description: { prop: "Déscription" },
-  //   date_peremption: { prop: "Date de péremption" },
-  // };
-  console.log(req.file.path);
+router.post("/upload-products", uploads.single("file"), async (req, res) => {
   let data = readXlsxFile(req.file.path);
-  data = _.forEach(data, async (element) => {
-    await processProductData(element);
-    return element;
-  });
-  res.json(data);
-  // .then(async (data) => {
-  // data = _.forEach(data, async (element) => {
-  //   console.log(element);
-  // });
-  // if (!data) res.json("Data null");
-  // })
-  // .catch((e) => console.log(e));
-  // res.json("Hello");
+  let result = [];
+  for (let element of data) {
+    element = await processProductData(element);
+    result.push(element);
+  }
+
+  result = await produit.bulkInsert(result);
+  res.json(result);
 });
 
 //intrant
 router.get("/intrant", (req, res) => {
-  // res.render('produit/intrant')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("produit/intrant", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("produit/intrant");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("produit/intrant", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/intrants", intrant.all);
 router.get("/intrants/:id", intrant.get);
@@ -323,17 +302,17 @@ router.delete("/intrants/:id", intrant.del);
 router.get("/intrantrecherch", intrant.recherch);
 //rupture
 router.get("/rupturestock", (req, res) => {
-  // res.render('produit/rupture')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("produit/rupture", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("produit/rupture");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("produit/rupture", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 // mode de payement
 router.get("/modes", modeP.all);
@@ -344,17 +323,17 @@ router.delete("/modes/:id", modeP.del);
 router.get("/modes", modeP.recherch);
 // commande
 router.get("/commandecli", (req, res) => {
-  // res.render('commande/comcli')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("commande/comcli", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("commande/comcli");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("commande/comcli", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/ruptureStock", produit.sound);
 router.get("/rupturestoky", produit.sound);
@@ -370,31 +349,31 @@ router.get("/compay/:id", commande.pay);
 router.post("/commandepayement", commande.addpayement);
 
 router.get("/commandepro", (req, res) => {
-  // res.render('commande/compro')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("commande/compro", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("commande/compro");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("commande/compro", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 // payement client
 router.get("/pagepayement", (req, res) => {
-  // res.render('commande/compayement')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("commande/compayement", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("commande/compayement");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("commande/compayement", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/payementclis", paementclient.all);
 router.post("/payementclis", paementclient.add);
@@ -412,31 +391,31 @@ router.get("/payementclicompteur", paementclient.compteur);
 router.get("/rest", paementclient.reste);
 
 router.get("/factureclient", (req, res) => {
-  // res.render('commande/facture')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("commande/facture", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("commande/facture");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("commande/facture", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 // payement fournisseur
 router.get("/pagepayement", (req, res) => {
-  // res.render('commande/compayement')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("commande/compayement", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("commande/compayement");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("commande/compayement", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 
 router.get("/idcommande", commande.getIdCommande);
@@ -450,17 +429,17 @@ router.get("/payementdatefou/:debi/:fii", paementfournisseur.datediff);
 router.get("/payementchart/:debi/:fii", paementfournisseur.chart);
 router.get("/payementcompteur", paementfournisseur.compteur);
 router.get("/commandehisto", (req, res) => {
-  // res.render('commande/comhistorique')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("commande/comhistorique", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("commande/comhistorique");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("commande/comhistorique", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 
 router.get("/facture", (req, res) => {
@@ -468,33 +447,33 @@ router.get("/facture", (req, res) => {
 });
 
 router.get("/historiquepayement", (req, res) => {
-  // res.render('commande/historiquepayement')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("commande/historiquepayement", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("commande/historiquepayement");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("commande/historiquepayement", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 
 //approvisionnement
 
 router.get("/approfou", (req, res) => {
-  // res.render('approvisionnement/approfou')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("approvisionnement/approfou", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("approvisionnement/approfou");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("approvisionnement/approfou", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.post("/appro", approfou.approv);
 router.post("/appro/create", approfou.createAppro);
@@ -509,71 +488,71 @@ router.get("/idappro", approfou.getIdappro);
 router.post("/payevola", approfou.addapprovisionnfinal);
 
 router.get("/appropro", (req, res) => {
-  // res.render('approvisionnement/appropro')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("approvisionnement/appropro", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("approvisionnement/appropro");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("approvisionnement/appropro", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/appropay", (req, res) => {
-  // res.render('approvisionnement/appayement')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("approvisionnement/appayement", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("approvisionnement/appayement");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("approvisionnement/appayement", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/aprohisto", (req, res) => {
-  // res.render('approvisionnement/aphistorique')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("approvisionnement/aphistorique", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("approvisionnement/aphistorique");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("approvisionnement/aphistorique", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/histopayementfou", (req, res) => {
-  // res.render('approvisionnement/historiquepayement')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("approvisionnement/historiquepayement", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("approvisionnement/historiquepayement");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("approvisionnement/historiquepayement", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 
 // utilisateur
 router.get("/utilisateur", (req, res) => {
-  // res.render('utilisateur/index')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("utilisateur/index", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("utilisateur/index");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("utilisateur/index", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/users", user.all);
 router.get("/users/:id", user.get);
@@ -583,7 +562,7 @@ router.delete("/users/:id", user.del, (req, res) => {
   console.log("mandeha ito");
 });
 router.get("/profil", (req, res) => {
-  // res.render('utilisateur/profil')
+  res.render("utilisateur/profil");
   if (req.session.users && req.cookies.user_id_session) {
     ejss.loggedin = true;
     ejss.email = req.session.users.email;
@@ -600,17 +579,17 @@ router.get("/profil", (req, res) => {
 
 //depense
 router.get("/depense", (req, res) => {
-  // res.render('depense/index')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("depense/index", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("depense/index");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("depense/index", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/depenses", depense.all);
 router.get("/depenses/:id", depense.get);
@@ -621,30 +600,30 @@ router.get("/depensedate/:debut/:fin", depense.datediff);
 
 //journal
 router.get("/journal", (req, res) => {
-  // res.render('journal/index')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("journal/index", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("journal/index");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("journal/index", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 router.get("/journalpayee", (req, res) => {
-  // res.render('journal/journalpayee')
-  // if(req.session.users && req.cookies.user_id_session){
-  //     ejss.loggedin=true;
-  //     ejss.email = req.session.users.email;
-  //     ejss.type = req.session.users.type;
-  //     ejss.title = "You are logged in";
-  //     console.log(req.session)
-  res.render("journal/journalpayee", ejss);
-  // }else{
-  //     res.redirect('/login');
-  // }
+  // res.render("journal/journalpayee");
+  if (req.session.users && req.cookies.user_id_session) {
+    ejss.loggedin = true;
+    ejss.email = req.session.users.email;
+    ejss.type = req.session.users.type;
+    ejss.title = "You are logged in";
+    console.log(req.session);
+    res.render("journal/journalpayee", ejss);
+  } else {
+    res.redirect("/login");
+  }
 });
 
 router.get("/authantification", (req, res) => {
