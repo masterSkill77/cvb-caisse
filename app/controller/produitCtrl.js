@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 const sequelize = require("sequelize");
 const { QueryTypes } = require("sequelize");
 const db = require("../models/index");
+const KeyCorrespondance = require("./../utils/key-correspondance");
 
 const all = async (req, res) => {
   const client = await Produit.findAll({
@@ -30,7 +31,22 @@ const all = async (req, res) => {
 };
 
 const bulkInsert = async function (data) {
-  return await Produit.bulkCreate(data);
+  return await Produit.bulkCreate(data, {
+    updateOnDuplicate: [
+      KeyCorrespondance.Conditionnement,
+      KeyCorrespondance.Designation,
+      KeyCorrespondance.Déscription,
+      KeyCorrespondance["Prix d'achat"],
+      KeyCorrespondance.Présentation,
+      KeyCorrespondance.Unité,
+      KeyCorrespondance["PU (D)"],
+      KeyCorrespondance["PU (G)"],
+      KeyCorrespondance.TVA,
+      KeyCorrespondance.Catégorie,
+      KeyCorrespondance.Stock,
+      KeyCorrespondance["Date de péremption"],
+    ],
+  });
 };
 
 const alll = async (req, res) => {
