@@ -649,5 +649,6 @@ router.get("/datable", (req, res) => {
 
 router.get("/point-de-vente", store.get_all);
 router.post("/point-de-vente", store.create_store);
+router.delete("/point-de-vente/:id", store.destroy_store);
 
 module.exports = router;
