@@ -1,8 +1,8 @@
 const StoreService = require("./../services/point-de-vente.service");
 
 const create_store = async (req, res) => {
-  const data = req.body;
-  console.log(data);
+  const { name, contact, adresse } = req.body;
+  res.json(await StoreService.create_store(name, contact, adresse));
 };
 
 const get_all = async (req, res) => {
