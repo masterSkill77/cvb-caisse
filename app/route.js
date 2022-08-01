@@ -12,6 +12,7 @@ const commande = require("./controller/commandecliCtrl");
 const paementclient = require("./controller/payementCliCtrl");
 const paementfournisseur = require("./controller/paymentFou");
 const modeP = require("./controller/modeCtrl");
+const store = require("./controller/storeCtrl");
 
 const _ = require("lodash");
 const { sequelize } = require("./models/index");
@@ -643,5 +644,9 @@ router.get("/excel", (req, res) => {
 router.get("/datable", (req, res) => {
   res.render("datable");
 });
+
+// ---------- Point de vente ------------ //
+
+router.get("/point-de-vente", store.get_all);
 
 module.exports = router;
