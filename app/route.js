@@ -651,4 +651,9 @@ router.get("/point-de-vente", store.get_all);
 router.post("/point-de-vente", store.create_store);
 router.delete("/point-de-vente/:id", store.destroy_store);
 
+// ---------- Dashboard ------------ //
+
+router.get("/dashboard-admin", (req, res) => {
+  res.render("dashboard/index");
+});
 module.exports = router;
