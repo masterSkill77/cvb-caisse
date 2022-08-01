@@ -648,5 +648,6 @@ router.get("/datable", (req, res) => {
 // ---------- Point de vente ------------ //
 
 router.get("/point-de-vente", store.get_all);
+router.post("/point-de-vente", store.create_store);
 
 module.exports = router;
