@@ -12,4 +12,12 @@ const get_all = async function () {
   return await point_de_vente.findAll();
 };
 
-module.exports = { create_store, get_all };
+const destroy = async function (id) {
+  try {
+    return await point_de_vente.destroy({ where: { id } });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+module.exports = { create_store, get_all, destroy };
