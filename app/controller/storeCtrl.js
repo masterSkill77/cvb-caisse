@@ -9,4 +9,9 @@ const get_all = async (req, res) => {
   res.json(await StoreService.get_all());
 };
 
-module.exports = { create_store, get_all };
+const destroy_store = async (req, res) => {
+  const id = req.params.id;
+  res.json(await StoreService.destroy(id));
+};
+
+module.exports = { create_store, get_all, destroy_store };
